@@ -1,0 +1,13 @@
+:root {
+    /* Couleurs */
+    --primary: #4880ff;         /* Couleur principale (texte ou arrière-plan actif) */
+    --secondary: #202224;       /* Texte secondaire (icônes et titres) */
+    --bg-light: #ffffff;        /* Fond blanc pour les sections */
+    --bg-light-secondary: #f5f6fa; /* Fond léger pour les champs */
+    --neutral-300: #d1d5db;     /* Bordures et éléments neutres */
+    --text-main: #202224;       /* Texte principal */
+    --text-muted: rgba(32, 34, 36, 0.5); /* Texte désactivé ou placeholder */
+    --error: #ff0000;           /* Couleur d'accent pour les erreurs */
+    --text-white: #ffffff;      /* Texte sur fonds colorés */
+}
+
