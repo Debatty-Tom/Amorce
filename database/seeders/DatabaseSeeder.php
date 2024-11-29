@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Fund;
+use App\Models\Stock;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,6 +18,8 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory(6)->create([]);
+        Stock::factory(6)->create([]);
+        Fund::factory(6)->create([]);
         User::factory()->create([
             'name' => 'admin',
             'email' => 'tom.debatty@hotmail.be',
