@@ -2,7 +2,7 @@
     <div class="w-[15vw] h-[100vh] flex justify-start items-center bg-white">
         <div class="w-full h-full pt-6 bg-bg-light flex flex-col justify-start items-center gap-6">
             <!-- Titre -->
-            <p class="text-primary text-2xl font-extrabold font-['Nunito Sans']">L’Amorce</p>
+            <p class="text-primary text-2xl font-extrabold">L’Amorce</p>
 
             <!-- Menu de navigation -->
             <nav class="w-full flex flex-col gap-4">

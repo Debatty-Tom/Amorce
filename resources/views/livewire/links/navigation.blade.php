@@ -3,6 +3,6 @@
 
 <a href="{{$href}}" wire:navigate class="{{$class}}">
     <x-dynamic-component :component="$icon"/>
-    {{ $label }}
+    <p>{{ $label }}</p>
 </a>
 
