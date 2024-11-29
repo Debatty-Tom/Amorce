@@ -1,12 +1,12 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\modals;
 
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class calendar-card extends Component
+class Layout extends Component
 {
     /**
      * Create a new component instance.
@@ -21,6 +21,6 @@ class calendar-card extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.calendar-card');
+        return view('components.modals.layout');
     }
 }

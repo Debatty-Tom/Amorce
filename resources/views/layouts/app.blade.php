@@ -18,9 +18,14 @@
         <div class="min-h-screen bg-gray-100 grid grid-cols-[auto_1fr] grid-rows-[100vh]">
             <livewire:layout.navigation />
             <!-- Page Content -->
-            <main>
+            <main class="p-8">
                 {{ $slot }}
             </main>
+
+            @if(request()->routeIs('team.create'))
+                <livewire:modals.team-create>
+                </livewire:modals.team-create>
+            @endif
         </div>
     </body>
 </html>
