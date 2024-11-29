@@ -11,7 +11,7 @@ class NineController extends Controller
      */
     public function index()
     {
-        //
+        return view('nine.index');
     }
 
     /**

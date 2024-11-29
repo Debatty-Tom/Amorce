@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fund;
 use Illuminate\Http\Request;
 
 class AccountingController extends Controller
@@ -11,7 +12,10 @@ class AccountingController extends Controller
      */
     public function index()
     {
-        return view('accounting.index');
+        $principalFunds = Fund::all()->where('type', 'principal');
+        $specificFunds = Fund::all()->where('type', 'specific');
+
+        return view('accounting.index', compact('principalFunds', 'specificFunds'));
     }
 
     /**
