@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             ->create();
         Stock::factory(6)->create();
         Fund::factory(6)
-            ->hasTransactions(6)
+            ->hasTransactions(12)
             ->create();
         Project::factory(6)->create();
 

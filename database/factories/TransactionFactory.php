@@ -19,7 +19,7 @@ class TransactionFactory extends Factory
         return [
             'title'=> $this->faker->words(3, true),
             'description'=> $this->faker->words(4, true),
-            'amount'=> $this->faker->numberBetween(0, 500000),
+            'amount'=> $this->faker->numberBetween(-10000, 10000),
             'date'=> $this->faker->dateTimeBetween('-1 year','2 year')
         ];
     }
