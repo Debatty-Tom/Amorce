@@ -14,6 +14,6 @@ class FundCard extends Component
     }
     public function render()
     {
-        return view('livewire.accounting.fundCard');
+        return view('livewire.accounting.fund-card');
     }
 }
