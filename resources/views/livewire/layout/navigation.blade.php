@@ -16,7 +16,7 @@
                         </livewire:links.navigation>
                     </li>
                     <li>
-                        <livewire:links.navigation :href="route('nine.index')" icon="icons.nine" label="Les 9">
+                        <livewire:links.navigation :href="route('draw.index')" icon="icons.nine" label="Les 9">
                         </livewire:links.navigation>
                     </li>
                     <li>
