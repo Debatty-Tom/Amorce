@@ -21,11 +21,7 @@
             <main class="p-8">
                 {{ $slot }}
             </main>
-
-            @if(request()->routeIs('team.create'))
-                <livewire:modals.team-create>
-                </livewire:modals.team-create>
-            @endif
         </div>
+    @livewire('modal.wire-element-modal')
     </body>
 </html>
