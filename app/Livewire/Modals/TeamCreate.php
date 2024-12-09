@@ -21,6 +21,8 @@ class TeamCreate extends Component
     public function save(){
         $this->form->create();
         $this->feedback='Team member created successfully';
+
+        $this->dispatch('closeModal');
     }
 
 
