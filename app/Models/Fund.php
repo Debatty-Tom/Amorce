@@ -22,9 +22,6 @@ class Fund extends Model
     protected $fillable = [
         'title',
         'description',
-        'total',
-        'income',
-        'expense',
         'type',
     ];
 
