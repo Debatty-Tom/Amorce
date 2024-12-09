@@ -20,7 +20,7 @@
                     {{ __('Total amount') }}
                 </p>
                 <p>
-                    {{ $fund->total }}
+                    {{ $fund_view->total_amount }}
                 </p>
             </div>
             <div class="mt-2 mb-2">

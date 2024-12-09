@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class FundCard extends Component
 {
-    public Fund $fund;
+    public $fund;
     public function mount($fund)
     {
         $this->fund = $fund;

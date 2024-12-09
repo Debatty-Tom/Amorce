@@ -3,6 +3,7 @@
 namespace App\Livewire\Accounting;
 
 use App\Models\Fund;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class FundsTable extends Component
@@ -11,8 +12,8 @@ class FundsTable extends Component
     public $specificFunds;
     public function mount()
     {
-        $this->principalFunds = Fund::where('type', 'principal')->get();
-        $this->specificFunds = Fund::where('type', 'specific')->get();
+        $this->principalFunds = DB::table('transaction_summary_view')->where('fund_type', 'principal')->get();
+        $this->specificFunds = DB::table('transaction_summary_view')->where('fund_type', 'specific')->get();
     }
 
     public function render()

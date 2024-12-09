@@ -4,16 +4,20 @@ namespace App\Livewire\Accounting;
 
 use App\Models\Fund;
 use App\Models\Transaction;
+use App\Models\TransactionSummaryView;
 use Livewire\Component;
 
 class FundTable extends Component
 {
     public Fund $fund;
-    public Transaction $transaction;
-    public function mount(Fund $fund, Transaction $transaction)
+    public TransactionSummaryView $fund_view;
+
+    public function mount(TransactionSummaryView $fund_id)
     {
-        $this->fund = $fund;
-        $this->transaction = $transaction;
+
+        $id = $fund_id->fund_id;
+        $this->fund = Fund::where('id', $id)->first();
+        $this->fund_view = $fund_id;
     }
 
     public function render()

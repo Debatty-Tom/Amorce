@@ -19,7 +19,6 @@ class FundFactory extends Factory
         return [
             'title'=> $this->faker->words(3, true),
             'description'=> $this->faker->words(4, true),
-            'total'=> $this->faker->numberBetween(0, 500000),
             'type'=> $this->faker->randomElement(['principal', 'specific']),
             ];
     {
