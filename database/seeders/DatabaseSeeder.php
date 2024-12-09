@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Draw;
 use App\Models\Fund;
 use App\Models\Project;
 use App\Models\Stock;
@@ -26,12 +27,12 @@ class DatabaseSeeder extends Seeder
             ->hasTransactions(12)
             ->create();
         Project::factory(6)->create();
+        Draw::factory(6)->create();
 
         User::factory()->create([
             'name' => 'admin',
             'email' => 'tom.debatty@hotmail.be',
             'password' => 'Azertyui1@',
-
         ]);
 
     }
