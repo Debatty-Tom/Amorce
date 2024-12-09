@@ -2,32 +2,32 @@
 
 namespace App\Livewire\Forms;
 
-use App\Models\Fund;
+use App\Models\Todo;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
-class FundForm extends Form
+class TodoForm extends Form
 {
-    public Fund $fund;
+    public Todo $todo;
     #[Validate]
     public $title;
     #[Validate]
     public $description;
     #[Validate]
-    public $type;
+    public $date;
 
-    public function setFund($fund)
+    public function setTodo($draw)
     {
-        $this->title = $fund->title;
-        $this->description = $fund->description;
-        $this->type = $fund->type;
+        $this->title = $draw->title;
+        $this->description = $draw->description;
+        $this->date = $draw->date;
     }
     public function rules()
     {
         return [
             'title' => ['required', 'string', 'max:100','nullable'],
             'description' => ['max:255', 'nullable'],
-            'type' => ['required'],
+            'date' => ['required', 'date', 'nullable'],
         ];
     }
 
@@ -35,13 +35,13 @@ class FundForm extends Form
     {
         $this->validate();
 
-        $this->fund->update($this->except('fund'));
+        $this->todo->update($this->except('todo'));
     }
 
     public function create()
     {
         $this->validate();
 
-        Fund::create($this->validate());
+        Todo::create($this->validate());
     }
 }
