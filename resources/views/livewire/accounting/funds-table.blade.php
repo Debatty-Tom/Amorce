@@ -10,8 +10,8 @@
         {{ __('Principals funds') }}
     </h2>
     <ul class="grid grid-cols-4 gap-4 p-8">
-        @foreach($principalFunds as $fund)
-            <li>
+        @foreach($this->principalFunds as $fund)
+            <li wire:key="{{$fund->id}}">
                 <livewire:accounting.fund-card :fund="$fund">
                 </livewire:accounting.fund-card>
             </li>
@@ -21,8 +21,8 @@
         {{ __('Specifics funds') }}
     </h2>
     <ul class="grid grid-cols-4 gap-4 p-8">
-        @foreach($specificFunds as $fund)
-            <li>
+        @foreach($this->specificFunds as $fund)
+            <li wire:key="{{$fund->id}}">
                 <livewire:accounting.fund-card :fund="$fund">
                 </livewire:accounting.fund-card>
             </li>

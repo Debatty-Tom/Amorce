@@ -24,7 +24,7 @@ class FundCreate extends Component
         $this->feedback='Fund created successfully';
 
         $this->dispatch('closeModal');
-
+        $this->dispatch('reset_fund_table');
     }
     public function render()
     {
