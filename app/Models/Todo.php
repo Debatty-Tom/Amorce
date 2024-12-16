@@ -15,7 +15,7 @@ class Todo extends Model
         'date'
     ];
 
-    public function user() : BelongsToMany
+    public function users() : BelongsToMany
     {
         return $this->belongsToMany(User::class, Assignment::class);
     }

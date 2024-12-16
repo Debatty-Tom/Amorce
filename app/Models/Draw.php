@@ -22,4 +22,8 @@ class Draw extends Model
     protected $casts = [
         'date' => 'datetime:Y-m-d',
     ];
+    public function donators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Donator::class, Attendance::class);
+    }
 }
