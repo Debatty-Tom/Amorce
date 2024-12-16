@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($draws as $draw)
+        @foreach($this->draws as $draw)
             <tr class="relative" wire:key="{{$draw->id}}">
                 <td class=" p-4">
                     <a href="#" class="inset-0 absolute"></a>
@@ -43,5 +43,5 @@
         @endforeach
         </tbody>
     </table>
-{{--        {{ $draws->links() }}--}}
+        {{ $this->draws->links() }}
 </div>
