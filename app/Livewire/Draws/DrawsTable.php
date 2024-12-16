@@ -8,11 +8,6 @@ use Livewire\Component;
 
 class DrawsTable extends Component
 {
-    public $draws;
-    public function mount()
-    {
-        $this->draws = Draw::all();
-    }
     public function render()
     {
         return view('livewire.draws.draws-table');

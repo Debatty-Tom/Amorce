@@ -8,16 +8,14 @@ use Livewire\Component;
 
 class DrawsList extends Component
 {
-    public $draws;
-
-    public function mount($draws)
+    #[Computed]
+    public function draws()
     {
-        $this->draws = $draws;
-
-
+        return Draw::orderBy('date')->paginate(5);
     }
     public function render()
     {
         return view('livewire.draws.draws-list');
     }
 }
+// propriété publique pour l'ordonnancement des tirages

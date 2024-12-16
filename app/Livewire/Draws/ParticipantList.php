@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Draws;
 
+use App\Models\Donator;
 use App\Models\Draw;
 use App\Models\User;
 use Livewire\Component;
@@ -9,10 +10,11 @@ use Livewire\Component;
 class ParticipantList extends Component
 {
     public $participants;
+    public $contact;
 
     public function mount()
     {
-        $this->participants = User::all();
+        $this->participants = Donator::all();
     }
     public function render()
     {

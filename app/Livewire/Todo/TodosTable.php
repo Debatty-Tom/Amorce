@@ -11,6 +11,8 @@ class TodosTable extends Component
     public function mount()
     {
         $this->todos = Todo::all();
+
+        $this->todos->load('users');
     }
     public function render()
     {
