@@ -2,9 +2,6 @@
 
 namespace App\Livewire\Links;
 
-use http\Env\Request;
-use Illuminate\Routing\Route;
-use Illuminate\Support\Str;
 use Livewire\Component;
 
 class Navigation extends Component

@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased font-['Nunito Sans']">
-        <div class="min-h-screen bg-gray-100 grid grid-cols-[auto_1fr] grid-rows-[100vh]">
+        <div class="min-h-screen bg-gray-100 grid grid-cols-[1fr_4fr]">
             <livewire:layout.navigation />
             <!-- Page Content -->
             <main class="p-8">

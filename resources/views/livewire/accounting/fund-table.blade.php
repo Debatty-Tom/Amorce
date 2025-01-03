@@ -1,5 +1,5 @@
 <div>
-    <h1 class="">
+    <h1>
         {{ $fund->title }}
     </h1>
     <div class="grid grid-cols-[75%,1fr] gap-8 mb-8">
