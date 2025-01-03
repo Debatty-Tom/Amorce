@@ -12,10 +12,24 @@ class DrawsList extends Component
 
     public function mount($draws)
     {
+<<<<<<< Updated upstream
         $this->draws = $draws;
 
 
+=======
+        return Draw::orderBy('date')->paginate(10);
+>>>>>>> Stashed changes
     }
+//    #[Computed]
+//    public function pastDraws()
+//    {
+//        return Draw::orderBy('date');
+//    }
+//    #[Computed]
+//    public function nextDraws()
+//    {
+//        return Draw::orderBy('date');
+//    }
     public function render()
     {
         return view('livewire.draws.draws-list');
