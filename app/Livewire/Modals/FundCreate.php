@@ -24,7 +24,11 @@ class FundCreate extends Component
         $this->feedback='Fund created successfully';
 
         $this->dispatch('closeModal');
+<<<<<<< Updated upstream
 
+=======
+        $this->redirect(route('accounting.index'), navigate: true);
+>>>>>>> Stashed changes
     }
     public function render()
     {
