@@ -20,4 +20,9 @@ class Project extends Model
         'title',
         'description',
     ];
+
+    public function draws(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->BelongsToMany(Draw::class);
+    }
 }

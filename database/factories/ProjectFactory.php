@@ -18,7 +18,8 @@ class ProjectFactory extends Factory
     {
         return [
             'title'=> $this->faker->words(3, true),
-            'description'=> $this->faker->realText($maxNbChars = 200, $indexSize = 2)
+            'description'=> $this->faker->realText($maxNbChars = 200, $indexSize = 2),
+            'email'=> $this->faker->unique()->safeEmail,
         ];
     }
 }
