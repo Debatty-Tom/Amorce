@@ -1,4 +1,5 @@
 <div>
+<<<<<<< Updated upstream
     <table class="w-full bg-white rounded mb-4">
         <thead>
         <tr class="bg-gray-200">
@@ -29,19 +30,35 @@
                     </p>
                 </td>
                 <td>
+=======
+    <ul class="p-4 flex max-w-fit flex-wrap">
+        @foreach($this->draws as $draw)
+            <li class="relative p-8 bg-white flex flex-col m-2.5 rounded" wire:key="{{$draw->id}}">
+                <a href="{{ route('draw.show',$draw->id)}}" class="inset-0 absolute"></a>
+                {{ date_format(($draw->date), 'd/m/Y') }}
+                <p>
+                    {{ number_format(($draw->amount/100),2, ',',' ')."€" }}
+                </p>
+                <p>
+>>>>>>> Stashed changes
                     {{ $draw->description }}
-                </td>
-                <td>
+                </p>
+                <div>
                     <a href="{{--{{ route('transactions.edit', $fund->id, $draw->id,) }}--}}">
                         {{ __('edit') }}
                     </a>
                     <a href="{{--{{ route('transactions.destroy', $draw->id, $fund->id) }}--}}">
                         {{ __('delete') }}
                     </a>
-                </td>
-            </tr>
+                </div>
+            </li>
         @endforeach
+<<<<<<< Updated upstream
         </tbody>
     </table>
 {{--        {{ $draws->links() }}--}}
+=======
+    </ul>
+    {{ $this->draws->links() }}
+>>>>>>> Stashed changes
 </div>

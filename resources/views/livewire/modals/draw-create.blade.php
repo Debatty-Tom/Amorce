@@ -31,7 +31,7 @@
         </h1>
         <div class="max-w-3xl bg-white rounded-md shadow overflow-hidden">
             <form wire:submit="save">
-                <div class="flex flex-wrap -mb-8 -mr-6 p-8">
+                <div class="flex flex-wrap justify-between -mb-8 -mr-6 p-8">
                     <div class="pb-8 pr-6 w-full lg:w-1/2">
                         <label class="form-label"
                                for="text-input-7125169c-f0d4-4660-9ec1-2371fdbb1ea2">Title:</label>
@@ -73,6 +73,27 @@
                         >
                         @error('form.date') <span class="text-red-500">{{ $message }}</span> @enderror
                     </div>
+                    <div class="flex justify-between">
+                        <p class="pb-8 pr-6 w-full lg:w-1/2">
+                            Les 3 nouveaux participants
+                        </p>
+                        @if(count($this->form->new_participants) === 0)
+                            <button wire:click.prevent="randomParticipants"
+                                    class="flex items-center btn-indigo ml-auto">
+                                Lancer le random
+                            </button>
+                        @endif
+
+                    </div>
+                    <ul>
+                        @if(count($this->form->new_participants) > 0)
+                            @foreach($this->form->new_participants as $participant)
+                                <li wire:key="{{ $participant->id }}">
+                                    {{ $participant->name }}
+                                </li>
+                            @endforeach
+                        @endif
+                    </ul>
                 </div>
                 <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
                     <button @click="$wire.spinner = true" class="flex items-center btn-indigo ml-auto"

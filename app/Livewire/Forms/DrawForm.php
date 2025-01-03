@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms;
 
+use App\Models\Donator;
 use App\Models\Draw;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
@@ -17,6 +18,8 @@ class DrawForm extends Form
     public $amount;
     #[Validate]
     public $date;
+    #[Validate]
+    public $new_participants;
 
     public function setDraw($draw)
     {
@@ -24,6 +27,7 @@ class DrawForm extends Form
         $this->description = $draw->description;
         $this->amount = $draw->amount;
         $this->date = $draw->date;
+        $this->new_participants = [];
     }
     public function rules()
     {
@@ -46,6 +50,6 @@ class DrawForm extends Form
     {
         $this->validate();
 
-        Draw::create($this->validate());
+        return Draw::create($this->validate());
     }
 }
