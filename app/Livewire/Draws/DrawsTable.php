@@ -8,10 +8,15 @@ use Livewire\Component;
 
 class DrawsTable extends Component
 {
-    public $draws;
-    public function mount()
+    #[Computed]
+    public function pastDraws()
     {
-        $this->draws = Draw::all();
+        return Draw::orderBy('date')->where('date', '<', now())->get();
+    }
+    #[Computed]
+    public function nextDraws()
+    {
+        return Draw::orderBy('date')->where('date', '>', now())->get();
     }
     public function render()
     {
