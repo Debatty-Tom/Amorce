@@ -13,7 +13,7 @@
         </div>
         <div class="bg-white rounded p-4">
             <h2>
-                {{ __('fund informations') }}
+                {{ __('fund information') }}
             </h2>
             <div class="mt-2 mb-2">
                 <p>

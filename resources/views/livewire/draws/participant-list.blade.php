@@ -6,7 +6,7 @@
                 {{ __('Nom') }}
             </th>
             <th class="text-left">
-                {{ __('Détentes restantes') }}
+                {{ __('Lasting draws') }}
             </th>
             <th class="text-left">
                 {{ __('Contact') }}
@@ -26,7 +26,15 @@
                     {{ $participant->name }}
                 </td>
                 <td>
-                    {{ $participant->email }}
+                    @if($participant->email === null)
+                        @if($participant->phone === null)
+                            {{ $participant->address }}
+                        @else
+                            {{ $participant->phone }}
+                        @endif
+                    @else
+                        {{ $participant->email }}
+                    @endif
                 </td>
                 <td>
                     <a href="{{--{{ route('transactions.edit', $fund->id, $participant->id,) }}--}}">
