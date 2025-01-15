@@ -18,7 +18,7 @@
         </thead>
         <tbody>
         @foreach($this->transactions as $transaction)
-            <tr>
+            <tr wire:key="$transaction->id">
                 <td class=" p-4">
                     {{ date_format(($transaction->date), 'd/m/Y') }}
                 </td>

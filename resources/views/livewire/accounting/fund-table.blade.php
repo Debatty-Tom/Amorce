@@ -1,20 +1,20 @@
 <div>
-    <h1>
+    <h2 class="text-3xl font-medium pb-4">
         {{ $fund->title }}
-    </h1>
+    </h2>
     <div class="grid grid-cols-[75%,1fr] gap-8 mb-8">
         <div class="bg-white rounded p-4">
-            <h2>
+            <h3 class="text-2xl">
                 {{ __('Transfer money') }}
-            </h2>
+            </h3>
             <p>
                 {{ __('Transfer money from this fund to another fund') }}
             </p>
         </div>
         <div class="bg-white rounded p-4">
-            <h2>
+            <h3 class="text-2xl">
                 {{ __('fund information') }}
-            </h2>
+            </h3>
             <div class="mt-2 mb-2">
                 <p>
                     {{ __('Total amount') }}
@@ -23,11 +23,7 @@
                     {{ $fund_view->total_amount }}
                 </p>
             </div>
-            <div class="mt-2 mb-2">
-                <p>
-                    {{ __('account number') }}
-                </p>
-            </div>
+
         </div>
     </div>
     <livewire:transactions.transactions-table :$fund>
