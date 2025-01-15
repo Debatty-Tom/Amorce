@@ -3,15 +3,16 @@
 namespace App\Livewire\Team;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 
 class TeamTable extends Component
 {
-    public $users;
-
-    public function mount()
+    #[computed]
+    public function users(): Collection
     {
-        $this->users = User::all();
+        return User::all();
     }
 
     public function render()
