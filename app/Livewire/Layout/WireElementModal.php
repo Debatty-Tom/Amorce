@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire\Modal;
+namespace App\Livewire\Layout;
 
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -29,6 +29,6 @@ class WireElementModal extends Component
     }
     public function render()
     {
-        return view('livewire.modal.wire-element-modal');
+        return view('livewire.layout.wire-element-modal');
     }
 }
