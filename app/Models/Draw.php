@@ -22,8 +22,6 @@ class Draw extends Model
     protected $casts = [
         'date' => 'datetime:Y-m-d',
     ];
-<<<<<<< Updated upstream
-=======
     public function donators(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Donator::class, Attendance::class);
@@ -33,5 +31,4 @@ class Draw extends Model
     {
         return $this->belongsToMany(Project::class, DrawAssignment::class);
     }
->>>>>>> Stashed changes
 }

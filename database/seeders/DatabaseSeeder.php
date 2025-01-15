@@ -2,12 +2,10 @@
 
 namespace Database\Seeders;
 
-<<<<<<< Updated upstream
-=======
 use App\Enums\AttendancesStatuses;
 use App\Enums\EnumsDrawAssignmentsStatuses;
 use App\Models\Donator;
->>>>>>> Stashed changes
+
 use App\Models\Draw;
 use App\Models\Fund;
 use App\Models\Project;
@@ -32,21 +30,16 @@ class DatabaseSeeder extends Seeder
         Fund::factory(6)
             ->hasTransactions(12)
             ->create();
-<<<<<<< Updated upstream
         Project::factory(6)->create();
-        Draw::factory(6)->create();
-=======
+
         Draw::factory(6)
             ->hasAttached(
                 Donator::factory()
-                    ->count(6),
-                fn() => [
-                    'status' => random_int(0, 1) ?
-                    AttendancesStatuses::Validated->value :
-                    AttendancesStatuses::Pending->value,
-                    'contact' => bin2hex(random_bytes(16)),
-                ]
-            )
+                    ->count(6)
+                    ->state(function (array $attributes, $draw) {
+                        return ['draw_id' => $draw->id];
+                    })
+                )
             ->hasAttached(
                 Project::factory()
                     ->count(6),
@@ -60,7 +53,6 @@ class DatabaseSeeder extends Seeder
                 ]
             )
             ->create();
->>>>>>> Stashed changes
 
         User::factory()->create([
             'name' => 'admin',
