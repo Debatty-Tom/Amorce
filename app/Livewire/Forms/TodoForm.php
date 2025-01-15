@@ -16,11 +16,11 @@ class TodoForm extends Form
     #[Validate]
     public $date;
 
-    public function setTodo($draw)
+    public function setTodo($todo)
     {
-        $this->title = $draw->title;
-        $this->description = $draw->description;
-        $this->date = $draw->date;
+        $this->title = $todo->title;
+        $this->description = $todo->description;
+        $this->date = $todo->date;
     }
     public function rules()
     {
@@ -42,6 +42,6 @@ class TodoForm extends Form
     {
         $this->validate();
 
-        Todo::create($this->validate());
+        return Todo::create($this->validate());
     }
 }

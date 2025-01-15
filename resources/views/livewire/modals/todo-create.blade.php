@@ -62,7 +62,23 @@
                         >
                         @error('form.date') <span class="text-red-500">{{ $message }}</span> @enderror
                     </div>
+                    <div class="flex flex-wrap gap-2 justify-center">
+                        @foreach ($users as $user)
+                            <div class="w-96 flex justify-between items-center">
+                                <div>
+                                    <input id="{{ $user->id }}"
+                                           type="checkbox"
+                                           name="{{ __("users[]") }}"
+                                           wire:model="selectedUsers"
+                                           class="h-4 w-4"
+                                           value="{{ $user->id }}">
+                                    <label for="{{ $user->id }}">{{ $user->name }}</label>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
+
                 <div class="flex items-center px-8 py-4 bg-gray-50 border-t border-gray-100">
                     <button @click="$wire.spinner = true" class="flex items-center btn-indigo ml-auto"
                             type="submit">

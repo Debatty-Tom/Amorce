@@ -14,6 +14,15 @@
                 <p class="max-w-screen-lg">
                     {{ $todo->description }}
                 </p>
+                @if($todo->users)
+                    <ul>
+                        @foreach($todo->users as $user)
+                            <li>
+                                {{ $user->name }}
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
             </li>
         @endforeach
     </ul>
