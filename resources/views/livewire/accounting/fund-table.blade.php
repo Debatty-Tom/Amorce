@@ -20,7 +20,7 @@
                     {{ __('Total amount') }}
                 </p>
                 <p>
-                    {{ $fund_view->total_amount }}
+                    {{ number_format(($fund_view->total_amount/100),2, ',',' ')."€" }}
                 </p>
             </div>
 
