@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Traits;
 
-trait ModalTrait
+trait
+ModalTrait
 {
     public function openModal($componentName, $params = null)
     {
