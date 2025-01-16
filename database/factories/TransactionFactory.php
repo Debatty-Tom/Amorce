@@ -20,7 +20,8 @@ class TransactionFactory extends Factory
             'title'=> $this->faker->words(3, true),
             'description'=> $this->faker->words(4, true),
             'amount'=> $this->faker->numberBetween(-10000, 10000),
-            'date'=> $this->faker->dateTimeBetween('-1 year','2 year')
+            'date'=> $this->faker->dateTimeBetween('-1 year','2 year'),
+            'hash'=> $this->faker->md5(),
         ];
     }
 }

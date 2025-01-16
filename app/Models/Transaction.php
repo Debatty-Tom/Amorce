@@ -19,6 +19,8 @@ class Transaction extends Model
         'description',
         'amount',
         'date',
+        'hash',
+        'fund_id',
     ];
 
     protected $casts = [
