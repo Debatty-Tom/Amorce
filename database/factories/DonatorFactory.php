@@ -21,7 +21,7 @@ class DonatorFactory extends Factory
             'email' => $this->faker->unique()->safeEmail,
             'phone' => $this->faker->phoneNumber,
             'address' => $this->faker->address,
-            'donation_count' => 3,
+            //'donation_count' => 3,
         ];
     }
 }
