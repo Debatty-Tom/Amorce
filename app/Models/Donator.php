@@ -16,7 +16,7 @@ class Donator extends Model
         'email',
         'phone',
         'address',
-        'status',
+        'donation_count',
     ];
     public function draws(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {

@@ -35,10 +35,8 @@ class DatabaseSeeder extends Seeder
         Draw::factory(6)
             ->hasAttached(
                 Donator::factory()
-                    ->count(6)
-                    ->state(function (array $attributes, $draw) {
-                        return ['draw_id' => $draw->id];
-                    })
+                    ->count(6),
+                ['created_at' => now(), 'updated_at' => now()]
                 )
             ->hasAttached(
                 Project::factory()

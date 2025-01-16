@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
-            $table->unsignedBigInteger('draw_id');
+            $table->string('donation_count');
             $table->softDeletes();
             $table->timestamps();
         });
