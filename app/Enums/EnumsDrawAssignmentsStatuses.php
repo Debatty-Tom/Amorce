@@ -6,4 +6,5 @@ enum EnumsDrawAssignmentsStatuses: string
 {
     case funded = 'funded';
     case refused = 'refused';
+    case pending = 'pending';
 }

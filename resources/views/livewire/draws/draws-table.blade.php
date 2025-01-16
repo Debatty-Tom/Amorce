@@ -1,6 +1,6 @@
 <section>
     <div class="flex justify-between mb-5">
-        <h2 class="text-3xl font-medium">{{__('Accounting')}}</h2>
+        <h2 class="text-3xl font-medium">{{__('Draws')}}</h2>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-create'})">{{ __('Add a new draw') }}</button>
     </div>

@@ -5,6 +5,7 @@ namespace App\Livewire\Modals;
 use App\Livewire\Forms\DrawForm;
 use App\Models\Donator;
 use App\Models\Draw;
+use App\Models\Project;
 use Livewire\Component;
 use function Pest\Laravel\get;
 
@@ -15,34 +16,50 @@ class DrawCreate extends Component
     public $loading;
     public Draw $draw;
     public string $test;
+    public $projects;
+    public $selectedProjects = [];
 
     public function mount(Draw $draw)
     {
         $this->form->setDraw($draw);
         $this->draw = $draw;
+
+        $this->projects = Project::whereDoesntHave('draws')->get();
     }
-    public function normalizeNumber($input) {
-        if (strpos($input, '.') !== false) {
+
+    public function normalizeNumber($input)
+    {
+        if (str_contains($input, '.') !== false) {
             return str_replace('.', '', $input);
         } else {
             return $input * 100;
         }
     }
 
-    public function save(){
+    public function save()
+    {
         $this->form->amount = $this->normalizeNumber($this->form->amount);
         $this->draw = $this->form->create();
-        $this->feedback='Draw created successfully';
+        $this->feedback = 'Draw created successfully';
         foreach ($this->form->new_participants as $participant) {
-            $participantContact = $this->getdonatorContact($participant);
+            $participantContact = $this->getDonatorContact($participant);
             $this->draw->donators()->attach($participant, ['contact' => $participantContact, 'status' => 'pending']);
         }
+        $this->draw->projects()->attach(
+            $this->selectedProjects, [
+                'status' => 'pending',
+                'amount' => 0,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        );
 
         $this->dispatch('closeModal');
     }
-    public function getdonatorContact($participant): string
+
+    public function getDonatorContact($participant): string
     {
-        if($participant->email === null) {
+        if ($participant->email === null) {
             if ($participant->phone === null) {
                 return $participant->address;
             } else {
@@ -51,10 +68,12 @@ class DrawCreate extends Component
         }
         return $participant->email;
     }
+
     public function randomParticipants()
     {
         $this->form->new_participants = Donator::inRandomOrder()->limit(3)->get();
     }
+
     public function render()
     {
         return view('livewire.modals.draw-create');
