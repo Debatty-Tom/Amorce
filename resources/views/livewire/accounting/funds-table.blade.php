@@ -1,13 +1,12 @@
-<div>
-    <livewire:layout.header
-        :title="__('Accounting')"
-        :button-text="__('Add a fund')"
-        :modal-component="'modals.fund-create'">
-    </livewire:layout.header>
+<section>
+    <div class="flex justify-between mb-5">
+        <h2 class="text-3xl">{{__('Accounting')}}</h2>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" wire:click.prevent="$dispatch('openModal',{component: 'modals.fund-create'})">{{ __('Add a fund') }}</button>
+    </div>
     <div>
-        <h2>
+        <h3>
             {{ __('Principals funds') }}
-        </h2>
+        </h3>
         <ul class="grid grid-cols-4 gap-4 p-8">
             @foreach($this->principalFunds as $fund)
                 <li wire:key="{{$fund->fund_id}}">
@@ -16,11 +15,10 @@
                 </li>
             @endforeach
         </ul>
-        <h2>
+        <h3>
             {{ __('Specifics funds') }}
-        </h2>
+        </h3>
         <ul class="grid grid-cols-4 gap-4 p-8">
-
             @foreach($this->specificFunds as $fund)
                 <li wire:key="{{$fund->fund_id}}">
                     <livewire:accounting.fund-card :fund="$fund">
@@ -29,4 +27,4 @@
             @endforeach
         </ul>
     </div>
-</div>
+</section>

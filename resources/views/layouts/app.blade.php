@@ -22,6 +22,6 @@
                 {{ $slot }}
             </main>
         </div>
-    @livewire('modal.wire-element-modal')
+    @livewire('layout.wire-element-modal')
     </body>
 </html>

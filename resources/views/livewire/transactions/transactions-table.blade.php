@@ -1,4 +1,7 @@
 <div>
+    <h3>
+        {{ __('Transactions') }}
+    </h3>
     <table class="w-full bg-white rounded mb-4">
         <thead>
         <tr class="bg-gray-200">
@@ -18,7 +21,7 @@
         </thead>
         <tbody>
         @foreach($this->transactions as $transaction)
-            <tr>
+            <tr wire:key="{{$transaction->id}}">
                 <td class=" p-4">
                     {{ date_format(($transaction->date), 'd/m/Y') }}
                 </td>
@@ -26,7 +29,7 @@
                     {{ $transaction->description }}
                 </td>
                 <td>
-                    @if (strpos($transaction->amount, '-') !== false)
+                    @if (str_contains($transaction->amount, '-') !== false)
                         <p class="text-red-500">
                             {{ number_format(($transaction->amount/100),2, ',',' ')."€" }}
                         </p>
