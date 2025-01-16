@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('amount');
             $table->timestamp('date');
-            $table->string('hash')->nullable();
+            //$table->string('hash')->nullable();
             $table->unsignedBigInteger('fund_id');
             $table->timestamps();
         });
