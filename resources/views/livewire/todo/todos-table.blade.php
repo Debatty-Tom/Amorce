@@ -5,7 +5,7 @@
     </div>
     <ul class="grid grid-cols-4 gap-5 ">
         @foreach($todos as $todo)
-            <li class="flex flex-col justify-between gap-3 bg-white p-4 rounded" wire:key="{{$todo->id}}">
+            <li class="flex flex-col justify-between gap-3 bg-white p-4 rounded-2xl shadow" wire:key="{{$todo->id}}">
                 <h3 class="min-w-20">
                     {{ $todo->title }}
                 </h3>
