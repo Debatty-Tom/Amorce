@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         DB::statement("
-            CREATE VIEW transaction_summary_view AS
+            CREATE OR REPLACE VIEW transaction_summary_view AS
             SELECT
                 funds.id AS fund_id,
                 funds.title AS fund_title,
