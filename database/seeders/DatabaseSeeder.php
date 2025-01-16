@@ -44,12 +44,16 @@ class DatabaseSeeder extends Seeder
                 Project::factory()
                     ->count(6),
                 fn() => [
-                    'status' => ($status = random_int(0, 1)
-                        ? EnumsDrawAssignmentsStatuses::funded->value
-                        : EnumsDrawAssignmentsStatuses::refused->value),
-                    'amount' => $status === EnumsDrawAssignmentsStatuses::refused->value
+                    'status' => ($status = collect([
+                        EnumsDrawAssignmentsStatuses::funded->value,
+                        EnumsDrawAssignmentsStatuses::refused->value,
+                        EnumsDrawAssignmentsStatuses::pending->value,
+                    ])->random()),
+                    'amount' => $status != EnumsDrawAssignmentsStatuses::funded->value
                         ? 0
                         : random_int(0, 1000),
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]
             )
             ->create();
