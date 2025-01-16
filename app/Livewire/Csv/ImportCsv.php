@@ -55,12 +55,12 @@ class ImportCsv extends Component
 
         foreach ($records as $key => $record) {
             // Générer un hash pour cette ligne
-            $hash = md5(json_encode($record));
+            //$hash = md5(json_encode($record));
 
             // Vérifier si la transaction existe déjà via le hash
-            if (Transaction::where('hash', $hash)->exists()) {
-                continue; // Ignorer si déjà existant
-            }
+//            if (Transaction::where('hash', $hash)->exists()) {
+//                continue; // Ignorer si déjà existant
+//            }
 
             $fund = Fund::where('type', 'principal')->first();
 
@@ -92,7 +92,7 @@ class ImportCsv extends Component
                 'date' => Carbon::createFromFormat('d-m-Y', $record['date'])->format('Y-m-d'),
                 'title' => $record['amount'] > 0 ? 'Don' : 'Retrait',
                 'description' => $record['description'] ?? __('Transaction from CSV import'),
-                'hash' => $hash,
+                //'hash' => $hash,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
