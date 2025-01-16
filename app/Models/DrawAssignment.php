@@ -12,7 +12,7 @@ class DrawAssignment extends Model
     }
     public function project(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Donator::class);
+        return $this->belongsTo(Project::class);
     }
 
 }
