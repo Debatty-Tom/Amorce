@@ -4,35 +4,32 @@ namespace App\Livewire\Modals;
 
 use App\Livewire\Forms\TeamForm;
 use App\Models\User;
+use App\Traits\handlesImagesUpload;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class TeamCreate extends Component
 {
+    use WithFileUploads, handlesImagesUpload;
     public $feedback = '';
-    public User $user;
     public TeamForm $form;
-    public $loading;
-    public function mount(User $user)
-    {
-        $this->form->setUser($user);
 
-        $this->user = $user;
-    }
     public function save(){
-        $this->form->create();
+        $this->validate();
+        $data = $this->form->all();
+        if ($this->form->image) {
+            $data['picture_path'] = Storage::disk('public')
+                ->put('images/users', $data['image']);
+        }
+        User::create($data);
         $this->feedback='Team member created successfully';
-    }
 
+        $this->dispatch('closeModal');
+    }
 
     public function render()
     {
         return view('livewire.modals.team-create');
-    }
-
-    public function waitingToRedirect()
-    {
-        $user = $this->user;
-        return $this->redirect('/team', navigate: true);
-
     }
 }

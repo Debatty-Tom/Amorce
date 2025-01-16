@@ -19,6 +19,8 @@ class Transaction extends Model
         'description',
         'amount',
         'date',
+        'hash',
+        'fund_id',
     ];
 
     protected $casts = [
@@ -27,6 +29,10 @@ class Transaction extends Model
 
     public function fund() : BelongsTo
     {
-        return $this->belongsTo(Fund::class);
+        return $this->belongsTo(Fund::class, 'fund_id');
+    }
+    public function transaction_summary_view() : BelongsTo
+    {
+        return $this->belongsTo(Fund::class, 'summary_id');
     }
 }

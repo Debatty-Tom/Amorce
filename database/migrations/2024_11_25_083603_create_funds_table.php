@@ -15,9 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description');
-            $table->string('total');
-            $table->string('incomes');
-            $table->string('expenses');
             $table->string('type');
             $table->timestamps();
         });

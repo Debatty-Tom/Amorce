@@ -19,5 +19,11 @@ class Project extends Model
     protected $fillable = [
         'title',
         'description',
+        'email',
     ];
+
+    public function draws(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->BelongsToMany(Draw::class, DrawAssignment::class);
+    }
 }

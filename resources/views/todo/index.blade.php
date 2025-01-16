@@ -1,5 +1,4 @@
 <x-app-layout>
-    <h1>
-        {{ __('Hello todo') }}
-    </h1>
+    <livewire:todo.todos-table>
+    </livewire:todo.todos-table>
 </x-app-layout>

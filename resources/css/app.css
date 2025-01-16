@@ -1,4 +1,6 @@
 @import "variables.css";
+@import "feedback.css";
+@import "buttons.css";
 
 @tailwind base;
 @tailwind components;

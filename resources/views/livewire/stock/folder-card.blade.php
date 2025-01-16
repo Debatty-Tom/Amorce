@@ -2,6 +2,6 @@
     <!-- Icon -->
     <x-icons.folder />
     <!-- Informations personnelles -->
-    <p class="text-lg font-bold text-[#202224]">{{ $folder->name }}</p>
+    <h3 class="text-lg font-bold text-[#202224]">{{ $folder->name }}</h3>
     <p class="text-sm font-medium text-[#202224] text-center opacity-60">{{ $folder->description }}</p>
 </div>
