@@ -123,7 +123,7 @@ class ImportCsv extends Component
             'email' => $this->email ?? null,
             'phone' => $this->phone ?? null,
             'address' => $this->address ?? null,
-            'donation_count' => 4,
+            //'donation_count' => 4,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
