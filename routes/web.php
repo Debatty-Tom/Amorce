@@ -4,7 +4,6 @@ use App\Mail\Test;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
