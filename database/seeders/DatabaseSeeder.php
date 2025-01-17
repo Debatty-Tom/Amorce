@@ -61,6 +61,15 @@ class DatabaseSeeder extends Seeder
             'email' => 'tom.debatty@hotmail.be',
             'password' => 'Azertyui1@',
         ]);
-
+        User::factory()->create([
+            'name' => 'Dominique Vilain',
+            'email' => 'dominique.vilain@hepl.be',
+            'password' => 'zukrap-6zEzny-jesboq',
+        ]);
+        User::factory()->create([
+            'name' => 'Michael Lecerf',
+            'email' => 'michael@lecerf.be',
+            'password' => 'cuwfi5-fokfij-copdaT',
+        ]);
     }
 }
