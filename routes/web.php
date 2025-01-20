@@ -24,3 +24,4 @@ require __DIR__.'/mailing.php';
 require __DIR__.'/todo.php';
 require __DIR__ . '/projects.php';
 require __DIR__ . '/transaction.php';
+require __DIR__ . '/profile.php';
