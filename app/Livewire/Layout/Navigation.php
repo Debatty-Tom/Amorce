@@ -57,9 +57,9 @@ class Navigation extends Component
                 'href' => 'projects.index',
             ],
             'settings' => [
-                'label' => 'Paramètres',
+                'label' => 'Profile',
                 'icon' => 'icons.settings',
-                'href' => 'dashboard.index',
+                'href' => 'profile.index',
             ],
             'logout' => [
                 'label' => 'Déconnexion',

@@ -20,7 +20,7 @@ class TeamEdit extends Component
     }
     public function save(){
         $this->form->update();
-        $this->feedback='Team member updated successfully';
+        $this->feedback='User updated successfully';
 
         $this->dispatch('closeModal');
     }

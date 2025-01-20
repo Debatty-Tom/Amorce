@@ -12,6 +12,7 @@ class DrawTable extends Component
     public function mount()
     {
         $this->draw->load('donators');
+        $this->draw->load('projects');
     }
     public function render()
     {

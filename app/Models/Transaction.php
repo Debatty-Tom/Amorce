@@ -19,7 +19,7 @@ class Transaction extends Model
         'description',
         'amount',
         'date',
-        //'hash',
+        'hash',
         'fund_id',
     ];
 
