@@ -1,7 +1,14 @@
 <div>
-    <h2 class="text-3xl font-medium pb-4">
-        {{ $fund->title }}
-    </h2>
+    <div class="flex justify-between mb-5">
+        <h2 class="text-3xl font-medium pb-4">
+            {{ $fund->title }}
+        </h2>
+        @hasanyrole(\App\Enums\RolesEnum::ACCOUNTANT->value.'|'.
+                            \App\Enums\RolesEnum::ADMIN->value)
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                wire:click.prevent="$dispatch('openModal',{component: 'modals.fund-edit'})">{{ __('Edit this fund') }}</button>
+        @endhasanyrole
+    </div>
     <div class="grid grid-cols-[75%,1fr] gap-8 mb-8">
         <div class="bg-white rounded p-4">
             <h3 class="text-2xl">

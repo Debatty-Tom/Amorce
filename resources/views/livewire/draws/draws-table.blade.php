@@ -1,8 +1,11 @@
 <section>
     <div class="flex justify-between mb-5">
         <h2 class="text-3xl font-medium">{{__('Draws')}}</h2>
+        @hasanyrole(\App\Enums\RolesEnum::DRAWMANAGER->value.'|'.
+                        \App\Enums\RolesEnum::ADMIN->value)
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-create'})">{{ __('Add a new draw') }}</button>
+        @endhasanyrole
     </div>
     <div>
         <h3 class="text-2xl">

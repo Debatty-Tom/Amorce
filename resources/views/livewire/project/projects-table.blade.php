@@ -1,7 +1,11 @@
 <section>
     <div class="flex justify-between mb-5">
         <h2 class="text-3xl">{{__('Projects')}}</h2>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" wire:click.prevent="$dispatch('openModal',{component: 'modals.project-create'})">{{ __('Add a project') }}</button>
+        @hasanyrole(\App\Enums\RolesEnum::PROJECTMANAGER->value.'|'.
+                    \App\Enums\RolesEnum::ADMIN->value)
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                wire:click.prevent="$dispatch('openModal',{component: 'modals.project-create'})">{{ __('Add a project') }}</button>
+        @endhasanyrole
     </div>
     <div class="mb-4">
         <h3 class="text-2xl pb-3">

@@ -2,8 +2,13 @@
     <div class="flex justify-between mb-5">
         <h2 class="text-3xl">{{__('Accounting')}}</h2>
         <div class="gap-5">
-            <a href="{{ route('csv.index') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" >{{ __('Import CSV') }}</a>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" wire:click.prevent="$dispatch('openModal',{component: 'modals.fund-create'})">{{ __('Add a fund') }}</button>
+            @hasanyrole(\App\Enums\RolesEnum::ACCOUNTANT->value.'|'.
+                        \App\Enums\RolesEnum::ADMIN->value)
+            <a href="{{ route('csv.index') }}"
+               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{ __('Import CSV') }}</a>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    wire:click.prevent="$dispatch('openModal',{component: 'modals.fund-create'})">{{ __('Add a fund') }}</button>
+            @endhasanyrole
         </div>
     </div>
     <div>
