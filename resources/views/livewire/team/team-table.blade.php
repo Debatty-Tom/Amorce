@@ -8,6 +8,7 @@
         @endhasanyrole
     </div>
     <ul class="grid grid-cols-4 gap-9 w-full">
+{{--        code below must be there and not by using a blade component to avoid a snapshot missing error in a SPA--}}
         @foreach($this->users as $user)
             <li class="flex justify-center" wire:key="{{ $user->id }}">
                 <div class="relative w-full">
