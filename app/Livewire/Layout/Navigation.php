@@ -64,7 +64,7 @@ class Navigation extends Component
             'logout' => [
                 'label' => 'Déconnexion',
                 'icon' => 'icons.logout',
-                'href' => 'dashboard.index',
+                'href' => 'logout',
             ]
 
         ];
