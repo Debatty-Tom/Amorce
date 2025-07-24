@@ -6,6 +6,7 @@ use App\Models\Fund;
 use App\Models\Transaction;
 use App\Models\TransactionSummaryView;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -21,6 +22,8 @@ class FundForm extends Form
 
     public function setFund($fund)
     {
+        $this->fund = $fund;
+        
         $this->title = $fund->title;
         $this->description = $fund->description;
         $this->type = $fund->type;
@@ -38,7 +41,12 @@ class FundForm extends Form
     {
         $this->validate();
 
-        $this->fund->update($this->except('fund'));
+        $data = [
+            'title' => $this->title,
+            'description' => $this->description,
+            'type' => $this->type,
+        ];
+        $this->fund->update($data);
     }
 
     public function create()
