@@ -3,6 +3,9 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Fund;
+use App\Models\Transaction;
+use App\Models\TransactionSummaryView;
+use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -40,8 +43,19 @@ class FundForm extends Form
 
     public function create()
     {
-        $this->validate();
+        $validated = $this->validate();
 
-        Fund::create($this->validate());
+        $fund = Fund::create($validated);
+
+        Transaction::create([
+            'fund_id' => $fund->id,
+            'amount' => 0,
+            'date' => now(),
+            'title' => 'Fund created',
+            'description' => __('Transaction from fund creation'),
+            'hash' => md5(json_encode('fund created')),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }
