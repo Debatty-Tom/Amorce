@@ -26,6 +26,9 @@ class TeamCreate extends Component
         $this->feedback='Team member created successfully';
 
         $this->dispatch('closeModal');
+        $this->dispatch('openalert', message: $this->feedback);
+        $this->dispatch('refresh-users');
+
     }
 
     public function render()
