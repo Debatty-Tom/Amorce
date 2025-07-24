@@ -4,32 +4,41 @@ namespace Database\Seeders;
 
 use App\Enums\AttendancesStatuses;
 use App\Enums\EnumsDrawAssignmentsStatuses;
+use App\Enums\RolesEnum;
 use App\Models\Donator;
-
 use App\Models\Draw;
 use App\Models\Fund;
 use App\Models\Project;
 use App\Models\Stock;
 use App\Models\Transaction;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Traits\HandlesPermissions;
 
 class DatabaseSeeder extends Seeder
 {
+    use handlesPermissions;
+
     /**
      * Seed the application's database.
      */
     public function run(): void
     {
+        $this->generateAndAssignPermissions();
 
         User::factory(6)
             ->hasTodos(6)
-            ->create();
+            ->create()
+            ->each(function ($user) {
+                $user->assignRole(\App\Enums\RolesEnum::MEMBER->value);
+            });
+
         Stock::factory(6)->create();
+
         Fund::factory(6)
             ->hasTransactions(12)
             ->create();
+
         Project::factory(6)->create();
 
         Draw::factory(6)
@@ -37,7 +46,7 @@ class DatabaseSeeder extends Seeder
                 Donator::factory()
                     ->count(6),
                 ['created_at' => now(), 'updated_at' => now()]
-                )
+            )
             ->hasAttached(
                 Project::factory()
                     ->count(6),
@@ -60,16 +69,19 @@ class DatabaseSeeder extends Seeder
             'name' => 'admin',
             'email' => 'tom.debatty@hotmail.be',
             'password' => 'Azertyui1@',
-        ]);
+        ])
+        ->assignRole(RolesEnum::ADMIN->value);
         User::factory()->create([
             'name' => 'Dominique Vilain',
             'email' => 'dominique.vilain@hepl.be',
             'password' => 'zukrap-6zEzny-jesboq',
-        ]);
+        ])
+        ->assignRole(RolesEnum::ACCOUNTANT->value);
         User::factory()->create([
             'name' => 'Michael Lecerf',
             'email' => 'michael@lecerf.be',
             'password' => 'cuwfi5-fokfij-copdaT',
-        ]);
+        ])
+        ->assignRole(RolesEnum::USERMANAGER->value);
     }
 }
