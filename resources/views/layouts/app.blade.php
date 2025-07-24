@@ -23,5 +23,6 @@
             </main>
         </div>
     @livewire('layout.wire-element-modal')
+    @livewire('layout.card-modal')
     </body>
 </html>
