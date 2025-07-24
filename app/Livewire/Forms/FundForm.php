@@ -23,7 +23,7 @@ class FundForm extends Form
     public function setFund($fund)
     {
         $this->fund = $fund;
-        
+
         $this->title = $fund->title;
         $this->description = $fund->description;
         $this->type = $fund->type;

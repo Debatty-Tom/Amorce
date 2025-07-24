@@ -9,7 +9,6 @@ use Livewire\Component;
 
 class FundEdit extends Component
 {
-    use DeleteModalTrait;
     public $feedback = '';
     public FundForm $form;
     public $fund;
@@ -28,18 +27,6 @@ class FundEdit extends Component
         $this->dispatch('closeModal');
         $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
         $this->dispatch('refresh-fund');
-    }
-
-    public function deleteFund()
-    {
-        $this->fund->delete();
-
-        $this->feedback='Fund deleted successfully';
-
-        $this->dispatch('refresh-funds');
-        $this->showDeleteModal = false;
-        $this->dispatch('closeModal');
-        $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
     }
     public function render()
     {

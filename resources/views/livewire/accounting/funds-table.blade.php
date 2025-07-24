@@ -34,5 +34,16 @@
                 </li>
             @endforeach
         </ul>
+        <h3>
+            {{ __('Archived funds') }}
+        </h3>
+        <ul class="grid grid-cols-4 gap-4 p-8">
+            @foreach($this->archivedFunds as $fund)
+                <li wire:key="{{$fund->fund_id}}">
+                    <livewire:accounting.fund-card :fund="$fund">
+                    </livewire:accounting.fund-card>
+                </li>
+            @endforeach
+        </ul>
     </div>
 </section>
