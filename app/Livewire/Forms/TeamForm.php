@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -18,27 +19,43 @@ class TeamForm extends Form
     #[Validate]
     public $image;
 
-    public function setUser($user)
+    public function setUser($user): void
     {
+        $this->user = $user;
+
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->password = $user->email;
-        $this->image = $user->image;
+        $this->password = '';
+        $this->image = null;
     }
-    public function rules()
+
+    public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:100','nullable'],
-            'email' => ['email', 'max:50', 'nullable'],
-            'password' => ['required', 'string', 'max:100','nullable'],
+            'name' => ['required', 'string', 'max:100'],
+            'email' => ['required', 'email', 'max:50'],
+            'password' => ['nullable', 'string', 'min:6'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048', 'dimensions:max_width=1000,max_height=1000'],
         ];
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
 
-        $this->user->update($this->except('user'));
+        $data = [
+            'name' => $this->name,
+            'email' => $this->email,
+            'image' => $this->image,
+        ];
+
+        if (!empty($this->password)) {
+            $data['password'] = bcrypt($this->password);
+        }
+        if ($this->image) {
+            $data['picture_path'] = Storage::disk('public')
+                ->put('images/users', $data['image']);
+        }
+        $this->user->update($data);
     }
 }

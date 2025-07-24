@@ -4,17 +4,17 @@ namespace App\Livewire\Modals;
 
 use App\Livewire\Forms\TeamForm;
 use App\Models\User;
+use App\Traits\DeleteModalTrait;
 use App\Traits\handlesImagesUpload;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class TeamEdit extends Component
 {
-    use WithFileUploads, handlesImagesUpload;
+    use WithFileUploads, handlesImagesUpload, DeleteModalTrait;
     public $feedback = '';
     public $user;
     public TeamForm $form;
-    public $showDeleteModal = false;
     public $loading;
     public function mount(User $user)
     {
@@ -29,15 +29,6 @@ class TeamEdit extends Component
         $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
         $this->dispatch('refresh-users');
 
-    }
-    public function confirmDelete()
-    {
-        $this->showDeleteModal = true;
-    }
-
-    public function cancelDelete()
-    {
-        $this->showDeleteModal = false;
     }
 
     public function deleteTeam()
