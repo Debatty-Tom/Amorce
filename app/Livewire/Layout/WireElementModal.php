@@ -13,11 +13,13 @@ class WireElementModal extends Component
     protected $listeners = [
         'openModal',
     ];
+    public array $componentParams;
 
     #[On('openModal')]
     public function openModal($component, $params = null)
     {
         $this->livewireComponent = $component;
+        $this->componentParams = $params ?? [];
         $this->isOpen = true;
     }
 
@@ -26,6 +28,7 @@ class WireElementModal extends Component
     {
         $this->isOpen = false;
         $this->livewireComponent = null;
+        $this->componentParams = [];
     }
 
     public function render()

@@ -33,11 +33,7 @@
         </div>
         <div x-show="livewireComponent" class="p-6">
             @if($livewireComponent)
-                <livewire:dynamic-component
-                    :component="$livewireComponent"
-                    :key="$livewireComponent"
-                    :params="$componentParams ?? []"
-                />
+                @livewire($livewireComponent, $componentParams, key($livewireComponent))
             @endif
         </div>
     </div>
