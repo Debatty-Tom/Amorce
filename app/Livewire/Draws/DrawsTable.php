@@ -4,6 +4,7 @@ namespace App\Livewire\Draws;
 
 use App\Models\Draw;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DrawsTable extends Component
@@ -17,6 +18,11 @@ class DrawsTable extends Component
     public function nextDraws()
     {
         return Draw::orderBy('date')->where('date', '>', now())->get();
+    }
+    #[On('refresh-draws')]
+    public function refreshDraws(): void
+    {
+        return;
     }
     public function render()
     {

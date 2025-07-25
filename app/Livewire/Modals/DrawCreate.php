@@ -14,8 +14,7 @@ class DrawCreate extends Component
     public $feedback = '';
     public DrawForm $form;
     public $loading;
-    public Draw $draw;
-    public string $test;
+    public $draw;
     public $projects;
     public $selectedProjects = [];
 
@@ -54,7 +53,11 @@ class DrawCreate extends Component
             ]
         );
 
+        $this->feedback='Draw created successfully';
+
         $this->dispatch('closeModal');
+        $this->dispatch('openalert', message: $this->feedback);
+        $this->dispatch('refresh-draws');
     }
 
     public function getDonatorContact($participant): string
