@@ -7,28 +7,31 @@ use App\Models\Project;
 use App\Traits\DeleteModalTrait;
 use Livewire\Component;
 
-class ProjectEdit extends Component
+class ProjectShow extends Component
 {
+    use DeleteModalTrait;
     public ProjectForm $form;
     public $project;
     public $feedback = '';
+
     public function mount(Project $project)
     {
         $this->form->setProject($project);
         $this->project = Project::find($project['id']);
-        $this->dispatch('closeCardModal');
     }
-    public function save(){
-        $this->form->update();
-        $this->feedback='Project updated successfully';
+    public function deleteProject()
+    {
+        $this->project->delete();
 
-        $this->dispatch('closeModal');
-        $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
+        $this->feedback='Project deleted successfully';
+
         $this->dispatch('refresh-projects');
+        $this->showDeleteModal = false;
+        $this->dispatch('closeCardModal');
+        $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
     }
-
     public function render()
     {
-        return view('livewire.modals.project-edit');
+        return view('livewire.modals.project-show');
     }
 }
