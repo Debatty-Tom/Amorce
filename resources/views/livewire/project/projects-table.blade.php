@@ -17,7 +17,7 @@
                     <div
                         class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3">
                         <a href="" class="inset-0 absolute z-10" x-data="{ model: @js($project) }"
-                           wire:click.prevent="$dispatch('openCardModal',{component: 'modals.team-edit', params: { project: { id: {{ $project->id }} } }})">
+                           wire:click.prevent="$dispatch('openCardModal',{component: 'modals.project-edit', params: { project: { id: {{ $project->id }} } }})">
                             <span class="sr-only">{{ __("Edit project") }}</span>
                         </a>
                         <p class="text-center text-[#202224] text-lg font-bold">{{ $project->title }}</p>
@@ -39,7 +39,7 @@
                     <div
                         class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3">
                         <a href="" class="inset-0 absolute z-10" x-data="{ model: @js($project) }"
-                           wire:click.prevent="$dispatch('openCardModal',{component: 'modals.team-edit', params: { project: { id: {{ $project->id }} } }})">
+                           wire:click.prevent="$dispatch('openCardModal',{component: 'modals.project-edit', params: { project: { id: {{ $project->id }} } }})">
                             <span class="sr-only">{{ __("Edit project") }}</span>
                         </a>
                         <p class="text-center text-[#202224] text-lg font-bold">{{ $project->title }}</p>
@@ -61,7 +61,7 @@
                     <div
                         class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3">
                         <a href="" class="inset-0 absolute z-10" x-data="{ model: @js($project) }"
-                           wire:click.prevent="$dispatch('openCardModal',{component: 'modals.team-edit', params: { project: { id: {{ $project->id }} } }})">
+                           wire:click.prevent="$dispatch('openCardModal',{component: 'modals.project-edit', params: { project: { id: {{ $project->id }} } }})">
                             <span class="sr-only">{{ __("Edit project") }}</span>
                         </a>
                         <p class="text-center text-[#202224] text-lg font-bold">{{ $project->title }}</p>

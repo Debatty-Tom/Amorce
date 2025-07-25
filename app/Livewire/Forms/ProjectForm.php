@@ -18,6 +18,8 @@ class ProjectForm extends Form
 
     public function setProject($project)
     {
+        $this->project = $project;
+
         $this->title = $project->title;
         $this->description = $project->description;
         $this->email = $project->email;
@@ -35,7 +37,7 @@ class ProjectForm extends Form
     {
         $this->validate();
 
-        $this->draw->update($this->except('draw'));
+        $this->project->update($this->except('draw'));
     }
 
     public function create()
