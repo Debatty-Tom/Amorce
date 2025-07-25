@@ -34,12 +34,26 @@
             />
             @error('form.email')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
         </div>
-        <div class="flex justify-end">
+        <div class="flex justify-end gap-4">
+            <x-delete-button click="confirmDelete">
+            </x-delete-button>
             <button
                 class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
                 {{ __("Edit this project") }}
             </button>
         </div>
     </form>
+    @if($showDeleteModal)
+        <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+            <div class="bg-white p-6 rounded-lg">
+                <h2 class="text-xl font-bold mb-4">Confirmer la suppression</h2>
+                <p>Êtes-vous sûr de vouloir supprimer ce fond ? Cette action est irréversible.</p>
+                <div class="mt-6 flex justify-end gap-3">
+                    <x-cancel-button click="cancelDelete"></x-cancel-button>
+                    <x-confirm-delete-button click="deleteProject"></x-confirm-delete-button>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 
