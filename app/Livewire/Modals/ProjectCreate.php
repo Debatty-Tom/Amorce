@@ -18,6 +18,8 @@ class ProjectCreate extends Component
         $this->feedback='Project created successfully';
 
         $this->dispatch('closeModal');
+        $this->dispatch('openalert', message: $this->feedback);
+        $this->dispatch('refresh-projects');
     }
 
     public function render()
