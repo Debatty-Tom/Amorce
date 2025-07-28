@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Todo;
+use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -20,7 +21,7 @@ class TodoForm extends Form
     {
         $this->title = $todo->title;
         $this->description = $todo->description;
-        $this->date = $todo->date;
+        $this->date = Carbon::parse($todo->date)->format('Y-m-d');
     }
     public function rules()
     {
