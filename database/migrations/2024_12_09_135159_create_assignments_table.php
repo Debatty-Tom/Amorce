@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('todo_id');
+            $table->unsignedBigInteger('assigned_by');
             $table->timestamps();
         });
     }

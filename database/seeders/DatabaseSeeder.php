@@ -5,11 +5,13 @@ namespace Database\Seeders;
 use App\Enums\AttendancesStatuses;
 use App\Enums\EnumsDrawAssignmentsStatuses;
 use App\Enums\RolesEnum;
+use App\Models\Assignment;
 use App\Models\Donator;
 use App\Models\Draw;
 use App\Models\Fund;
 use App\Models\Project;
 use App\Models\Stock;
+use App\Models\Todo;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -27,7 +29,15 @@ class DatabaseSeeder extends Seeder
         $this->generateAndAssignPermissions();
 
         User::factory(6)
-            ->hasTodos(6)
+            ->hasAttached(
+                Todo::factory()
+                    ->count(6),
+                fn() => [
+                    'assigned_by' => User::inRandomOrder()->first()->id,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]
+            )
             ->create()
             ->each(function ($user) {
                 $user->assignRole(\App\Enums\RolesEnum::MEMBER->value);
@@ -70,18 +80,18 @@ class DatabaseSeeder extends Seeder
             'email' => 'tom.debatty@hotmail.be',
             'password' => 'Azertyui1@',
         ])
-        ->assignRole(RolesEnum::ADMIN->value);
+            ->assignRole(RolesEnum::ADMIN->value);
         User::factory()->create([
             'name' => 'Dominique Vilain',
             'email' => 'dominique.vilain@hepl.be',
             'password' => 'zukrap-6zEzny-jesboq',
         ])
-        ->assignRole(RolesEnum::ACCOUNTANT->value);
+            ->assignRole(RolesEnum::ACCOUNTANT->value);
         User::factory()->create([
             'name' => 'Michael Lecerf',
             'email' => 'michael@lecerf.be',
             'password' => 'cuwfi5-fokfij-copdaT',
         ])
-        ->assignRole(RolesEnum::USERMANAGER->value);
+            ->assignRole(RolesEnum::USERMANAGER->value);
     }
 }

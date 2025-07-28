@@ -3,11 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Assignment extends Model
 {
-    public function todos(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function todos(): BelongsTo
     {
         return $this->belongsTo(Todo::class);
+    }
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function assignedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'assigned_by');
     }
 }

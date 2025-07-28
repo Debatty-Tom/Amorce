@@ -55,4 +55,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Todo::class, Assignment::class);
     }
+    public function assignedTasks()
+    {
+        return $this->hasMany(Assignment::class, 'assigned_by');
+    }
 }
