@@ -14,7 +14,7 @@
         <ul class="p-4 grid grid-cols-4 gap 4">
             @foreach($this->nextDraws as $this->draw)
                 <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow" wire:key="{{$this->draw->id}}">
-                    <a href="{{ route('draw.show',$this->draw->id)}}" class="inset-0 absolute"></a>
+                    <a href="{{ route('draw.show',$this->draw->id)}}" wire:navigate class="inset-0 absolute"></a>
                     <div class="flex flex-row gap-10">
                         <div>
                             <p>
@@ -59,7 +59,7 @@
         <ul class="p-4 grid grid-cols-4 gap 4">
             @foreach($this->pastDraws as $this->draw)
                 <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow" wire:key="{{$this->draw->id}}">
-                    <a href="{{ route('draw.show',$this->draw->id)}}" class="inset-0 absolute"></a>
+                    <a href="{{ route('draw.show',$this->draw->id)}}" wire:navigate class="inset-0 absolute"></a>
                     <div class="flex flex-row gap-10">
                         <div>
                             <p>

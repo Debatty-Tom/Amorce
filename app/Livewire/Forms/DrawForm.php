@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\Donator;
 use App\Models\Draw;
+use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -26,7 +27,7 @@ class DrawForm extends Form
         $this->title = $draw->title;
         $this->description = $draw->description;
         $this->amount = $draw->amount;
-        $this->date = $draw->date;
+        $this->date = Carbon::parse($draw->date)->format('Y-m-d');
         $this->new_participants = [];
     }
     public function rules()
