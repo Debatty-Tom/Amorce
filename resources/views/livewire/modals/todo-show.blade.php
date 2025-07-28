@@ -29,16 +29,16 @@
             </ul>
         </div>
 
-        @hasanyrole(\App\Enums\RolesEnum::ADMIN->value)
-        <div class="flex justify-end gap-4 mt-4">
-            <x-delete-button click="confirmDelete"/>
-            <button
+        @if(auth()->user()->hasRole(\App\Enums\RolesEnum::ADMIN->value) || auth()->id() === $todo->assignments[0]->assignedBy->id)
+            <div class="flex justify-end gap-4 mt-4">
+                <x-delete-button click="confirmDelete"/>
+                <button
                     wire:click.prevent="$dispatch('openModal',{component: 'modals.todo-edit', params: { todo: { id: {{ $todo->id }} } }})"
                     class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __('Edit this todo') }}
-            </button>
-        </div>
-        @endhasanyrole
+                    {{ __('Edit this todo') }}
+                </button>
+            </div>
+        @endif
     </div>
 
     @if($showDeleteModal)
