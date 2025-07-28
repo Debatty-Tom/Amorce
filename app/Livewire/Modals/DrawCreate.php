@@ -2,21 +2,27 @@
 
 namespace App\Livewire\Modals;
 
+use App\Enums\AttendancesStatuses;
 use App\Livewire\Forms\DrawForm;
 use App\Models\Donator;
 use App\Models\Draw;
 use App\Models\Project;
+use App\Traits\HandlesNumbers;
+use Illuminate\Support\Collection;
 use Livewire\Component;
 use function Pest\Laravel\get;
 
 class DrawCreate extends Component
 {
+    use HandlesNumbers;
     public $feedback = '';
     public DrawForm $form;
     public $loading;
     public $draw;
     public $projects;
     public $selectedProjects = [];
+    public $lastDraw;
+    public Collection $oldParticipants;
 
     public function mount(Draw $draw)
     {
@@ -25,24 +31,40 @@ class DrawCreate extends Component
 
         $this->projects = Project::whereDoesntHave('draws')->get();
     }
-
-    public function normalizeNumber($input)
+    public function loadOldParticipants()
     {
-        if (str_contains($input, '.') !== false) {
-            return str_replace('.', '', $input);
-        } else {
-            return $input * 100;
-        }
+        $this->lastDraw = Draw::with('donators')->latest('date')->first();
+
+        $this->oldParticipants = $this->lastDraw
+            ? $this->lastDraw->donators()->orderBy('created_at')->take(9)->get()->slice(3, 6)
+            : collect();
     }
+
 
     public function save()
     {
+        $this->loadOldParticipants();
+
         $this->form->amount = $this->normalizeNumber($this->form->amount);
         $this->draw = $this->form->create();
         $this->feedback = 'Draw created successfully';
+
+        $this->draw->donators()->attach(
+            $this->oldParticipants, [
+                'contact' => null,
+                'status' => AttendancesStatuses::Validated->value,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        );
         foreach ($this->form->new_participants as $participant) {
             $participantContact = $this->getDonatorContact($participant);
-            $this->draw->donators()->attach($participant, ['contact' => $participantContact, 'status' => 'pending']);
+            $this->draw->donators()->attach($participant, [
+                'contact' => $participantContact,
+                'status' => AttendancesStatuses::Pending->value,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
         }
         $this->draw->projects()->attach(
             $this->selectedProjects, [

@@ -51,29 +51,67 @@ class DatabaseSeeder extends Seeder
 
         Project::factory(6)->create();
 
-        Draw::factory(6)
-            ->hasAttached(
-                Donator::factory()
-                    ->count(6),
-                ['created_at' => now(), 'updated_at' => now()]
-            )
-            ->hasAttached(
-                Project::factory()
-                    ->count(6),
-                fn() => [
-                    'status' => ($status = collect([
-                        EnumsDrawAssignmentsStatuses::funded->value,
-                        EnumsDrawAssignmentsStatuses::refused->value,
-                        EnumsDrawAssignmentsStatuses::pending->value,
-                    ])->random()),
-                    'amount' => $status != EnumsDrawAssignmentsStatuses::funded->value
+        $donatorsPool = Donator::factory(20)->create();
+        $drawCount = 6;
+        $activeParticipants = collect();
+
+        for ($i = 1; $i <= $drawCount; $i++) {
+            $activeParticipants = $activeParticipants->map(function ($participant) {
+                $participant['remaining_turns']--;
+                return $participant;
+            })->filter(fn ($p) => $p['remaining_turns'] > 0)->values();
+
+            $currentIds = $activeParticipants->pluck('donator_id')->toArray();
+
+            $needed = 9 - count($currentIds);
+            $newDonators = $donatorsPool->whereNotIn('id', $currentIds)->random($needed);
+
+            foreach ($newDonators as $new) {
+                $activeParticipants->push([
+                    'donator_id' => $new->id,
+                    'remaining_turns' => 3,
+                ]);
+            }
+
+            $draw = Draw::factory()->create();
+
+            $donatorIds = $activeParticipants->pluck('donator_id')->toArray();
+            $draw->donators()->attach($donatorIds, [
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            $projects = Project::factory(6)->create();
+
+            $pivotData = [];
+
+            foreach ($projects as $project) {
+                $status = collect([
+                    EnumsDrawAssignmentsStatuses::funded->value,
+                    EnumsDrawAssignmentsStatuses::refused->value,
+                    EnumsDrawAssignmentsStatuses::pending->value,
+                ])->random();
+
+                $pivotData[$project->id] = [
+                    'status' => $status,
+                    'amount' => $status !== EnumsDrawAssignmentsStatuses::funded->value
                         ? 0
                         : random_int(0, 1000),
                     'created_at' => now(),
                     'updated_at' => now(),
-                ]
-            )
-            ->create();
+                ];
+            }
+
+            $draw->projects()->attach($pivotData);
+        }
+
+        Fund::factory()
+            ->hasTransactions(12)
+            ->create([
+            'title' => 'Général',
+            'description' => 'Le fonds général est utilisé pour les dépenses courantes de l\'association.',
+            'type' => 'principal',
+        ]);
 
         User::factory()->create([
             'name' => 'admin',

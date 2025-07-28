@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Draw>
  */
 class DrawFactory extends Factory
 {
@@ -20,7 +20,7 @@ class DrawFactory extends Factory
             'title'=> $this->faker->words(3, true),
             'description'=> $this->faker->words(4, true),
             'amount'=> $this->faker->numberBetween(0, 100000),
-            'date'=> $this->faker->dateTimeBetween('-1 year','2 year')
+            'date'=> $this->faker->dateTimeBetween('-2 year','-1 day')
         ];
     }
 }
