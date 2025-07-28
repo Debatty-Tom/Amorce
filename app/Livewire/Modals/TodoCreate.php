@@ -29,12 +29,11 @@ class TodoCreate extends Component
     {
         $this->todo = $this->form->create();
 
-        $this->todo->users()->attach($this->selectedUsers, ['created_at' => now(), 'updated_at' => now()]);
+        $this->todo->users()->attach($this->selectedUsers, ['assigned_by' => auth()->id(), 'created_at' => now(), 'updated_at' => now()]);
 
         $this->feedback = 'Todo created successfully';
 
         $this->dispatch('closeModal');
-
     }
 
     public function render()
