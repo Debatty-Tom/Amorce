@@ -22,6 +22,8 @@ class TodoShow extends Component
     }
     public function deleteTodo()
     {
+        $this->todo->users()->detach();
+
         $this->todo->delete();
 
         $this->feedback='Todo deleted successfully';

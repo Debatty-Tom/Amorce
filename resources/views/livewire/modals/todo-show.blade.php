@@ -17,7 +17,7 @@
             </div>
             <div class="flex flex-col gap-1 w-1/2">
                 <p class="text-gray-800 font-semibold">{{ __('Assigned by') }}:</p>
-                <p class="text-gray-700">{{ $todo->assignments[0]->assignedBy->name }}</p>
+                <p class="text-gray-700">{{ $todo->assignments[0]->assignedBy->name ?? 'inconnu' }}</p>
             </div>
         </div>
         <div>
