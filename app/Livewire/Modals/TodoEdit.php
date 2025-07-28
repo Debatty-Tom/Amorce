@@ -26,7 +26,6 @@ class TodoEdit extends Component
     {
         $this->form->update();
 
-
         $currentUserIds = $this->todo->users->pluck('id')->toArray();
 
         $newUserIds = $this->selectedUsers;

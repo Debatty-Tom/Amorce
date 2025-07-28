@@ -6,6 +6,7 @@ use App\Models\Assignment;
 use App\Models\Todo;
 use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class TodosTable extends Component
@@ -13,9 +14,10 @@ class TodosTable extends Component
     #[computed]
     public function todos()
     {
-        return Todo::with(['assignments.assignedBy'])->get();
+        return Todo::with(['assignments.assignedBy'])->orderBy('created_at', 'desc')->get();
     }
 
+    #[on('refresh-todos')]
     public function refreshTodos()
     {
         return;
