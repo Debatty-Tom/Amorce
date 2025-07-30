@@ -24,9 +24,11 @@ class DrawForm extends Form
 
     public function setDraw($draw)
     {
+        $this->draw = $draw;
+
         $this->title = $draw->title;
         $this->description = $draw->description;
-        $this->amount = $draw->amount;
+        $this->amount = $draw->amount ?? 0;
         $this->date = Carbon::parse($draw->date)->format('Y-m-d');
         $this->new_participants = [];
     }

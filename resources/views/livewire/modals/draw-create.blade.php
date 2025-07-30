@@ -24,12 +24,23 @@
             />
             @error('form.description')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
         </div>
-        <div>
-            <x-input-label for="amount" value="{{ __('Amount') }}"/>
-            <x-text-input
-                id="amount"
+        <div
+            class="flex items-center gap-4 mt-2">
+            <input
+                type="range"
+                min="0"
+                max="{{ $this->rangeMax }}"
+                step="0.01"
+                class="w-full"
+                wire:model.blur="form.amount"
+            />
+
+            <input
                 type="number"
                 step="0.01"
+                min="0"
+                :max="{{ $this->rangeMax }}"
+                class="border p-2 rounded w-24"
                 wire:model.blur="form.amount"
             />
             @error('form.amount')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror

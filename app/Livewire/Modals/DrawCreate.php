@@ -7,6 +7,8 @@ use App\Livewire\Forms\DrawForm;
 use App\Models\Donator;
 use App\Models\Draw;
 use App\Models\Project;
+use App\Models\Transaction;
+use App\Traits\HandlesDonators;
 use App\Traits\HandlesNumbers;
 use Illuminate\Support\Collection;
 use Livewire\Component;
@@ -14,7 +16,7 @@ use function Pest\Laravel\get;
 
 class DrawCreate extends Component
 {
-    use HandlesNumbers;
+    use HandlesNumbers, HandlesDonators;
     public $feedback = '';
     public DrawForm $form;
     public $loading;
@@ -49,6 +51,17 @@ class DrawCreate extends Component
         $this->draw = $this->form->create();
         $this->feedback = 'Draw created successfully';
 
+        Transaction::create([
+            'fund_id' => $this->generalFund->id,
+            'amount' => - $this->form->amount,
+            'date' => now(),
+            'title' => 'Assignation du budget de la détente du ' . $this->draw->date->format('d/m/Y'),
+            'description' => 'Assignation du budget de la détente du ' . $this->draw->date->format('d/m/Y'),
+            'hash' => md5(json_encode('draw credited')),
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         $this->draw->donators()->attach(
             $this->oldParticipants, [
                 'contact' => null,
@@ -80,18 +93,6 @@ class DrawCreate extends Component
         $this->dispatch('closeModal');
         $this->dispatch('openalert', message: $this->feedback);
         $this->dispatch('refresh-draws');
-    }
-
-    public function getDonatorContact($participant): string
-    {
-        if ($participant->email === null) {
-            if ($participant->phone === null) {
-                return $participant->address;
-            } else {
-                return $participant->phone;
-            }
-        }
-        return $participant->email;
     }
 
     public function randomParticipants()
