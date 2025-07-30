@@ -1,7 +1,7 @@
-<div x-data="{user_name:$wire.form.name}">
+<div>
     <h2 class="text-3xl font-bold mb-5">
         <a class="text-indigo-400 hover:text-indigo-600"
-           href="{{ route('accounting.index') }}" wire:navigate>{{ __('Create a new Draw') }}
+           href="{{ route('accounting.index') }}" wire:navigate>{{ __('Edit this draw') }}
         </a>
     </h2>
     <form wire:submit.prevent="save" enctype="multipart/form-data"
@@ -24,8 +24,7 @@
             />
             @error('form.description')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
         </div>
-        <div
-            class="flex items-center gap-4 mt-2">
+        <div class="flex items-center gap-4 mt-2">
             <input
                 type="range"
                 min="0"
@@ -54,12 +53,12 @@
             />
             @error('form.date')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
         </div>
-        <div class="flex justify-between">
-            <p class="pb-8 pr-6 w-full lg:w-1/2">
-                {{ __("The 3 next participants :") }}
+        <div class="flex flex-col gap-3">
+            <p class="pr-6 w-full lg:w-1/2">
+                {{ __("All the participants :") }}
             </p>
             <ul class="grid grid-cols-3 gap-5">
-                @foreach($this->form->new_participants as $participant)
+                @foreach($this->form->lockedDonators as $participant)
                     <li wire:key="{{ $participant->id }}"
                         class="bg-slate-100 shadow-md rounded-lg p-6 flex flex-col justify-between items-start">
                         <p class="text-lg font-semibold text-gray-800">
@@ -67,19 +66,43 @@
                         </p>
                     </li>
                 @endforeach
+                @foreach($this->form->new_participants as $participant)
+                    <li wire:key="{{ $participant->id }}"
+                        class="bg-white border border-gray-200 shadow-sm rounded-xl p-4 flex items-center justify-between hover:shadow-md transition duration-300">
+                        <p class="text-gray-800 font-medium text-lg">
+                            {{ $participant->name }}
+                        </p>
+                        <button
+                            wire:click.prevent="removeParticipant({{ $participant->id }})"
+                            class="text-red-500 hover:text-red-700 text-2xl transition duration-200 p-2 rounded-full hover:bg-red-100"
+                            title="{{ __('Remove') }}"
+                        >
+                            &times
+                        </button>
+                    </li>
+                @endforeach
             </ul>
-            @if($this->randomButton)
-                <button wire:click.prevent="addNewParticipants"
-                        class="flex items-center btn-indigo ml-auto">
-                    {{ __("Start random") }}
-                </button>
-            @endif
         </div>
         <p>
             {{ __("Select the projects you want in this draw") }}
         </p>
         <ul class="grid grid-cols-3 gap-5">
-            @foreach ($projects as $project)
+            @foreach ($this->draw->projects as $project)
+                <li class="w-full bg-slate-100 shadow-md rounded-lg flex flex-col justify-between items-start"
+                    wire:key="{{ $project->id }}">
+                    <div class="flex items-center gap-4">
+                        <input id="{{ $project->id }}"
+                               type="checkbox"
+                               name="{{ __("projects[]") }}"
+                               wire:model="selectedProjects"
+                               class="h-4 w-4 ml-6 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                               value="{{ $project->id }}">
+                        <label for="{{ $project->id }}"
+                               class="w-full pt-6 pb-6 pr-6 text-lg font-semibold text-gray-800">{{ $project->title }}</label>
+                    </div>
+                </li>
+            @endforeach
+            @foreach ($this->projects as $project)
                 <li class="w-full bg-slate-100 shadow-md rounded-lg flex flex-col justify-between items-start"
                     wire:key="{{ $project->id }}">
                     <div class="flex items-center gap-4">
@@ -98,7 +121,7 @@
         <div class="flex justify-end">
             <button
                 class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __("Create a Draw") }}
+                {{ __("Edit Draw") }}
             </button>
         </div>
     </form>

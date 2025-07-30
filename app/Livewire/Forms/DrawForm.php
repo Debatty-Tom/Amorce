@@ -21,16 +21,19 @@ class DrawForm extends Form
     public $date;
     #[Validate]
     public $new_participants;
+    public $lockedDonators;
 
     public function setDraw($draw)
     {
         $this->draw = $draw;
 
+        $this->lockedDonators = $this->draw->donators->sortBy('created_at')->take(9)->slice(0, 6)->values();
+        $this->new_participants = $this->draw->donators->sortBy('created_at')->take(9)->slice(6, 3)->values();
+
         $this->title = $draw->title;
         $this->description = $draw->description;
-        $this->amount = $draw->amount ?? 0;
+        $this->amount = $draw->amount/100 ?? 0;
         $this->date = Carbon::parse($draw->date)->format('Y-m-d');
-        $this->new_participants = [];
     }
     public function rules()
     {

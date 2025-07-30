@@ -31,15 +31,21 @@ class DrawCreate extends Component
         $this->form->setDraw($draw);
         $this->draw = $draw;
 
+        $this->randomButton = true;
         $this->projects = Project::whereDoesntHave('draws')->get();
+        $this->lastDraw = Draw::with('donators')->latest('date')->first();
     }
     public function loadOldParticipants()
     {
-        $this->lastDraw = Draw::with('donators')->latest('date')->first();
-
         $this->oldParticipants = $this->lastDraw
             ? $this->lastDraw->donators()->orderBy('created_at')->take(9)->get()->slice(3, 6)
             : collect();
+    }
+
+    public function addNewParticipants()
+    {
+        $this->randomParticipants(excludedIds: $this->getExcludedIds($this->lastDraw));
+        $this->randomButton = false;
     }
 
 
@@ -93,11 +99,6 @@ class DrawCreate extends Component
         $this->dispatch('closeModal');
         $this->dispatch('openalert', message: $this->feedback);
         $this->dispatch('refresh-draws');
-    }
-
-    public function randomParticipants()
-    {
-        $this->form->new_participants = Donator::inRandomOrder()->limit(3)->get();
     }
 
     public function render()
