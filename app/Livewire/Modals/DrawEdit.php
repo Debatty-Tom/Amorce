@@ -3,6 +3,7 @@
 namespace App\Livewire\Modals;
 
 use App\Enums\AttendancesStatuses;
+use App\Enums\RolesEnum;
 use App\Livewire\Forms\DrawForm;
 use App\Models\Draw;
 use App\Models\Fund;
@@ -145,6 +146,9 @@ class DrawEdit extends Component
 
     public function save()
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier une détente.');
+        }
 
         $this->form->amount = $this->normalizeNumber($this->form->amount);
 

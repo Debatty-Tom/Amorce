@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Modals;
 
+use App\Enums\RolesEnum;
 use App\Livewire\Forms\FundForm;
 use App\Models\Fund;
 use App\Traits\DeleteModalTrait;
@@ -21,6 +22,9 @@ class FundEdit extends Component
 
     public function save()
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des membres.');
+        }
         $this->form->update();
         $this->feedback = 'Fund updated successfully';
 

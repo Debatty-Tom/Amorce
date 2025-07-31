@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Modals;
 
+use App\Enums\RolesEnum;
 use App\Livewire\Forms\ProjectForm;
 use App\Models\Project;
 use App\Traits\DeleteModalTrait;
@@ -19,6 +20,9 @@ class ProjectEdit extends Component
         $this->dispatch('closeCardModal');
     }
     public function save(){
+        if (!auth()->user()->hasAnyRole(RolesEnum::PROJECTMANAGER->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des projets.');
+        }
         $this->form->update();
         $this->feedback='Project updated successfully';
 

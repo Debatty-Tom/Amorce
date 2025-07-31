@@ -3,6 +3,7 @@
 namespace App\Livewire\Modals;
 
 use App\Enums\AttendancesStatuses;
+use App\Enums\RolesEnum;
 use App\Livewire\Forms\DrawForm;
 use App\Models\Donator;
 use App\Models\Draw;
@@ -51,6 +52,9 @@ class DrawCreate extends Component
 
     public function save()
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des détentes.');
+        }
         $this->loadOldParticipants();
 
         $this->form->amount = $this->normalizeNumber($this->form->amount);

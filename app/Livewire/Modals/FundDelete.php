@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Modals;
 
+use App\Enums\RolesEnum;
 use App\Livewire\Forms\FundForm;
 use App\Models\Fund;
 use App\Models\Transaction;
@@ -51,6 +52,9 @@ class FundDelete extends Component
 
     public function assign($fundId, $amount)
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission d’assigner de l’argent.');
+        }
         $targetFund = Fund::findOrFail($fundId);
 
         Transaction::create([
@@ -82,6 +86,10 @@ class FundDelete extends Component
 
     public function deleteFund()
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission de supprimer un fond.');
+        }
+
         $this->sourceFund->delete();
 
         $this->feedback = 'Fund archived successfully';

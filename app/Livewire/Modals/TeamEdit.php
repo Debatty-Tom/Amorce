@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Modals;
 
+use App\Enums\RolesEnum;
 use App\Livewire\Forms\TeamForm;
 use App\Models\User;
 use App\Traits\DeleteModalTrait;
 use App\Traits\handlesImagesUpload;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Spatie\Permission\Models\Role;
 
 class TeamEdit extends Component
 {
@@ -15,13 +17,18 @@ class TeamEdit extends Component
     public $feedback = '';
     public $user;
     public TeamForm $form;
+    public $roles;
     public $loading;
     public function mount(User $user)
     {
         $this->form->setUser($user);
         $this->user = User::find($user['id']);
+        $this->roles = Role::pluck('name', 'id')->toArray();
     }
     public function save(){
+        if (!auth()->user()->hasAnyRole(RolesEnum::USERMANAGER->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des membres.');
+        }
         $this->form->update();
         $this->feedback='User updated successfully';
 

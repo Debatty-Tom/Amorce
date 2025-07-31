@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Modals;
 
+use App\Enums\RolesEnum;
 use App\Livewire\Forms\ProjectForm;
 use App\Models\Project;
 use App\Traits\DeleteModalTrait;
@@ -21,6 +22,9 @@ class ProjectShow extends Component
     }
     public function deleteProject()
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::PROJECTMANAGER->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission de supprimer des projets.');
+        }
         $this->project->delete();
 
         $this->feedback='Project deleted successfully';

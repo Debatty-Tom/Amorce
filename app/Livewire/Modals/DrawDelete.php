@@ -3,6 +3,7 @@
 namespace App\Livewire\Modals;
 
 use App\Enums\EnumsDrawAssignmentsStatuses;
+use App\Enums\RolesEnum;
 use App\Models\Draw;
 use App\Models\Fund;
 use App\Models\Transaction;
@@ -43,6 +44,10 @@ class DrawDelete extends Component
 
     public function assign($projectId, $amount)
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission d’assigner de l’argent.');
+        }
+
         $current = Money::ofMinor($this->draw->amount, 'EUR');
         $subtraction = Money::of($amount, 'EUR');
 
@@ -60,6 +65,10 @@ class DrawDelete extends Component
     }
     public function deleteDraw()
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission de supprimer une détente.');
+        }
+
         $this->draw->delete();
 
         $this->feedback = 'Fund archived successfully';
