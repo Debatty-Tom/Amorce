@@ -1,9 +1,6 @@
 <div>
-    <h2 class="text-3xl font-bold mb-5">
-        <a class="text-indigo-400 hover:text-indigo-600"
-           href="{{ route('todo.index') }}" wire:navigate>
-            {{ __('Todo details') }}
-        </a>
+    <h2 class="text-3xl font-bold mb-5 text-indigo-400">
+        {{ __('Todo details') }}
     </h2>
     <div class="flex flex-col gap-3">
         <p class="text-gray-700 font-semibold">{{ $todo->title }}</p>

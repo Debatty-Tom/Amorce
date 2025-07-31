@@ -1,8 +1,6 @@
 <div x-data="{user_name:$wire.form.name}">
-    <h2 class="text-3xl font-bold mb-5">
-        <a class="text-indigo-400 hover:text-indigo-600"
-           href="{{ route('team.index') }}" wire:navigate>{{ __('Edit a team member') }}
-        </a>
+    <h2 class="text-3xl font-bold mb-5 text-indigo-400">
+        {{ __('Edit a team member') }}
     </h2>
     <form wire:submit.prevent="save" enctype="multipart/form-data"
           class="flex flex-col gap-3">

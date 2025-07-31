@@ -1,5 +1,7 @@
 <div>
-    <h2 class="text-3xl font-bold mb-5">{{ __("Update profile") }}</h2>
+    <h2 class="text-3xl font-bold mb-5 text-indigo-400">
+        {{ __("Update profile") }}
+    </h2>
     <form wire:submit.prevent="updateProfile" enctype="multipart/form-data" class="flex flex-col gap-3">
         <div class="flex gap-2 flex-col">
             <x-input-label for="name" value="Nom"/>

@@ -1,9 +1,6 @@
 <div x-data="{ user_name: @js($project->name) }">
-    <h2 class="text-3xl font-bold mb-5">
-        <a class="text-indigo-400 hover:text-indigo-600"
-           href="{{ route('projects.index') }}" wire:navigate>
-            {{ __('Project details') }}
-        </a>
+    <h2 class="text-3xl font-bold mb-5 text-indigo-400">
+        {{ __('Project details') }}
     </h2>
 
     <div class="flex flex-col gap-3">
