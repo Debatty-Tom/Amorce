@@ -9,19 +9,19 @@
     </div>
     <div>
         <h3 class="text-2xl">
-            {{ __('Next draws list') }}
+            {{ __('Waiting draws list') }}
         </h3>
         <ul class="p-4 grid grid-cols-4 gap 4">
-            @foreach($this->nextDraws as $this->draw)
-                <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow" wire:key="{{$this->draw->id}}">
-                    <a href="{{ route('draw.show',$this->draw->id)}}" wire:navigate class="inset-0 absolute"></a>
+            @foreach($this->pendingDraws as $draw)
+                <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow" wire:key="{{$draw->id}}">
+                    <a href="{{ route('draw.show',$draw->id)}}" wire:navigate class="inset-0 absolute"></a>
                     <div class="flex flex-row gap-10">
                         <div>
                             <p>
                                 {{__('Date :')}}
                             </p>
                             <p>
-                                {{ date_format(($this->draw->date), 'd/m/Y') }}
+                                {{ date_format(($draw->date), 'd/m/Y') }}
                             </p>
                         </div>
                         <div>
@@ -29,7 +29,7 @@
                                 {{__('Amount :')}}
                             </p>
                             <p>
-                                {{ number_format(($this->draw->amount/100),2, ',',' ')."€" }}
+                                {{ $this->amount($draw) }}
                             </p>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             {{__('Projects :')}}
                         </p>
                         <ul class="pl-3">
-                            @foreach($this->draw->projects as $project)
+                            @foreach($draw->projects as $project)
                                 <li class="list-disc">
                                     <p>
                                         {{$project->title }}
@@ -52,51 +52,58 @@
             @endforeach
         </ul>
     </div>
-    <div>
-        <h3 class="text-2xl">
-            {{ __('Past draws list') }}
-        </h3>
-        <ul class="p-4 grid grid-cols-4 gap 4">
-            @foreach($this->pastDraws as $this->draw)
-                <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow" wire:key="{{$this->draw->id}}">
-                    <a href="{{ route('draw.show',$this->draw->id)}}" wire:navigate class="inset-0 absolute"></a>
-                    <div class="flex flex-row gap-10">
-                        <div>
-                            <p>
-                                {{__('Date :')}}
-                            </p>
-                            <p>
-                                {{ date_format(($this->draw->date), 'd/m/Y') }}
-                            </p>
+    @if($this->archivedDraws->isNotEmpty())
+        <div>
+            <h3 class="text-2xl">
+                {{ __('Archived draws list') }}
+            </h3>
+            <ul class="p-4 grid grid-cols-4 gap 4">
+                @foreach($this->archivedDraws as $draw)
+                    <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow"
+                        wire:key="{{$draw->id}}">
+                        <a href="{{ route('draw.show',$draw->id)}}" wire:navigate class="inset-0 absolute"></a>
+                        <div class="flex flex-row gap-10">
+                            <div>
+                                <p>
+                                    {{__('Date :')}}
+                                </p>
+                                <p>
+                                    {{ date_format(($draw->date), 'd/m/Y') }}
+                                </p>
+                            </div>
+                            <div>
+                                <p>
+                                    {{__('Amount :')}}
+                                </p>
+                                <p>
+                                    {{ $this->amount($draw) }}
+                                </p>
+                            </div>
                         </div>
                         <div>
                             <p>
-                                {{__('Amount :')}}
+                                {{__('Projects :')}}
                             </p>
-                            <p>
-                                {{ number_format(($this->draw->amount/100),2, ',',' ')."€" }}
-                            </p>
+                            <ul class="pl-3">
+                                @foreach($draw->projects as $project)
+                                    <li class="list-disc">
+                                        <p>
+                                            @if($project->pivot->amount > 0)
+                                                {{$project->title }}&nbsp;:&nbsp;{{ $project->pivot->amount }}€
+                                            @else
+                                                {{$project->title }}
+                                            @endif
+                                        </p>
+                                    </li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </div>
-                    <div>
-                        <p>
-                            {{__('Projects :')}}
-                        </p>
-                        <ul class="pl-3">
-                            @foreach($this->draw->projects as $project)
-                                <li class="list-disc">
-                                    <p>
-                                        {{$project->title }}
-                                    </p>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </li>
+                    </li>
 
-            @endforeach
-        </ul>
-    </div>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="mt-4">
         <div class="flex justify-between items-center mb-8">
             <h1 class="font-bold text-2xl">

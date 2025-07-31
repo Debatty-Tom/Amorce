@@ -5,8 +5,14 @@
         </h2>
         @hasanyrole(\App\Enums\RolesEnum::DRAWMANAGER->value.'|'.
                             \App\Enums\RolesEnum::ADMIN->value)
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-edit', params: { draw: {{ $this->draw->id }} }})">{{ __('Edit this draw') }}</button>
+            @if(!$this->draw->trashed())
+                <div>
+                    <x-delete-button click="confirmDelete">
+                    </x-delete-button>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-edit', params: { draw: {{ $this->draw->id }} }})">{{ __('Edit this draw') }}</button>
+                </div>
+            @endif
         @endhasanyrole
     </div>
     <div>
@@ -38,9 +44,10 @@
         <ul class="grid grid-cols-4 gap-5">
             @foreach($this->draw->projects as $project)
                 <li class="flex justify-center" wire:key="{{$project->title}}">
-                    <div class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3">
+                    <div
+                        class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3">
                         <p class="text-center text-[#202224] text-lg font-bold">{{ $project->title }}</p>
-                        <p >
+                        <p>
                             {{ \Illuminate\Support\Str::limit($project->description, 100) }}
                         </p>
                     </div>
@@ -48,4 +55,16 @@
             @endforeach
         </ul>
     </div>
+    @if($showDeleteModal)
+        <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+            <div class="bg-white p-6 rounded-lg">
+                <h2 class="text-xl font-bold mb-4">Confirmer l’archive</h2>
+                <p>Êtes-vous sûr de vouloir archiver ce fond ?</p>
+                <div class="mt-6 flex justify-end gap-3">
+                    <x-cancel-button click="cancelDelete"></x-cancel-button>
+                    <x-confirm-delete-button click="tryDeleteOptions"></x-confirm-delete-button>
+                </div>
+            </div>
+        </div>
+    @endif
 </section>
