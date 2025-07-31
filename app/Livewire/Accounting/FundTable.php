@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Accounting;
 
+use App\Enums\TransactionTypesEnum;
+use App\Livewire\Forms\TransactionForm;
 use App\Models\Fund;
 use App\Models\Transaction;
 use App\Models\TransactionSummaryView;
@@ -17,11 +19,16 @@ class FundTable extends Component
 
     public $id;
     public $transactionSummaryView;
+    public $funds;
+    public TransactionForm $form;
+
 
     public function mount($fund_id)
     {
+        $this->funds = Fund::all();
         $this->id = $fund_id;
         $this->transactionSummaryView = TransactionSummaryView::where('fund_id', $this->id)->first();
+        $this->form->target = $this->id;
     }
     #[computed]
     public function fund()
@@ -57,6 +64,18 @@ class FundTable extends Component
     public function unarchiveFund(): void
     {
         $this->fund->restore();
+    }
+
+    public function newTransfer()
+    {
+        $this->form->amount = $this->form->transaction_type === TransactionTypesEnum::DEPOSIT->value ? $this->form->amount * 100 : - $this->form->amount * 100;
+
+        $this->form->create();
+
+        $this->dispatch('refresh-transactions');
+        $this->dispatch('openalert', ['message' => 'Transaction effectuée avec succès']);
+        $this->form->resetExcept('transaction');
+        $this->form->target = $this->id;
     }
 
     public function render()
