@@ -45,6 +45,20 @@
             />
             @error('form.image')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
         </div>
+        <div>
+            <x-input-label for="role" value="Rôle de l'utilisateur"/>
+
+            <select id="role"
+                    wire:model.defer="form.role"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+                <option value="">-- Choisir un rôle --</option>
+                @foreach($this->roles as $role)
+                    <option value="{{ $role }}">{{ ucfirst($role) }}</option>
+                @endforeach
+            </select>
+
+            @error('form.role')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+        </div>
         <div class="flex justify-end gap-4">
             <x-delete-button click="confirmDelete">
             </x-delete-button>

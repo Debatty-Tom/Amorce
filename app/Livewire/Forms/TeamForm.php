@@ -18,6 +18,8 @@ class TeamForm extends Form
     public $password;
     #[Validate]
     public $image;
+    #[Validate]
+    public $role;
 
     public function setUser($user): void
     {
@@ -27,6 +29,7 @@ class TeamForm extends Form
         $this->email = $user->email;
         $this->password = '';
         $this->image = null;
+        $this->role = $user->getRoleNames()->first() ?? '';
     }
 
     public function rules(): array
@@ -36,6 +39,7 @@ class TeamForm extends Form
             'email' => ['required', 'email', 'max:50'],
             'password' => ['nullable', 'string', 'min:6'],
             'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048', 'dimensions:max_width=1000,max_height=1000'],
+            'role' => ['required', 'exists:roles,name'],
         ];
     }
 
@@ -57,5 +61,8 @@ class TeamForm extends Form
                 ->put('images/users', $data['image']);
         }
         $this->user->update($data);
+        if ($this->role) {
+            $this->user->syncRoles([$this->role]);
+        }
     }
 }
