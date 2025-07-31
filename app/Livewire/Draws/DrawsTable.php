@@ -7,18 +7,20 @@ use Brick\Money\Money;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class DrawsTable extends Component
 {
+    use WithPagination;
     #[Computed]
     public function pendingDraws()
     {
-        return Draw::with(['projects'])->orderBy('date')->get();
+        return Draw::with(['projects'])->orderBy('date')->paginate(4, pageName: 'pendingDrawsPage');
     }
     #[Computed]
         public function archivedDraws()
     {
-        return Draw::onlyTrashed()->with(['projects'])->orderBy('date')->get();
+        return Draw::onlyTrashed()->with(['projects'])->orderBy('date')->paginate(8, pageName: 'archivedDrawsPage');
     }
     #[computed]
     public function amount($draw)

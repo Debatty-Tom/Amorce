@@ -12,40 +12,49 @@
         </div>
     </div>
     <div>
-        <h3>
-            {{ __('Principals funds') }}
-        </h3>
-        <ul class="grid grid-cols-4 gap-4 p-8">
-            @foreach($this->principalFunds as $fund)
-                <li wire:key="{{$fund->fund_id}}">
-                    <livewire:accounting.fund-card :fund="$fund">
-                    </livewire:accounting.fund-card>
-                </li>
-            @endforeach
-        </ul>
-        <h3>
-            {{ __('Specifics funds') }}
-        </h3>
-        <ul class="grid grid-cols-4 gap-4 p-8">
-            @foreach($this->specificFunds as $fund)
-                <li wire:key="{{$fund->fund_id}}">
-                    <livewire:accounting.fund-card :fund="$fund">
-                    </livewire:accounting.fund-card>
-                </li>
-            @endforeach
-        </ul>
-        @if($this->archivedFunds->isNotEmpty())
+        <section class="flex flex-col gap 3">
             <h3>
-                {{ __('Archived funds') }}
+                {{ __('Principals funds') }}
             </h3>
             <ul class="grid grid-cols-4 gap-4 p-8">
-                @foreach($this->archivedFunds as $fund)
+                @foreach($this->principalFunds as $fund)
                     <li wire:key="{{$fund->fund_id}}">
                         <livewire:accounting.fund-card :fund="$fund">
                         </livewire:accounting.fund-card>
                     </li>
                 @endforeach
             </ul>
+            {{ $this->principalFunds->links(data: ['scrollTo' => false]) }}
+        </section>
+        <section class="flex flex-col gap 3">
+            <h3>
+                {{ __('Specifics funds') }}
+            </h3>
+            <ul class="grid grid-cols-4 gap-4 p-8">
+                @foreach($this->specificFunds as $fund)
+                    <li wire:key="{{$fund->fund_id}}">
+                        <livewire:accounting.fund-card :fund="$fund">
+                        </livewire:accounting.fund-card>
+                    </li>
+                @endforeach
+            </ul>
+            {{ $this->specificFunds->links(data: ['scrollTo' => false]) }}
+        </section>
+        @if($this->archivedFunds->isNotEmpty())
+            <section class="flex flex-col gap 3">
+                <h3>
+                    {{ __('Archived funds') }}
+                </h3>
+                <ul class="grid grid-cols-4 gap-4 p-8">
+                    @foreach($this->archivedFunds as $fund)
+                        <li wire:key="{{$fund->fund_id}}">
+                            <livewire:accounting.fund-card :fund="$fund">
+                            </livewire:accounting.fund-card>
+                        </li>
+                    @endforeach
+                </ul>
+                {{ $this->archivedFunds->links(data: ['scrollTo' => false]) }}
+            </section>
         @endif
     </div>
 </section>

@@ -1,5 +1,5 @@
-<section>
-    <div class="flex justify-between mb-5">
+<section class="flex flex-col gap-2.5">
+    <div class="flex justify-between">
         <h2 class="text-3xl">{{__('To do')}}</h2>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 wire:click.prevent="$dispatch('openModal',{component: 'modals.todo-create'})">{{ __('Add a todo') }}</button>
@@ -43,4 +43,5 @@
             </li>
         @endforeach
     </ul>
+    {{ $this->todos->links(data: ['scrollTo' => false]) }}
 </section>

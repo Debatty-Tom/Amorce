@@ -8,13 +8,15 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class TodosTable extends Component
 {
+    use WithPagination;
     #[computed]
     public function todos()
     {
-        return Todo::with(['assignments.assignedBy'])->orderBy('created_at', 'desc')->get();
+        return Todo::with(['assignments.assignedBy'])->orderBy('created_at', 'desc')->paginate(12);
     }
 
     #[on('refresh-todos')]

@@ -51,5 +51,5 @@
         @endforeach
         </tbody>
     </table>
-    {{ $this->transactions->links() }}
+    {{ $this->transactions->links(data: ['scrollTo' => false]) }}
 </div>

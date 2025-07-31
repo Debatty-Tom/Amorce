@@ -1,5 +1,5 @@
-<section>
-    <div class="flex justify-between mb-5">
+<section class="flex flex-col gap-3">
+    <div class="flex justify-between">
         <h2 class="text-3xl">{{__('Team')}}</h2>
         @hasanyrole(\App\Enums\RolesEnum::USERMANAGER->value.'|'.
                         \App\Enums\RolesEnum::ADMIN->value)
@@ -41,4 +41,5 @@
             </li>
         @endforeach
     </ul>
+    {{ $this->users->links(data: ['scrollTo' => false]) }}
 </section>

@@ -48,9 +48,9 @@
                         </ul>
                     </div>
                 </li>
-
             @endforeach
         </ul>
+        {{ $this->pendingDraws->links(data: ['scrollTo' => false]) }}
     </div>
     @if($this->archivedDraws->isNotEmpty())
         <div>
@@ -99,9 +99,9 @@
                             </ul>
                         </div>
                     </li>
-
                 @endforeach
             </ul>
+            {{ $this->archivedDraws->links(data: ['scrollTo' => false]) }}
         </div>
     @endif
     <div class="mt-4">

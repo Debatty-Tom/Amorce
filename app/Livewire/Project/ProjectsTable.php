@@ -8,33 +8,37 @@ use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ProjectsTable extends Component
 {
+    use WithPagination;
+
     #[computed]
-    public function pendingProjects(): Collection
+    public function pendingProjects()
     {
-        return Project::whereDoesntHave('draws')->get();
+        return Project::whereDoesntHave('draws')->paginate(8, pageName: 'pendingProjectsPage');
     }
 
     #[computed]
-    public function nextDrawProjects(): Collection
+    public function nextDrawProjects()
     {
         return Project::whereHas('draws', function ($query) {
             $query->where('status', 'pending');
-        })->get();
+        })->paginate(8, pageName: 'nextDrawProjectsPage');
     }
 
     #[computed]
-    public function fundedProjects(): Collection
+    public function fundedProjects()
     {
         return Project::whereHas('draws', function ($query) {
             $query->where('status', 'funded');
         })
             ->limit(20)
             ->orderBy('created_at')
-            ->get();
+            ->paginate(8, pageName: 'fundedProjectsPage');
     }
+
     #[on('refresh-projects')]
     public function refreshProjects()
     {

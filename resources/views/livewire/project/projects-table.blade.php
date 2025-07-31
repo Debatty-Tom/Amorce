@@ -7,7 +7,7 @@
                 wire:click.prevent="$dispatch('openModal',{component: 'modals.project-create'})">{{ __('Add a project') }}</button>
         @endhasanyrole
     </div>
-    <div class="mb-4">
+    <div class="mb-4 flex flex-col gap-3">
         <h3 class="text-2xl pb-3">
             {{__("Pending projects")}}
         </h3>
@@ -27,8 +27,9 @@
                 </li>
             @endforeach
         </ul>
+        {{ $this->pendingProjects->links(data: ['scrollTo' => false]) }}
     </div>
-    <div class="pt-4 mb-4">
+    <div class="pt-4 mb-4 flex flex-col gap-3">
         <h3 class="text-2xl pb-3">
             {{__("Next draw's projects")}}
         </h3>
@@ -48,9 +49,10 @@
                 </li>
             @endforeach
         </ul>
+        {{ $this->nextDrawProjects->links(data: ['scrollTo' => false]) }}
     </div>
-    <div class="pt-4 mb-4">
-        <h3 class="text-2xl pb-3">
+    <div class="pt-4 mb-4 flex flex-col gap-3">
+        <h3 class="text-2xl">
             {{__('funded projects')}}
         </h3>
         <ul class="grid grid-cols-4 gap-4 w-full">
@@ -69,5 +71,6 @@
                 </li>
             @endforeach
         </ul>
+        {{ $this->fundedProjects->links(data: ['scrollTo' => false]) }}
     </div>
 </section>

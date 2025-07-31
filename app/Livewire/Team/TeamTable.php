@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class TeamTable extends Component
 {
+    use WithPagination;
     #[computed]
-    public function users(): Collection
+    public function users()
     {
-        return User::all();
+        return User::paginate(12);
     }
 
     #[On('refresh-users')]
