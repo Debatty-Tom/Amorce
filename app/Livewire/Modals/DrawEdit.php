@@ -70,7 +70,6 @@ class DrawEdit extends Component
             'fund_id' => $this->generalFund->id,
             'amount' => $transactionAmount,
             'date' => now(),
-            'title' => 'Modification du budget de la détente du ' . $this->draw->date->format('d/m/Y'),
             'description' => 'Modification du budget de la détente du ' . $this->draw->date->format('d/m/Y'),
             'hash' => md5(json_encode('draw edited')),
             'created_at' => now(),

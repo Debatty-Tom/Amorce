@@ -15,7 +15,6 @@ class Transaction extends Model
 
 
     protected $fillable = [
-        'title',
         'description',
         'amount',
         'date',

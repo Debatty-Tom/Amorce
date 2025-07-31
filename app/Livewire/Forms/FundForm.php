@@ -59,7 +59,6 @@ class FundForm extends Form
             'fund_id' => $fund->id,
             'amount' => 0,
             'date' => now(),
-            'title' => 'Fund created',
             'description' => __('Transaction from fund creation'),
             'hash' => md5(json_encode('fund created')),
             'created_at' => now(),

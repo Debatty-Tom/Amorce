@@ -65,7 +65,6 @@ class DrawCreate extends Component
             'fund_id' => $this->generalFund->id,
             'amount' => - $this->form->amount,
             'date' => now(),
-            'title' => 'Assignation du budget de la détente du ' . $this->draw->date->format('d/m/Y'),
             'description' => 'Assignation du budget de la détente du ' . $this->draw->date->format('d/m/Y'),
             'hash' => md5(json_encode('draw credited')),
             'created_at' => now(),
