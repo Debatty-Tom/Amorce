@@ -8,9 +8,24 @@
         @endhasanyrole
     </div>
     <div>
-        <h3 class="text-2xl">
-            {{ __('Waiting draws list') }}
-        </h3>
+        <div class="flex flex-row gap-10">
+            <h3 class="text-2xl">
+                {{ __('Waiting draws list') }}
+            </h3>
+            <div>
+                <input type="text" wire:model.live.debounce.100ms="searches.pending" placeholder="Rechercher un titre"
+                       class="border rounded px-3 py-2 w-full md:w-auto">
+                @foreach ($this->categories as $key => $label)
+                    <button wire:click="toggleSort('pending', '{{ $key }}', 'refresh-draws')"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        {{ $label }}
+                        @if ($sorts['pending']['field'] === $key)
+                            {{ $sorts['pending']['direction'] === 'desc' ? '▼' : '▲' }}
+                        @endif
+                    </button>
+                @endforeach
+            </div>
+        </div>
         <ul class="p-4 grid grid-cols-4 gap 4">
             @foreach($this->pendingDraws as $draw)
                 <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow" wire:key="{{$draw->id}}">
@@ -52,11 +67,26 @@
         </ul>
         {{ $this->pendingDraws->links(data: ['scrollTo' => false]) }}
     </div>
-    @if($this->archivedDraws->isNotEmpty())
-        <div>
+    <div>
+        <div class="flex flex-row gap-10">
             <h3 class="text-2xl">
                 {{ __('Archived draws list') }}
             </h3>
+            <div>
+                <input type="text" wire:model.live.debounce.100ms="searches.archived" placeholder="Rechercher un titre"
+                       class="border rounded px-3 py-2 w-full md:w-auto">
+                @foreach ($this->categories as $key => $label)
+                    <button wire:click="toggleSort('archived', '{{ $key }}', 'refresh-draws')"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        {{ $label }}
+                        @if ($sorts['archived']['field'] === $key)
+                            {{ $sorts['archived']['direction'] === 'desc' ? '▼' : '▲' }}
+                        @endif
+                    </button>
+                @endforeach
+            </div>
+        </div>
+        @if($this->archivedDraws->isNotEmpty())
             <ul class="p-4 grid grid-cols-4 gap 4">
                 @foreach($this->archivedDraws as $draw)
                     <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow"
@@ -101,9 +131,11 @@
                     </li>
                 @endforeach
             </ul>
-            {{ $this->archivedDraws->links(data: ['scrollTo' => false]) }}
-        </div>
-    @endif
+        @else
+            <p class="text-gray-500 text-center mt-9 mb-9">{{ __('No archived draws found.') }}</p>
+        @endif
+        {{ $this->archivedDraws->links(data: ['scrollTo' => false]) }}
+    </div>
     <div class="mt-4">
         <div class="flex justify-between items-center mb-8">
             <h1 class="font-bold text-2xl">

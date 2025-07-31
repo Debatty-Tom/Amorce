@@ -1,6 +1,21 @@
 <section class="flex flex-col gap-3">
     <div class="flex justify-between">
-        <h2 class="text-3xl">{{__('Team')}}</h2>
+        <div class="flex flex-row gap-10">
+            <h2 class="text-3xl">{{__('Team')}}</h2>
+            <div>
+                <input type="text" wire:model.live.debounce.100ms="searches.team" placeholder="Rechercher un Nom"
+                       class="border rounded px-3 py-2 w-full md:w-auto">
+                @foreach ($this->categories as $key => $label)
+                    <button wire:click="toggleSort('team', '{{ $key }}', 'refresh-users')"
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        {{ $label }}
+                        @if ($sorts['team']['field'] === $key)
+                            {{ $sorts['team']['direction'] === 'desc' ? '▼' : '▲' }}
+                        @endif
+                    </button>
+                @endforeach
+            </div>
+        </div>
         @hasanyrole(\App\Enums\RolesEnum::USERMANAGER->value.'|'.
                         \App\Enums\RolesEnum::ADMIN->value)
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -8,7 +23,7 @@
         @endhasanyrole
     </div>
     <ul class="grid grid-cols-4 gap-9 w-full">
-{{--        code below must be there and not by using a blade component to avoid a snapshot missing error in a SPA--}}
+        {{--        code below must be there and not by using a blade component to avoid a snapshot missing error in a SPA--}}
         @foreach($this->users as $user)
             <li class="flex justify-center" wire:key="{{ $user->id }}">
                 <div class="relative w-full">
