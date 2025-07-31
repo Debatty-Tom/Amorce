@@ -11,15 +11,17 @@ use Livewire\Component;
 class FundsTable extends Component
 {
     #[Computed]
-    public function principalFunds(){
+    public function principalFunds()
+    {
         return DB::table('transaction_summary_view')->whereNull('deleted_at')->where('fund_type', 'principal')->get();
-
     }
+
     #[Computed]
-    public function specificFunds(){
-        return DB::table('transaction_summary_view')->whereNull('deleted_at')->where('fund_type','specific')->get();
-
+    public function specificFunds()
+    {
+        return DB::table('transaction_summary_view')->whereNull('deleted_at')->where('fund_type', 'specific')->get();
     }
+
     #[Computed]
     public function archivedFunds()
     {

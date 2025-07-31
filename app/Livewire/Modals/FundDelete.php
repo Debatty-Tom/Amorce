@@ -82,15 +82,15 @@ class FundDelete extends Component
 
     public function deleteFund()
     {
-        dd($this->fund);
-        //$this->fund->delete();
+        $this->sourceFund->delete();
 
-        $this->feedback = 'Fund deleted successfully';
+        $this->feedback = 'Fund archived successfully';
 
         $this->dispatch('refresh-funds');
         $this->showDeleteModal = false;
-        $this->dispatch('closeModal');
+        $this->dispatch('closeCardModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
+        $this->redirectRoute('accounting.index');
     }
 
     public function render()
