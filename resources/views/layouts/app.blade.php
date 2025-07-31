@@ -9,20 +9,17 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet"/>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased font-['Nunito Sans']">
-        <div class="min-h-screen bg-gray-100 grid grid-cols-[1fr_4fr]">
-            <livewire:layout.navigation />
-            <!-- Page Content -->
-            <main class="p-8">
-                {{ $slot }}
-            </main>
-        </div>
-    @livewire('layout.wire-element-modal')
-    @livewire('layout.card-modal')
+    <body class="font-sans antialiased font-['Nunito Sans'] bg-gray-100 min-h-screen">
+        <livewire:layout.navigation/>
+        <main class="ml-80 p-8">
+            {{ $slot }}
+        </main>
+        @livewire('layout.wire-element-modal')
+        @livewire('layout.card-modal')
     </body>
 </html>
