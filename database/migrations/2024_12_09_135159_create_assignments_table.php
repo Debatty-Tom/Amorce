@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('todo_id');
             $table->unsignedBigInteger('assigned_by');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -13,6 +13,7 @@ class TodoEdit extends Component
     public $todo;
     public $feedback = '';
     public $users;
+    public $selectedUsers = [];
 
     public function mount(Todo $todo)
     {

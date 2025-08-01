@@ -25,7 +25,7 @@
             <li class="flex flex-col justify-between gap-3 bg-white p-4 rounded-2xl relative shadow @if($todo->trashed()) opacity-50 @endif"
                 wire:key="{{$todo->id}}">
                 <a href="#" class="inset-0 absolute z-10" x-data="{ model: @js($todo) }"
-                   wire:click.prevent="$dispatch('openCardModal',{component: 'modals.todo-show', params: { todo: { id: {{ $todo->id }} } }})">
+                   wire:click.prevent="$dispatch('openCardModal',{component: 'modals.todo-show', params: { id: {{ $todo->id }} }})">
                     <span class="sr-only">{{ __("See to do") }}</span>
                 </a>
                 <h3 class="min-w-20">
@@ -41,9 +41,14 @@
                     @if($todo->users)
                         <ul class="pl-3">
                             @foreach($todo->users as $user)
-                                <li class="list-disc">
-                                    {{ $user->name }}
-                                </li>
+                                @if($user->trashed())
+                                    <span
+                                        class="bg-red-100 text-red-700 text-xs font-semibold px-2 py-1 rounded">{{ __('Deleted user') }}</span>
+                                @else
+                                    <li class="list-disc">
+                                        {{ $user->name }}
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     @endif

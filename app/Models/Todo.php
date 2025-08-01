@@ -20,7 +20,8 @@ class Todo extends Model
     {
         return $this->belongsToMany(User::class, Assignment::class)
             ->withPivot('assigned_by')
-            ->withTimestamps();
+            ->withTimestamps()
+            ->withTrashed();
     }
     public function assignments()
     {

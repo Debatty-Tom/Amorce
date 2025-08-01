@@ -15,10 +15,10 @@ class TodoShow extends Component
     public $feedback = '';
     public $todo;
 
-    public function mount(Todo $todo)
+    public function mount($id)
     {
-        $this->form->setTodo($todo);
-        $this->todo = Todo::with(['assignments.assignedBy'])->find($todo['id']);
+        $this->todo = Todo::with(['assignments.assignedBy'])->withTrashed()->find($id);
+        $this->form->setTodo($this->todo);
     }
     public function deleteTodo()
     {
