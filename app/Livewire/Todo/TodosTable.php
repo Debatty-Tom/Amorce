@@ -34,7 +34,11 @@ class TodosTable extends Component
     #[computed]
     public function todos()
     {
-        return Todo::withTrashed()->with(['assignments.assignedBy'])->where('title', 'like', '%' . $this->getSearch('todo') . '%')->orderBy($this->getSortField('todo'), $this->getSortDirection('todo'))->paginate(12);
+        return Todo::withTrashed()
+            ->with(['assignments.assignedBy','users'])
+            ->where('title', 'like', '%' . $this->getSearch('todo') . '%')
+            ->orderBy($this->getSortField('todo'), $this->getSortDirection('todo'))
+            ->paginate(12);
     }
 
     #[on('refresh-todos')]

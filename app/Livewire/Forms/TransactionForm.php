@@ -60,7 +60,7 @@ class TransactionForm extends Form
     {
         $this->validate();
 
-        $this->fund->update($this->except('transaction'));
+        $this->transaction->update($this->except('transaction'));
     }
 
     public function create()

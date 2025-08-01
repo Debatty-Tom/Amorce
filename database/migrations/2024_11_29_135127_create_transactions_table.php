@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('hash')->nullable();
             $table->unsignedBigInteger('fund_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
