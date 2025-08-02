@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Modals;
 
+use App\Enums\RolesEnum;
 use App\Livewire\Forms\TodoForm;
 use App\Models\Todo;
 use App\Models\User;
@@ -15,16 +16,20 @@ class TodoEdit extends Component
     public $users;
     public $selectedUsers = [];
 
-    public function mount(Todo $todo)
+    public function mount($id)
     {
-        $this->form->setTodo($todo);
-        $this->todo = Todo::with(['assignments.assignedBy'])->find($todo['id']);
+        $this->todo = Todo::with(['assignments.assignedBy'])->find($id);
+        $this->form->setTodo($this->todo);
+        $this->selectedUsers = $this->todo->users->pluck('id')->toArray();
         $this->dispatch('closeCardModal');
         $this->users = User::all();
     }
 
     public function save()
     {
+        if(!auth()->user()->hasRole(RolesEnum::ADMIN->value) || auth()->id() !== $this->todo->assignments[0]->assignedBy->id && $this->todo->trashed()) {
+            abort(403, 'Vous n’avez pas la permission de modifier cette tâche.');
+        }
         $this->form->update();
 
         $currentUserIds = $this->todo->users->pluck('id')->toArray();

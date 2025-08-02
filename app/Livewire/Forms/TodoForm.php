@@ -19,6 +19,8 @@ class TodoForm extends Form
 
     public function setTodo($todo)
     {
+        $this->todo = $todo;
+
         $this->title = $todo->title;
         $this->description = $todo->description;
         $this->date = Carbon::parse($todo->date)->format('Y-m-d');

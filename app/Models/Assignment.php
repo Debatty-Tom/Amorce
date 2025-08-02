@@ -11,7 +11,7 @@ class Assignment extends Model
     use SoftDeletes;
     public function todos(): BelongsTo
     {
-        return $this->belongsTo(Todo::class);
+        return $this->belongsTo(Todo::class)->withTrashed();
     }
     public function users(): BelongsTo
     {

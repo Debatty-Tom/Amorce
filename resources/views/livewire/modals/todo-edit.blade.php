@@ -40,9 +40,6 @@
                     <div>
                         <input id="{{ $user->id }}"
                                type="checkbox"
-                               @if($this->todo->users->contains($user))
-                                   checked
-                               @endif
                                name="{{ __("users[]") }}"
                                wire:model="selectedUsers"
                                class="h-4 w-4"

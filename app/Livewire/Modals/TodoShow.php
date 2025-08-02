@@ -17,13 +17,14 @@ class TodoShow extends Component
 
     public function mount($id)
     {
-        $this->todo = Todo::with(['assignments.assignedBy'])->withTrashed()->find($id);
+        $this->todo = Todo::with(['assignments.assignedBy', 'users'])->withTrashed()->find($id);
         $this->form->setTodo($this->todo);
     }
     public function deleteTodo()
     {
-        $this->todo->users()->detach();
-
+        if(!(auth()->user()->hasRole(\App\Enums\RolesEnum::ADMIN->value) || auth()->id() === $this->todo->assignments[0]->assignedBy->id) && $this->todo->trashed()) {
+            abort(403, 'Vous n’avez pas la permission d’archiver cette tâche.');
+        }
         $this->todo->delete();
 
         $this->feedback='Todo deleted successfully';
