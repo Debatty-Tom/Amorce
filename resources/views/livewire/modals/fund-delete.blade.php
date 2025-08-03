@@ -25,7 +25,6 @@
                         class="border p-2 rounded w-24"
                         x-model.number="value"
                 />
-
                 <button
                         type="button"
                         class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-800"
@@ -38,10 +37,14 @@
 
 
     <div class="mt-6 flex justify-end">
-        <button
+        @if($this->sourceFundView->total_amount > 0)
+            <x-cancel-button click="cancelDelete"></x-cancel-button>
+        @else
+            <button
                 wire:click="deleteFund"
                 class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">
-            Fermer
-        </button>
+                Fermer
+            </button>
+        @endif
     </div>
 </div>

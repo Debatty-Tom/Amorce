@@ -57,9 +57,10 @@ class FundDelete extends Component
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
             abort(403, 'Vous n’avez pas la permission d’assigner de l’argent.');
         }
+        $formatedAmount = round($amount, 2);
         $targetFund = Fund::findOrFail($fundId);
         $this->transactionForm->target = $targetFund->id;
-        $this->transactionForm->amount = $amount * 100;
+        $this->transactionForm->amount = $formatedAmount * 100;
         $this->transactionForm->description = 'Montant redistribué depuis le fond ' . $this->sourceFund->title . ' lors de son archive';
         $this->transactionForm->create();
 
@@ -79,6 +80,11 @@ class FundDelete extends Component
             abort(403, 'Vous n’avez pas la permission de supprimer un fond.');
         }
 
+        if ($this->sourceFundView->total_amount > 0) {
+            $this->dispatch('openalert', message: 'Impossible de supprimer le fond car il contient encore des fonds. Veuillez redistribuer les fonds restants avant de supprimer le fond.');
+            return;
+        }
+
         $this->sourceFund->delete();
 
         $this->feedback = 'Fund archived successfully';
@@ -88,6 +94,10 @@ class FundDelete extends Component
         $this->dispatch('closeCardModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->redirectRoute('accounting.index');
+    }
+    public function cancelDelete()
+    {
+        $this->dispatch('closeCardModal');
     }
 
     public function render()

@@ -14,7 +14,7 @@
             </button>
         @else
             <div class="flex gap-4">
-                <x-delete-button click="confirmDelete">
+                <x-delete-button click="tryDeleteOptions">
                 </x-delete-button>
                 <button
                     x-data="{ model: @js($this->fund) }"
@@ -110,17 +110,4 @@
     </div>
     <livewire:transactions.transactions-table :fund="$this->fund">
     </livewire:transactions.transactions-table>
-
-    @if($showDeleteModal)
-        <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
-            <div class="bg-white p-6 rounded-lg">
-                <h2 class="text-xl font-bold mb-4">Confirmer la suppression</h2>
-                <p>Êtes-vous sûr de vouloir supprimer ce fond ? Cette action est irréversible.</p>
-                <div class="mt-6 flex justify-end gap-3">
-                    <x-cancel-button click="cancelDelete"></x-cancel-button>
-                    <x-confirm-delete-button click="tryDeleteOptions"></x-confirm-delete-button>
-                </div>
-            </div>
-        </div>
-    @endif
 </div>
