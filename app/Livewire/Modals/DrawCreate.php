@@ -5,6 +5,7 @@ namespace App\Livewire\Modals;
 use App\Enums\AttendancesStatuses;
 use App\Enums\RolesEnum;
 use App\Livewire\Forms\DrawForm;
+use App\Livewire\Forms\TransactionForm;
 use App\Models\Donator;
 use App\Models\Draw;
 use App\Models\Project;
@@ -20,6 +21,7 @@ class DrawCreate extends Component
     use HandlesNumbers, HandlesDonators;
     public $feedback = '';
     public DrawForm $form;
+    public TransactionForm $transactionForm;
     public $loading;
     public $draw;
     public $projects;
@@ -61,15 +63,10 @@ class DrawCreate extends Component
         $this->draw = $this->form->create();
         $this->feedback = 'Draw created successfully';
 
-        Transaction::create([
-            'fund_id' => $this->generalFund->id,
-            'amount' => - $this->form->amount,
-            'date' => now(),
-            'description' => 'Assignation du budget de la détente du ' . $this->draw->date->format('d/m/Y'),
-            'hash' => md5(json_encode('draw credited')),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $this->transactionForm->target = $this->generalFund->id;
+        $this->transactionForm->amount = - $this->form->amount;
+        $this->transactionForm->description = 'Assignation du budget de la détente du ' . $this->draw->date->format('d/m/Y');
+        $this->transactionForm->create();
 
         $this->draw->donators()->attach(
             $this->oldParticipants, [

@@ -5,6 +5,7 @@ namespace App\Livewire\Modals;
 use App\Enums\AttendancesStatuses;
 use App\Enums\RolesEnum;
 use App\Livewire\Forms\DrawForm;
+use App\Livewire\Forms\TransactionForm;
 use App\Models\Draw;
 use App\Models\Fund;
 use App\Models\Project;
@@ -24,6 +25,7 @@ class DrawEdit extends Component
     public $draw;
     public $projects;
     public DrawForm $form;
+    public TransactionForm $transactionForm;
     public $amount;
     public string $feedback;
     public $lockedDonators;
@@ -66,15 +68,10 @@ class DrawEdit extends Component
         $newAmount = Money::ofMinor($this->form->amount, 'EUR');
         $transactionAmount = Money::ofMinor($this->draw->amount, 'EUR')->minus($newAmount)->getAmount();
         $transactionAmount = $transactionAmount->toScale(2, RoundingMode::DOWN)->multipliedBy(100)->toInt();
-        Transaction::create([
-            'fund_id' => $this->generalFund->id,
-            'amount' => $transactionAmount,
-            'date' => now(),
-            'description' => 'Modification du budget de la détente du ' . $this->draw->date->format('d/m/Y'),
-            'hash' => md5(json_encode('draw edited')),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $this->transactionForm->amount = $transactionAmount;
+        $this->transactionForm->target = $this->generalFund->id;
+        $this->transactionForm->description = 'Modification du budget de la détente du ' . $this->draw->date->format('d/m/Y');
+        $this->transactionForm->create();
     }
 
     public function handleParticipantsEdit()

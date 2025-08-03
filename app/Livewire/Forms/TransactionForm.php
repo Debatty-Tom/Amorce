@@ -16,8 +16,9 @@ class TransactionForm extends Form
     public $description;
     #[Validate]
     public $amount;
-    public $transaction_type;
+    #[Validate]
     public $target;
+    public $transaction_type;
 
     public function setTransaction($transaction)
     {
@@ -72,9 +73,9 @@ class TransactionForm extends Form
         Transaction::create([
             'fund_id'     => $validated['target'],
             'amount'      => $validated['amount'],
-            'date'        => now(),
+            'date'        => $validated['date'] ?? now(),
             'description' => $validated['description'],
-            'hash'        => md5(json_encode('Transaction created')),
+            'hash'        => $validated['hash'] ?? md5(json_encode('Transaction created')),
             'created_at'  => now(),
             'updated_at'  => now(),
         ]);

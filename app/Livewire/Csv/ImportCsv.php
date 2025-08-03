@@ -3,6 +3,7 @@
 namespace App\Livewire\Csv;
 
 use App\Livewire\Forms\DonatorForm;
+use App\Livewire\Forms\TransactionForm;
 use App\Models\Donator;
 use App\Models\Fund;
 use App\Models\Transaction;
@@ -20,6 +21,7 @@ class ImportCsv extends Component
     public $form = [
         'csvFile' => null,
     ];
+    public TransactionForm $transactionForm;
     public $showDonatorForm = false;
     public $showFundForm = false;
     public $name, $iban, $address;
@@ -75,16 +77,12 @@ class ImportCsv extends Component
             }
 
             $donator->increment('donation_count');
-
-            Transaction::create([
-                'fund_id' => $fund->id,
-                'amount' => str_replace(',', '', $record['amount']),
-                'date' => Carbon::createFromFormat('d-m-Y', $record['date'])->format('Y-m-d'),
-                'description' => $record['description'] ?? __($record['amount'] > 0 ? 'Don' : 'Retrait' . 'from CSV import'),
-                'hash' => $hash,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            $this->transactionForm->target = $fund->id;
+            $this->transactionForm->amount = str_replace(',', '', $record['amount']);
+            $this->transactionForm->date = Carbon::createFromFormat('d-m-Y', $record['date'])->format('Y-m-d');
+            $this->transactionForm->description = $record['description'] ?? __($record['amount'] > 0 ? 'Don' : 'Retrait' . 'from CSV import');
+            $this->transactionForm->hash = $hash;
+            $this->transactionForm->create();
         }
     }
 

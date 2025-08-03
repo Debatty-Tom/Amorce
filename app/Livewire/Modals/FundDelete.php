@@ -4,6 +4,7 @@ namespace App\Livewire\Modals;
 
 use App\Enums\RolesEnum;
 use App\Livewire\Forms\FundForm;
+use App\Livewire\Forms\TransactionForm;
 use App\Models\Fund;
 use App\Models\Transaction;
 use App\Models\TransactionSummaryView;
@@ -18,6 +19,7 @@ class FundDelete extends Component
 
     public $feedback = '';
     public $sourceFund;
+    public TransactionForm $transactionForm;
 
     public function mount(Fund $fund)
     {
@@ -56,26 +58,15 @@ class FundDelete extends Component
             abort(403, 'Vous n’avez pas la permission d’assigner de l’argent.');
         }
         $targetFund = Fund::findOrFail($fundId);
+        $this->transactionForm->target = $targetFund->id;
+        $this->transactionForm->amount = $amount * 100;
+        $this->transactionForm->description = 'Montant redistribué depuis le fond ' . $this->sourceFund->title . ' lors de son archive';
+        $this->transactionForm->create();
 
-        Transaction::create([
-            'fund_id' => $targetFund->id,
-            'amount' => $amount * 100,
-            'date' => now(),
-            'description' => 'Montant redistribué depuis le fond ' . $this->sourceFund->title . ' lors de son archive',
-            'hash' => md5(json_encode('fund credited')),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        Transaction::create([
-            'fund_id' => $this->sourceFund->id,
-            'amount' => -($amount * 100),
-            'date' => now(),
-            'description' => 'Redistribution vers le fond ' . $targetFund->title,
-            'hash' => md5(json_encode('fund debited')),
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $this->transactionForm->target = $this->sourceFund->id;
+        $this->transactionForm->amount = -($amount * 100);
+        $this->transactionForm->description = 'Redistribution vers le fond ' . $targetFund->title;
+        $this->transactionForm->create();
 
         $this->dispatch('openalert', message: "Montant de {$amount} € redistribué avec succès.");
         $this->dispatch('refresh-fund');
