@@ -16,6 +16,10 @@ class Todo extends Model
         'date'
     ];
 
+    protected $casts = [
+        'date' => 'datetime:Y-m-d',
+    ];
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, Assignment::class)

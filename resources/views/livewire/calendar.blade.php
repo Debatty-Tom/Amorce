@@ -1,5 +1,5 @@
 <!-- component -->
-<div class="lg:flex lg:h-full lg:flex-col">
+<div class="lg:flex lg:h-full lg:flex-col max-w-4xl">
     <header class="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
         <h1 class="text-base font-semibold leading-6 text-gray-900">
             <time datetime="2022-01">January 2022</time>
