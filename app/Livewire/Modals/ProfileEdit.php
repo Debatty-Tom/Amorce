@@ -2,52 +2,53 @@
 
 namespace App\Livewire\Modals;
 
+use App\Enums\RolesEnum;
+use App\Livewire\Forms\TeamForm;
 use App\Livewire\Forms\UserForm;
 use App\Models\User;
+use App\Traits\DeleteModalTrait;
+use App\Traits\handlesImagesUpload;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Spatie\Permission\Models\Role;
 
 class ProfileEdit extends Component
 {
-    use WithFileUploads;
-
-    public User $user;
-    public $form = [
-        'name' => '',
-        'email' => '',
-        'new_password' => '',
-        'new_password_confirmation' => '',
-        'image' => null,
-    ];
-
-    public function updateProfile()
+    use WithFileUploads, handlesImagesUpload, DeleteModalTrait;
+    public $feedback = '';
+    public $user;
+    public TeamForm $form;
+    public $roles;
+    public $loading;
+    public function mount()
     {
-        $this->validate([
-            'form.name' => 'required|string|max:255',
-            'form.email' => 'required|string|email|max:255|unique:users,email,' . Auth::id(),
-            'form.new_password' => 'nullable|string|min:8',
-            'form.image' => 'nullable|image|max:1024',
-        ]);
-
-        $user = Auth::user();
-
-        $user->name = $this->form['name'];
-        $user->email = $this->form['email'];
-
-        if ($this->form['new_password']) {
-            $user->password = Hash::make($this->form['new_password']);
+        $this->user = Auth()->user();
+        $this->form->setUser($this->user);
+        $this->roles = Role::pluck('name', 'id')->toArray();
+    }
+    public function save(){
+        if (!auth()->user()) {
+            abort(403, 'Vous n’avez pas la permission de modifier un autre profile que le votre.');
         }
+        $this->form->update();
+        $this->feedback='Profile updated successfully';
 
-        if ($this->form['image']) {
-            $path = $this->form['image']->store('profile-pictures', 'public');
-            $user->picture_path = $path;
-        }
-
-        $user->save();
+        $this->dispatch('closeCardModal');
+        $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
         $this->dispatch('refresh-profile');
-        $this->dispatch('closeModal');
+
+    }
+
+    public function deleteProfile()
+    {
+        if (!auth()->user()) {
+            abort(403, 'Vous n’avez pas la permission de supprimer un autre profile que le votre.');
+        }
+        $this->user->delete();
+
+        $this->redirect('logout');
     }
 
     public function render()
