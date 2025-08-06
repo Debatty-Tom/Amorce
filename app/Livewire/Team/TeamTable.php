@@ -33,7 +33,17 @@ class TeamTable extends Component
     #[computed]
     public function users()
     {
-        return User::where('name', 'like', '%' . $this->getSearch('team') . '%')->orderBy($this->getSortField('team'), $this->getSortDirection('team'))->paginate(12);
+        return User::where('name', 'like', '%' . $this->getSearch('team') . '%')
+            ->orderBy($this->getSortField('team'), $this->getSortDirection('team'))
+            ->paginate(12);
+    }
+    #[computed]
+    public function trashedUsers()
+    {
+        return User::onlyTrashed()
+            ->where('name', 'like', '%' . $this->getSearch('team') . '%')
+            ->orderBy($this->getSortField('team'), $this->getSortDirection('team'))
+            ->paginate(12);
     }
 
     #[On('refresh-users')]

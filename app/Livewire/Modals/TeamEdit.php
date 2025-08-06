@@ -19,10 +19,10 @@ class TeamEdit extends Component
     public TeamForm $form;
     public $roles;
     public $loading;
-    public function mount(User $user)
+    public function mount($id)
     {
-        $this->form->setUser($user);
-        $this->user = User::find($user['id']);
+        $this->user = User::withTrashed()->find($id);
+        $this->form->setUser($this->user);
         $this->roles = Role::pluck('name', 'id')->toArray();
     }
     public function save(){
@@ -46,6 +46,16 @@ class TeamEdit extends Component
 
         $this->dispatch('refresh-users');
         $this->showDeleteModal = false;
+        $this->dispatch('closeCardModal');
+        $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
+    }
+    public function unarchiveUser()
+    {
+        $this->user->restore();
+
+        $this->feedback='User restored successfully';
+
+        $this->dispatch('refresh-users');
         $this->dispatch('closeCardModal');
         $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
     }

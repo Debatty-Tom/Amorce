@@ -57,14 +57,23 @@
 
             @error('form.role')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
         </div>
-        <div class="flex justify-end gap-4">
-            <x-delete-button click="confirmDelete">
-            </x-delete-button>
+        @if($this->user->trashed())
             <button
-                class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __("Edit Team member") }}
+                wire:click="unarchiveUser"
+                type="button"
+                class="w-fit py-3 px-4 bg-red-500 text-white hover:bg-black hover:hover:bg-red-700 transition ease-in text-sm rounded-lg">
+                Désarchiver cet utilisateur
             </button>
-        </div>
+        @else
+            <div class="flex justify-end gap-4">
+                <x-delete-button click="confirmDelete">
+                </x-delete-button>
+                <button
+                    class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
+                    {{ __("Edit Team member") }}
+                </button>
+            </div>
+        @endif
     </form>
     @if($showDeleteModal)
         <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
