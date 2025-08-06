@@ -2,8 +2,6 @@
 
 namespace App\Traits;
 
-use App\Enums\SortDirectionsEnum;
-
 trait HandleSortingTrait
 {
     public array $sorts = [];
