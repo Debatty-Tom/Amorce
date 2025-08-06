@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Enums\AttendancesStatuses;
 use App\Enums\EnumsDrawAssignmentsStatuses;
 use App\Enums\RolesEnum;
-use App\Models\Assignment;
 use App\Models\Donator;
 use App\Models\Draw;
 use App\Models\Event;
@@ -13,14 +12,13 @@ use App\Models\Fund;
 use App\Models\Project;
 use App\Models\Stock;
 use App\Models\Todo;
-use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use App\Traits\HandlesPermissions;
 
 class DatabaseSeeder extends Seeder
 {
-    use handlesPermissions;
+    use HandlesPermissions;
 
     /**
      * Seed the application's database.

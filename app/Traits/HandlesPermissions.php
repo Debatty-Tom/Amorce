@@ -10,7 +10,7 @@ use App\Enums\PermissionActionsEnum;
 use App\Enums\PermissionResourcesEnum;
 use App\Configs\RolePermissionsConfig;
 
-trait handlesPermissions
+trait HandlesPermissions
 {
     public function generateAndAssignPermissions(): void
     {

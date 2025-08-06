@@ -5,7 +5,7 @@ namespace App\Livewire\Modals;
 use App\Enums\RolesEnum;
 use App\Livewire\Forms\TeamForm;
 use App\Models\User;
-use App\Traits\handlesImagesUpload;
+use App\Traits\HandlesImagesUpload;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -13,7 +13,7 @@ use Spatie\Permission\Models\Role;
 
 class TeamCreate extends Component
 {
-    use WithFileUploads, handlesImagesUpload;
+    use WithFileUploads, HandlesImagesUpload;
     public $feedback = '';
     public TeamForm $form;
     public $roles;
