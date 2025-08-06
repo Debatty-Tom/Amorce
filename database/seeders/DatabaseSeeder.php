@@ -8,6 +8,7 @@ use App\Enums\RolesEnum;
 use App\Models\Assignment;
 use App\Models\Donator;
 use App\Models\Draw;
+use App\Models\Event;
 use App\Models\Fund;
 use App\Models\Project;
 use App\Models\Stock;
@@ -27,6 +28,8 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->generateAndAssignPermissions();
+
+        Event::factory(20)->create();
 
         User::factory(6)
             ->hasAttached(
