@@ -57,6 +57,9 @@ class FundDelete extends Component
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
             abort(403, 'Vous n’avez pas la permission d’assigner de l’argent.');
         }
+        if ($this->sourceFund->id === 1) {
+            abort(403, 'Vous ne pouvez pas supprimer le fond de base.');
+        }
         $formatedAmount = round($amount, 2);
         $targetFund = Fund::findOrFail($fundId);
         $this->transactionForm->target = $targetFund->id;
@@ -79,6 +82,9 @@ class FundDelete extends Component
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
             abort(403, 'Vous n’avez pas la permission de supprimer un fond.');
+        }
+        if ($this->sourceFund->id === 1) {
+            abort(403, 'Vous ne pouvez pas supprimer le fond de base.');
         }
 
         if ($this->sourceFundView->total_amount > 0) {

@@ -25,6 +25,9 @@ class FundEdit extends Component
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
             abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des membres.');
         }
+        if ($this->fund->id === 1) {
+            abort(403, 'Vous ne pouvez pas modifier le fond de base.');
+        }
         $this->form->update();
         $this->feedback = 'Fund updated successfully';
 

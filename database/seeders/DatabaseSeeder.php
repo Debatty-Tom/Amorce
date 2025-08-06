@@ -29,6 +29,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->generateAndAssignPermissions();
 
+        Fund::factory()
+            ->hasTransactions(12)
+            ->create([
+                'title' => 'Général',
+                'description' => 'Le fonds général est utilisé pour les dépenses courantes de l\'association.',
+                'type' => 'principal',
+            ]);
+
         Event::factory(20)->create();
 
         User::factory(6)
@@ -107,14 +115,6 @@ class DatabaseSeeder extends Seeder
 
             $draw->projects()->attach($pivotData);
         }
-
-        Fund::factory()
-            ->hasTransactions(12)
-            ->create([
-            'title' => 'Général',
-            'description' => 'Le fonds général est utilisé pour les dépenses courantes de l\'association.',
-            'type' => 'principal',
-        ]);
 
         User::factory()->create([
             'name' => 'admin',

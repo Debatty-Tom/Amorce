@@ -13,14 +13,16 @@
                 Désarchiver ce fond
             </button>
         @else
-            <div class="flex gap-4">
-                <x-delete-button click="tryDeleteOptions">
-                </x-delete-button>
-                <button
-                    x-data="{ model: @js($this->fund) }"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    wire:click.prevent="$dispatch('openModal',{component: 'modals.fund-edit', params: { fund: {{ $this->fund->id }} }})">{{ __('Edit this fund') }}</button>
-            </div>
+            @if($this->fund->id !== 1)
+                <div class="flex gap-4">
+                    <x-delete-button click="tryDeleteOptions">
+                    </x-delete-button>
+                    <button
+                        x-data="{ model: @js($this->fund) }"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        wire:click.prevent="$dispatch('openModal',{component: 'modals.fund-edit', params: { fund: {{ $this->fund->id }} }})">{{ __('Edit this fund') }}</button>
+                </div>
+            @endif
         @endif
         @endhasanyrole
     </div>

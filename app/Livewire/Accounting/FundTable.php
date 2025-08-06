@@ -50,12 +50,14 @@ class FundTable extends Component
 
     public function tryDeleteOptions(): void
     {
+        if ($this->id === 1) {
+            abort(403, 'Vous ne pouvez pas supprimer le fond de base.');
+        }
         if ($this->transactionSummaryView->total_amount > 0) {
             $this->dispatch('openCardModal', 'modals.fund-delete', ['fund' => $this->id]);
             $this->showDeleteModal = false;
             return;
         }
-
         $this->fund->delete();
         $this->feedback = 'Fonds archivé avec succès';
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
