@@ -1,8 +1,6 @@
 <div x-data="{user_name:$wire.form.name}">
-    <h2 class="text-3xl font-bold mb-5">
-        <a class="text-indigo-400 hover:text-indigo-600"
-           href="{{ route('team.index') }}" wire:navigate>{{ __('Create a team member') }}
-        </a>
+    <h2 class="text-3xl font-bold mb-5 text-indigo-400">
+        {{ __('Create a team member') }}
     </h2>
     <form wire:submit.prevent="save" enctype="multipart/form-data"
           class="flex flex-col gap-3">
@@ -45,6 +43,20 @@
                 class="rounded"
             />
             @error('form.image')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+        </div>
+        <div>
+            <x-input-label for="role" value="Rôle de l'utilisateur"/>
+
+            <select id="role"
+                    wire:model.defer="form.role"
+                    class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm w-full">
+                <option value="">-- Choisir un rôle --</option>
+                @foreach($this->roles as $role)
+                    <option value="{{ $role }}">{{ ucfirst($role) }}</option>
+                @endforeach
+            </select>
+
+            @error('form.role')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
         </div>
         <div class="flex justify-end">
             <button

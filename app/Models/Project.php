@@ -24,6 +24,8 @@ class Project extends Model
 
     public function draws(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->BelongsToMany(Draw::class, DrawAssignment::class);
+        return $this->BelongsToMany(Draw::class,'draw_assignments')
+            ->using(DrawAssignment::class)
+            ->withPivot(['status', 'amount', 'created_at', 'updated_at']);
     }
 }

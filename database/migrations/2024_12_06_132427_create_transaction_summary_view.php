@@ -18,7 +18,8 @@ return new class extends Migration
                 funds.title AS fund_title,
                 funds.description AS fund_description,
                 funds.type AS fund_type,
-                SUM(transactions.amount) AS total_amount
+                SUM(transactions.amount) AS total_amount,
+                funds.deleted_at
             FROM
                 funds
             LEFT JOIN

@@ -4,19 +4,30 @@ namespace App\Livewire\Draws;
 
 use App\Models\Draw;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DrawsList extends Component
 {
-    public $draws;
-    public function mount($draws)
+    public $id;
+    public function mount($id)
     {
-        $this->draws = $draws;
-        $this->draws = $draws->load('projects');
+        $this->id = $id;
     }
+    #[Computed]
+    public function draw()
+    {
+        return Draw::with('projects')
+            ->find($this->id);
+    }
+    #[On('refresh-draws')]
+    public function refreshDraws(): void
+    {
+        return;
+    }
+
     public function render()
     {
         return view('livewire.draws.draws-list');
     }
 }
-// propriété publique pour l'ordonnancement des tirages

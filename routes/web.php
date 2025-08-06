@@ -16,12 +16,11 @@ Route::get('testMail', function (){
 require __DIR__.'/auth.php';
 require __DIR__.'/dashboard.php';
 require __DIR__.'/team.php';
-require __DIR__.'/calendrier.php';
+require __DIR__.'/calendar.php';
 require __DIR__ . '/draw.php';
 require __DIR__.'/accounting.php';
 require __DIR__.'/stock.php';
 require __DIR__.'/mailing.php';
 require __DIR__.'/todo.php';
 require __DIR__ . '/projects.php';
-require __DIR__ . '/transaction.php';
 require __DIR__ . '/profile.php';

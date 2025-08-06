@@ -10,15 +10,17 @@ class WireElementModal extends Component
     public $isOpen = false;
     public $livewireComponent = null;
 
-    protected $listeners = ['openModal'];
+    protected $listeners = [
+        'openModal',
+    ];
+    public array $componentParams;
 
     #[On('openModal')]
     public function openModal($component, $params = null)
     {
         $this->livewireComponent = $component;
+        $this->componentParams = $params ?? [];
         $this->isOpen = true;
-
-        $this->dispatch('open-modal',$component, $params);
     }
 
     #[On('closeModal')]
@@ -26,7 +28,9 @@ class WireElementModal extends Component
     {
         $this->isOpen = false;
         $this->livewireComponent = null;
+        $this->componentParams = [];
     }
+
     public function render()
     {
         return view('livewire.layout.wire-element-modal');

@@ -17,10 +17,9 @@ class TransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'title'=> $this->faker->words(3, true),
             'description'=> $this->faker->words(4, true),
-            'amount'=> $this->faker->numberBetween(-10000, 10000),
-            'date'=> $this->faker->dateTimeBetween('-1 year','2 year'),
+            'amount'=> $this->faker->numberBetween(-5000, 10000),
+            'date'=> $this->faker->dateTimeBetween('-2 year','-10 day'),
             'hash'=> $this->faker->md5(),
         ];
     }

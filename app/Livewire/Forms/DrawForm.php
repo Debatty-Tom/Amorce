@@ -4,6 +4,7 @@ namespace App\Livewire\Forms;
 
 use App\Models\Donator;
 use App\Models\Draw;
+use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -20,14 +21,19 @@ class DrawForm extends Form
     public $date;
     #[Validate]
     public $new_participants;
+    public $lockedDonators;
 
     public function setDraw($draw)
     {
+        $this->draw = $draw;
+
+        $this->lockedDonators = $this->draw->donators->sortBy('created_at')->take(9)->slice(0, 6)->values();
+        $this->new_participants = $this->draw->donators->sortBy('created_at')->take(9)->slice(6, 3)->values();
+
         $this->title = $draw->title;
         $this->description = $draw->description;
-        $this->amount = $draw->amount;
-        $this->date = $draw->date;
-        $this->new_participants = [];
+        $this->amount = $draw->amount/100 ?? 0;
+        $this->date = Carbon::parse($draw->date)->format('Y-m-d');
     }
     public function rules()
     {

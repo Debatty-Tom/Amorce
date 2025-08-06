@@ -10,8 +10,7 @@ use Illuminate\Notifications\Notifiable;
 class Draw extends Model
 {
     /** @use HasFactory<\Database\Factories\DrawFactory> */
-    use HasFactory, Notifiable;
-    use SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -29,6 +28,8 @@ class Draw extends Model
 
     public function projects(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->belongsToMany(Project::class, DrawAssignment::class);
+        return $this->belongsToMany(Project::class, 'draw_assignments')
+            ->using(DrawAssignment::class)
+            ->withPivot(['status', 'amount', 'created_at', 'updated_at']);
     }
 }

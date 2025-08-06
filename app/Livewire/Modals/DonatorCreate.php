@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Modals;
 
+use App\Enums\RolesEnum;
 use App\Livewire\Forms\DonatorForm;
 use App\Models\Donator;
 use Livewire\Component;
@@ -19,6 +20,9 @@ class DonatorCreate extends Component
         $this->donator = $donator;
     }
     public function save(){
+        if (!auth()->user()->hasAnyRole(RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des donateurs.');
+        }
         $this->form->create();
         $this->feedback='Donator created successfully';
 

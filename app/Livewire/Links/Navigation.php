@@ -7,32 +7,24 @@ use Livewire\Component;
 class Navigation extends Component
 {
     public string $href = '';
-    public bool $active = false;
     public string $label = '';
     public string $icon = '';
+    public bool $isActive = false;
     public function mount($href,$label,$icon)
     {
         $this->href = $href;
         $this->label = $label;
         $this->icon = $icon;
 
+        $this->setActive();
     }
-
-    public function navigationStatement()
+    public function setActive()
     {
-        $currentRoute = \Illuminate\Support\Facades\Route::getCurrentRoute()->uri();
-
-        if (str_contains($this->href, $currentRoute)) {
-            return 'bg-indigo-900 text-white hover:bg-indigo-500';
-        } else {
-            return 'text-indigo-900 hover:bg-indigo-500 hover:text-white';
-        }
+        $this->isActive = str_contains(request()->url(), route($this->href));
     }
 
     public function render()
     {
-        return view('livewire.links.navigation', [
-            'navigationStatement' => $this->navigationStatement()
-        ]);
+        return view('livewire.links.navigation');
     }
 }

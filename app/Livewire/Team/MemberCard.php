@@ -7,13 +7,18 @@ use Livewire\Component;
 
 class MemberCard extends Component
 {
+    public int $userId;
     public User $user;
-    public function mount($user)
+
+    public function mount(int $userId)
     {
-        $this->user = $user;
+        $this->userId = $userId;
+        $this->user = User::findOrFail($this->userId);
     }
+
     public function render()
     {
-        return view('livewire.team.member-card');
+        $permissions = $this->user->getRoleNames();
+        return view('livewire.team.member-card', compact('permissions'));
     }
 }
