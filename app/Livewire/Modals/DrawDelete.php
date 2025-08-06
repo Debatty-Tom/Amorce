@@ -60,7 +60,8 @@ class DrawDelete extends Component
             'updated_at' => now(),
         ]);
 
-        $this->dispatch('openalert', message: "Montant de {$amount} € attribué avec succès.");
+        $this->feedback = "Montant de {$amount} € attribué avec succès.";
+        $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-delete-modal');
     }
     public function deleteDraw()

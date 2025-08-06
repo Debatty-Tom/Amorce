@@ -16,6 +16,7 @@
     </head>
     <body class="font-sans antialiased font-['Nunito Sans'] bg-gray-100 min-h-screen">
         <livewire:layout.navigation/>
+        @livewire('layout.toast')
         <main class="ml-80 p-8">
             {{ $slot }}
         </main>

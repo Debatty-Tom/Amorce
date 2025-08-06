@@ -34,7 +34,7 @@ class TodoCreate extends Component
         $this->feedback = 'Todo created successfully';
 
         $this->dispatch('closeModal');
-        $this->dispatch('openalert', ['message' => $this->feedback]);
+        $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-todos');
     }
 

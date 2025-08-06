@@ -97,7 +97,7 @@ class DrawCreate extends Component
         $this->feedback='Draw created successfully';
 
         $this->dispatch('closeModal');
-        $this->dispatch('openalert', message: $this->feedback);
+        $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-draws');
     }
 

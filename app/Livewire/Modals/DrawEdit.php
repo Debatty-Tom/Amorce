@@ -54,7 +54,8 @@ class DrawEdit extends Component
 
             $this->addNewParticipant();
         } else {
-            $this->dispatch('openalert', message: 'You can only remove 3 participants at a time');
+            $this->feedback = 'You can only remove 3 participants at a time';
+            $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         }
     }
 
@@ -159,7 +160,7 @@ class DrawEdit extends Component
         $this->feedback = 'Draw edited successfully';
 
         $this->dispatch('closeModal');
-        $this->dispatch('openalert', message: $this->feedback);
+        $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-draw');
     }
 

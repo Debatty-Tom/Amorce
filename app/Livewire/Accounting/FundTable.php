@@ -21,6 +21,7 @@ class FundTable extends Component
     public $transactionSummaryView;
     public $funds;
     public TransactionForm $form;
+    public string $feedback;
 
 
     public function mount($fund_id)
@@ -56,7 +57,8 @@ class FundTable extends Component
         }
 
         $this->fund->delete();
-        $this->dispatch('openalert', ['message' => 'Fonds archivé avec succès']);
+        $this->feedback = 'Fonds archivé avec succès';
+        $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-fund');
         $this->showDeleteModal = false;
         $this->redirectRoute('accounting.index');
@@ -73,7 +75,8 @@ class FundTable extends Component
         $this->form->create();
 
         $this->dispatch('refresh-transactions');
-        $this->dispatch('openalert', ['message' => 'Transaction effectuée avec succès']);
+        $this->feedback = 'Transaction effectuée avec succès';
+        $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->form->resetExcept('transaction');
         $this->form->target = $this->id;
     }

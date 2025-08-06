@@ -8,20 +8,19 @@ use Livewire\Component;
 class Toast extends Component
 {
     public $message;
+    public $type = 'valid';
     public $openAlert = false;
 
-    protected $listeners = ['openalert' => 'showAlert'];
-
     #[on('openalert')]
-    public function showAlert($message)
+    public function showAlert($params)
     {
-        $this->message = $message;
+        $this->message = $params['message'] ?? 'Alerte';
+        $this->type = $params['type'] ?? 'valid';
         $this->openAlert = true;
-        dd($this->message);
     }
 
     public function render()
     {
-        return view('livewire.layout.toast', ['message' => $this->message]);
+        return view('livewire.layout.toast');
     }
 }

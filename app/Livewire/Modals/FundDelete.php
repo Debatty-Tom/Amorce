@@ -69,7 +69,8 @@ class FundDelete extends Component
         $this->transactionForm->description = 'Redistribution vers le fond ' . $targetFund->title;
         $this->transactionForm->create();
 
-        $this->dispatch('openalert', message: "Montant de {$amount} € redistribué avec succès.");
+        $this->feedback = "Montant de {$amount} € redistribué avec succès.";
+        $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-fund');
     }
 
@@ -81,7 +82,8 @@ class FundDelete extends Component
         }
 
         if ($this->sourceFundView->total_amount > 0) {
-            $this->dispatch('openalert', message: 'Impossible de supprimer le fond car il contient encore des fonds. Veuillez redistribuer les fonds restants avant de supprimer le fond.');
+            $this->feedback = 'Impossible de supprimer le fond car il contient encore des fonds. Veuillez redistribuer les fonds restants avant de supprimer le fond.';
+            $this->dispatch(event: 'openalert', params: ['message' => $this->feedback, 'type' => 'error']);
             return;
         }
 

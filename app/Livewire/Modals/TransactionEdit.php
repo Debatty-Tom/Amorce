@@ -13,6 +13,7 @@ class TransactionEdit extends Component
     public TransactionForm $form;
     public $transaction;
     public $funds;
+    public string $feedback = '';
 
     public function mount($id)
     {
@@ -31,7 +32,8 @@ class TransactionEdit extends Component
 
         $this->dispatch('refresh-transactions');
         $this->dispatch('closeCardModal');
-        $this->dispatch('openalert', ['message' => 'Transaction effectuée avec succès']);
+        $this->feedback = 'Transaction effectuée avec succès';
+        $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
     }
     public function render()
     {

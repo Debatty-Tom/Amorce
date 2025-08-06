@@ -15,6 +15,7 @@ class TransactionDelete extends Component
     public TransactionForm $form;
 
     public $transaction;
+    public $feedback = "";
 
     public function mount($id)
     {
@@ -34,7 +35,8 @@ class TransactionDelete extends Component
         $this->dispatch('refresh-transactions');
         $this->dispatch('refresh-fund');
         $this->dispatch('closeCardModal');
-        $this->dispatch('openalert', ['message' => 'Transaction supprimée avec succès']);
+        $this->feedback = __('Transaction supprimée avec succès');
+        $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
     }
     public function render()
     {
