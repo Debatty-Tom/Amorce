@@ -58,7 +58,7 @@
                         {{ __("Todo's assigned by : ") }}
                     </p>
                     <p>
-                        Assigné par : {{ $todo->assignments[0]->assignedBy->name ?? 'Inconnu' }}
+                        Assigné par : {{ $todo->assignments[0]->assignedBy->name ?? __('Inconnu') }}
                     </p>
                 </div>
             </li>

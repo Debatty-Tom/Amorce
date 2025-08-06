@@ -23,7 +23,7 @@ class TransactionDelete extends Component
     }
     public function delete()
     {
-        $this->form->description = __('Suppression de la transaction : ' . $this->transaction->description);
+        $this->form->description = __('Suppression de la transaction :') . ' ' . $this->transaction->description;
         $this->form->amount = str_contains($this->transaction->amount, '-')
             ? ltrim($this->transaction->amount, '-')
             : '-' . $this->transaction->amount;

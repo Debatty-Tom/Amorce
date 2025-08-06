@@ -13,14 +13,15 @@ class TransactionsTable extends Component
 {
     use HandleSortingTrait;
     public $fund;
-    public $categories = [
-        'date' => 'Date',
-        'description' => 'Description',
-        'amount' => 'Montant',
-        'created_at' => 'Date de création',
-    ];
+    public $categories;
     public function mount(Fund $fund)
     {
+        $this->categories = [
+            'date' => __('Date'),
+            'description' => __('Description'),
+            'amount' => __('Montant'),
+            'created_at' => __('Date de création'),
+        ];
         $this->fund = $fund;
         $this->sorts = [
             'transaction' => ['field' => 'description', 'direction' => 'desc'],

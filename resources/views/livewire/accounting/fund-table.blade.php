@@ -10,7 +10,7 @@
                 wire:click="unarchiveFund"
                 type="button"
                 class="w-fit py-3 px-4 bg-red-500 text-white hover:bg-black hover:hover:bg-red-700 transition ease-in text-sm rounded-lg">
-                Désarchiver ce fond
+                {{ __('Désarchiver ce fond') }}
             </button>
         @else
             @if($this->fund->id !== 1)
@@ -28,14 +28,14 @@
     </div>
     <div class="grid grid-cols-[75%,1fr] gap-8 mb-8">
         <section class="p-5 px-8 bg-white rounded-lg ">
-            <h3 class="text-2xl font-medium mb-4">Ajouter une transaction</h3>
+            <h3 class="text-2xl font-medium mb-4">{{ __('Ajouter une transaction') }}</h3>
             <form wire:submit.prevent="newTransfer" class="flex flex-col gap-4">
                 <div class="grid lg:grid-cols-2 sm:grid-rows-1 gap-4">
                     <div class="flex flex-col gap-2">
                         <x-input-label for="target" value="Fond concerné"/>
                         <select id="target" name="target" wire:model="form.target"
                                 class="border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm w-full box-border">
-                            <option value="default" selected>Choisir un fond</option>
+                            <option value="default" selected>{{ __('Choisir un fond') }}</option>
                             @foreach($this->funds as $fund)
                                 <option value="{{$fund->id}}">{{$fund->title}}</option>
                             @endforeach
@@ -48,9 +48,9 @@
                         <x-input-label for="transaction_type" value="Type de transaction"/>
                         <select name="transaction_type" id="transaction_type" wire:model="form.transaction_type"
                                 class="border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm w-full box-border">
-                            <option value="default" selected>Choisir un type de transaction</option>
-                            <option value="{{ \App\Enums\TransactionTypesEnum::DEPOSIT->value }}">Dépot</option>
-                            <option value="{{ \App\Enums\TransactionTypesEnum::WITHDRAWAL->value }}">Retrait</option>
+                            <option value="default" selected>{{ __('Choisir un type de transaction') }}</option>
+                            <option value="{{ \App\Enums\TransactionTypesEnum::DEPOSIT->value }}">{{ __('Dépot') }}</option>
+                            <option value="{{ \App\Enums\TransactionTypesEnum::WITHDRAWAL->value }}">{{ __('Retrait') }}</option>
                         </select>
                         @error('form.transaction_type')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -91,7 +91,7 @@
                 </div>
 
                 <button type="submit" class="px-4 py-3 text-white bg-blue-500 hover:bg-blue-700  transition rounded-lg">
-                    Envoyer le virement
+                    {{ __('Envoyer le virement') }}
                 </button>
             </form>
         </section>

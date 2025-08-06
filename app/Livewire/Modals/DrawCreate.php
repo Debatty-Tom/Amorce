@@ -55,17 +55,17 @@ class DrawCreate extends Component
     public function save()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des détentes.');
+            abort(403, __('Vous n’avez pas la permission d’ajouter ou modifier des détentes.'));
         }
         $this->loadOldParticipants();
 
         $this->form->amount = $this->normalizeNumber($this->form->amount);
         $this->draw = $this->form->create();
-        $this->feedback = 'Draw created successfully';
+        $this->feedback = __('Draw created successfully');
 
         $this->transactionForm->target = $this->generalFund->id;
         $this->transactionForm->amount = - $this->form->amount;
-        $this->transactionForm->description = 'Assignation du budget de la détente du ' . $this->draw->date->format('d/m/Y');
+        $this->transactionForm->description = __('Assignation du budget de la détente du') . ' ' . $this->draw->date->format('d/m/Y');
         $this->transactionForm->create();
 
         $this->draw->donators()->attach(
@@ -94,7 +94,7 @@ class DrawCreate extends Component
             ]
         );
 
-        $this->feedback='Draw created successfully';
+        $this->feedback=__('Draw created successfully');
 
         $this->dispatch('closeModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);

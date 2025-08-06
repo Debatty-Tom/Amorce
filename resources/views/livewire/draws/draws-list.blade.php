@@ -11,7 +11,7 @@
         </div>
         <div>
             <p>
-                {{__('Amount :')}}
+                {{__('Amount') . ' :'}}
             </p>
             <p>
                 {{ number_format(($this->draw->amount/100),2, ',',' ')."€" }}

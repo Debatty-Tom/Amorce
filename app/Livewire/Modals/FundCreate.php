@@ -22,10 +22,10 @@ class FundCreate extends Component
     }
     public function save(){
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des membres.');
+            abort(403, __('Vous n’avez pas la permission d’ajouter ou modifier des membres.'));
         }
         $this->form->create();
-        $this->feedback='Fund created successfully';
+        $this->feedback=__('Fund created successfully');
 
         $this->dispatch('closeModal');
 

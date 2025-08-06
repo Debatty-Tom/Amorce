@@ -30,10 +30,10 @@ class ProfileEdit extends Component
     }
     public function save(){
         if (!auth()->user()) {
-            abort(403, 'Vous n’avez pas la permission de modifier un autre profile que le votre.');
+            abort(403, __('Vous n’avez pas la permission de modifier un autre profile que le votre.'));
         }
         $this->form->update();
-        $this->feedback='Profile updated successfully';
+        $this->feedback = __('Profile updated successfully');
 
         $this->dispatch('closeCardModal');
         $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
@@ -44,7 +44,7 @@ class ProfileEdit extends Component
     public function deleteProfile()
     {
         if (!auth()->user()) {
-            abort(403, 'Vous n’avez pas la permission de supprimer un autre profile que le votre.');
+            abort(403, __('Vous n’avez pas la permission de supprimer un autre profile que le votre.'));
         }
         $this->user->delete();
 

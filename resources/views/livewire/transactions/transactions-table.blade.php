@@ -70,12 +70,12 @@
                         type="button"
                         class="w-fit py-3 px-4 bg-red-500 text-white hover:bg-black hover:hover:bg-red-700 transition ease-in text-sm rounded-lg"
                         wire:click.prevent="$dispatch('openCardModal',{component: 'modals.transaction-delete', params: { id: {{ $transaction->id }} } })">
-                        Supprimer
+                        {{ __('Supprimer') }}
                     </button>
                 </td>
                 @else
                     <td class="p-4 flex gap-2 justify-end">
-                        <p>Transaction supprimée</p>
+                        <p>{{ __('Transaction supprimée') }}</p>
                     </td>
                 @endif
                 @endhasanyrole

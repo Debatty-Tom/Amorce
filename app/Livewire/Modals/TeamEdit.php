@@ -27,10 +27,10 @@ class TeamEdit extends Component
     }
     public function save(){
         if (!auth()->user()->hasAnyRole(RolesEnum::USERMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des membres.');
+            abort(403, __('Vous n’avez pas la permission d’ajouter ou modifier des membres.'));
         }
         $this->form->update();
-        $this->feedback='User updated successfully';
+        $this->feedback = __('User updated successfully');
 
         $this->dispatch('closeCardModal');
         $this->dispatch(event:'openalert', params:['message' => $this->feedback]);
@@ -41,11 +41,11 @@ class TeamEdit extends Component
     public function deleteTeam()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::USERMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission d’archiver des membres.');
+            abort(403, __('Vous n’avez pas la permission d’archiver des membres.'));
         }
         $this->user->delete();
 
-        $this->feedback='User deleted successfully';
+        $this->feedback = __('User deleted successfully');
 
         $this->dispatch('refresh-users');
         $this->showDeleteModal = false;
@@ -55,11 +55,11 @@ class TeamEdit extends Component
     public function unarchiveUser()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::USERMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission de désarchiver des membres.');
+            abort(403, __('Vous n’avez pas la permission de désarchiver des membres.'));
         }
         $this->user->restore();
 
-        $this->feedback='User restored successfully';
+        $this->feedback = __('User restored successfully');
 
         $this->dispatch('refresh-users');
         $this->dispatch('closeCardModal');

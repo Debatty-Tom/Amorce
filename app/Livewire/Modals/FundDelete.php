@@ -55,24 +55,24 @@ class FundDelete extends Component
     public function assign($fundId, $amount)
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission d’assigner de l’argent.');
+            abort(403, __('Vous n’avez pas la permission d’assigner de l’argent.'));
         }
         if ($this->sourceFund->id === 1) {
-            abort(403, 'Vous ne pouvez pas supprimer le fond de base.');
+            abort(403, __('Vous ne pouvez pas supprimer le fond de base.'));
         }
         $formatedAmount = round($amount, 2);
         $targetFund = Fund::findOrFail($fundId);
         $this->transactionForm->target = $targetFund->id;
         $this->transactionForm->amount = $formatedAmount * 100;
-        $this->transactionForm->description = 'Montant redistribué depuis le fond ' . $this->sourceFund->title . ' lors de son archive';
+        $this->transactionForm->description = __('Montant redistribué depuis le fond'). ' ' . $this->sourceFund->title . ' ' . __('lors de son archive');
         $this->transactionForm->create();
 
         $this->transactionForm->target = $this->sourceFund->id;
         $this->transactionForm->amount = -($amount * 100);
-        $this->transactionForm->description = 'Redistribution vers le fond ' . $targetFund->title;
+        $this->transactionForm->description = __('Redistribution vers le fond') . ' ' . $targetFund->title;
         $this->transactionForm->create();
 
-        $this->feedback = "Montant de {$amount} € redistribué avec succès.";
+        $this->feedback = __("Montant de {$amount} € redistribué avec succès.");
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-fund');
     }
@@ -81,21 +81,21 @@ class FundDelete extends Component
     public function deleteFund()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission de supprimer un fond.');
+            abort(403, __('Vous n’avez pas la permission de supprimer un fond.'));
         }
         if ($this->sourceFund->id === 1) {
-            abort(403, 'Vous ne pouvez pas supprimer le fond de base.');
+            abort(403, __('Vous ne pouvez pas supprimer le fond de base.'));
         }
 
         if ($this->sourceFundView->total_amount > 0) {
-            $this->feedback = 'Impossible de supprimer le fond car il contient encore des fonds. Veuillez redistribuer les fonds restants avant de supprimer le fond.';
+            $this->feedback = __('Impossible de supprimer le fond car il contient encore des fonds. Veuillez redistribuer les fonds restants avant de supprimer le fond.');
             $this->dispatch(event: 'openalert', params: ['message' => $this->feedback, 'type' => 'error']);
             return;
         }
 
         $this->sourceFund->delete();
 
-        $this->feedback = 'Fund archived successfully';
+        $this->feedback = __('Fund archived successfully');
 
         $this->dispatch('refresh-funds');
         $this->showDeleteModal = false;

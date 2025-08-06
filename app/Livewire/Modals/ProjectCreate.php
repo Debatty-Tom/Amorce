@@ -15,7 +15,7 @@ class ProjectCreate extends Component
 
     public function save(){
         if (!auth()->user()->hasAnyRole(RolesEnum::PROJECTMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des projets.');
+            abort(403, __('Vous n’avez pas la permission d’ajouter ou modifier des projets.'));
         }
 
         $this->form->create();

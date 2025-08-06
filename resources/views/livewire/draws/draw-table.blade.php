@@ -58,8 +58,8 @@
     @if($showDeleteModal)
         <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
             <div class="bg-white p-6 rounded-lg">
-                <h2 class="text-xl font-bold mb-4">Confirmer l’archive</h2>
-                <p>Êtes-vous sûr de vouloir archiver ce fond ?</p>
+                <h2 class="text-xl font-bold mb-4">{{ __('Confirmer l’archive') }}</h2>
+                <p>{{ __('Êtes-vous sûr de vouloir archiver ce fond ?') }}</p>
                 <div class="mt-6 flex justify-end gap-3">
                     <x-cancel-button click="cancelDelete"></x-cancel-button>
                     <x-confirm-delete-button click="tryDeleteOptions"></x-confirm-delete-button>

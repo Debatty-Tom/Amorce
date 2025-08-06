@@ -41,7 +41,7 @@
                         </div>
                         <div>
                             <p>
-                                {{__('Amount :')}}
+                                {{__('Amount') . ' :'}}
                             </p>
                             <p>
                                 {{ $this->amount($draw) }}
@@ -103,7 +103,7 @@
                             </div>
                             <div>
                                 <p>
-                                    {{__('Amount :')}}
+                                    {{__('Amount' . ' :')}}
                                 </p>
                                 <p>
                                     {{ $this->amount($draw) }}

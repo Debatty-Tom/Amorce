@@ -3,7 +3,7 @@
         <h1 class="font-bold text-2xl">
             {{ __('Stock') }}
         </h1>
-        <a href="{{ route('team.create') }}"
+        <a href=""
            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             {{ __('Add a folder') }}
         </a>

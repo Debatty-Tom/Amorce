@@ -23,7 +23,7 @@
             icon="icons.nine"
             text="{{ $this->draw?->date?->format('d/m/Y') ?? 'Il n’y a pas de réunion prévue prochainement' }}"
             :redirect="$redirect">
-            Prochaine réunion
+            {{ __('Prochaine réunion') }}
         </x-dashboard-card>
 
         @php
@@ -36,7 +36,7 @@
             icon="icons.calendar"
             text="{{ $this->nextEvent?->date?->format('d/m/Y') ?? 'Il n’y a pas d’événement prévu prochainement' }}"
             :click="$click">
-            Prochain événement
+            {{ __('Prochain événement') }}
         </x-dashboard-card>
 
         @php
@@ -49,7 +49,7 @@
             icon="icons.todo"
             text="{{ $this->todo?->date?->format('d/m/Y') ?? 'Vous avez effectué toutes vos tâches'}}"
             :click="$click">
-            Prochaine tâche
+            {{ __('Prochaine tâche') }}
         </x-dashboard-card>
     </section>
 </div>

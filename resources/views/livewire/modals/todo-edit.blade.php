@@ -52,7 +52,7 @@
         <div class="flex justify-end">
             <button
                 class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __("Edit todo") }}
+                {{ __("Edit this todo") }}
             </button>
         </div>
     </form>

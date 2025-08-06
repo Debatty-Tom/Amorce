@@ -13,15 +13,16 @@ use Livewire\WithPagination;
 class DrawsTable extends Component
 {
     use WithPagination, HandleSortingTrait;
-    public $categories = [
-        'title' => 'Titre',
-        'description' => 'Description',
-        'amount' => 'Montant',
-        'date' => 'Date',
-        'created_at' => 'Date de création',
-    ];
+    public $categories ;
     public function mount()
     {
+        $this->categories = [
+            'title' => __('Titre'),
+            'description' => __('Description'),
+            'amount' => __('Montant'),
+            'date' => __('Date'),
+            'created_at' => __('Date de création'),
+        ];
         $this->sorts = [
             'pending' => ['field' => 'date', 'direction' => 'asc'],
             'archived' => ['field' => 'date', 'direction' => 'asc'],
@@ -35,12 +36,19 @@ class DrawsTable extends Component
     #[Computed]
     public function pendingDraws()
     {
-        return Draw::with(['projects'])->where('title', 'like', '%' . $this->getSearch('pending') . '%')->orderBy($this->getSortField('pending'), $this->getSortDirection('pending'))->paginate(4, pageName: 'pendingDrawsPage');
+        return Draw::with(['projects'])
+            ->where('title', 'like', '%' . $this->getSearch('pending') . '%')
+            ->orderBy($this->getSortField('pending'), $this->getSortDirection('pending'))
+            ->paginate(4, pageName: 'pendingDrawsPage');
     }
     #[Computed]
         public function archivedDraws()
     {
-        return Draw::onlyTrashed()->with(['projects'])->where('title', 'like', '%' . $this->getSearch('archived') . '%')->orderBy($this->getSortField('archived'), $this->getSortDirection('archived'))->paginate(8, pageName: 'archivedDrawsPage');
+        return Draw::onlyTrashed()
+            ->with(['projects'])
+            ->where('title', 'like', '%' . $this->getSearch('archived') . '%')
+            ->orderBy($this->getSortField('archived'), $this->getSortDirection('archived'))
+            ->paginate(8, pageName: 'archivedDrawsPage');
     }
     #[computed]
     public function amount($draw)

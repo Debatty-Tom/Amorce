@@ -45,7 +45,7 @@ class DrawDelete extends Component
     public function assign($projectId, $amount)
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission d’assigner de l’argent.');
+            abort(403, __('Vous n’avez pas la permission d’assigner de l’argent.'));
         }
 
         $current = Money::ofMinor($this->draw->amount, 'EUR');
@@ -60,19 +60,19 @@ class DrawDelete extends Component
             'updated_at' => now(),
         ]);
 
-        $this->feedback = "Montant de {$amount} € attribué avec succès.";
+        $this->feedback = __("Montant de {$amount} € attribué avec succès.");
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-delete-modal');
     }
     public function deleteDraw()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission de supprimer une détente.');
+            abort(403, __('Vous n’avez pas la permission de supprimer une détente.'));
         }
 
         $this->draw->delete();
 
-        $this->feedback = 'Fund archived successfully';
+        $this->feedback = __('Fund archived successfully');
 
         $this->dispatch('refresh-draws');
         $this->showDeleteModal = false;

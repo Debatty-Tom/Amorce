@@ -15,15 +15,16 @@ class ProjectsTable extends Component
 {
     use WithPagination, HandleSortingTrait;
 
-    public $categories = [
-        'title' => 'Nom',
-        'description' => 'description',
-        'email' => 'Email',
-        'created_At' => 'Date de création',
-    ];
+    public $categories;
 
     public function mount()
     {
+        $this->categories = [
+            'title' => __('Nom'),
+            'description' => __('description'),
+            'email' => __('Email'),
+            'created_At' => __('Date de création'),
+        ];
         $this->sorts = [
             'pending' => ['field' => 'title', 'direction' => 'asc'],
             'next' => ['field' => 'title', 'direction' => 'asc'],
@@ -40,7 +41,10 @@ class ProjectsTable extends Component
     #[computed]
     public function pendingProjects()
     {
-        return Project::whereDoesntHave('draws')->where('title', 'like', '%' . $this->getSearch('pending') . '%')->orderBy($this->getSortField('pending'), $this->getSortDirection('pending'))->paginate(8, pageName: 'pendingProjectsPage');
+        return Project::whereDoesntHave('draws')
+            ->where('title', 'like', '%' . $this->getSearch('pending') . '%')
+            ->orderBy($this->getSortField('pending'), $this->getSortDirection('pending'))
+            ->paginate(8, pageName: 'pendingProjectsPage');
     }
 
     #[computed]
@@ -48,7 +52,10 @@ class ProjectsTable extends Component
     {
         return Project::whereHas('draws', function ($query) {
             $query->where('status', 'pending');
-        })->where('title', 'like', '%' . $this->getSearch('next') . '%')->orderBy($this->getSortField('next'), $this->getSortDirection('next'))->paginate(8, pageName: 'nextDrawProjectsPage');
+        })
+            ->where('title', 'like', '%' . $this->getSearch('next') . '%')
+            ->orderBy($this->getSortField('next'), $this->getSortDirection('next'))
+            ->paginate(8, pageName: 'nextDrawProjectsPage');
     }
 
     #[computed]
@@ -56,8 +63,9 @@ class ProjectsTable extends Component
     {
         return Project::whereHas('draws', function ($query) {
             $query->where('status', 'funded');
-        })->where('title', 'like', '%' . $this->getSearch('funded') . '%')->orderBy($this->getSortField('funded'), $this->getSortDirection('funded'))
-            ->limit(20)
+        })
+            ->where('title', 'like', '%' . $this->getSearch('funded') . '%')
+            ->orderBy($this->getSortField('funded'), $this->getSortDirection('funded'))
             ->paginate(8, pageName: 'fundedProjectsPage');
     }
 
