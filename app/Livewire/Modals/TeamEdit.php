@@ -40,6 +40,9 @@ class TeamEdit extends Component
 
     public function deleteTeam()
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::USERMANAGER->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission d’archiver des membres.');
+        }
         $this->user->delete();
 
         $this->feedback='User deleted successfully';
@@ -51,6 +54,9 @@ class TeamEdit extends Component
     }
     public function unarchiveUser()
     {
+        if (!auth()->user()->hasAnyRole(RolesEnum::USERMANAGER->value, RolesEnum::ADMIN->value)) {
+            abort(403, 'Vous n’avez pas la permission de désarchiver des membres.');
+        }
         $this->user->restore();
 
         $this->feedback='User restored successfully';
