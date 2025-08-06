@@ -65,8 +65,16 @@ class AppointmentsCalendar extends LivewireCalendar
 
     public function onEventClick($eventId)
     {
-        // This event is triggered when an event card is clicked
-        // You will be given the event id that was clicked
+        if (str_contains($eventId, 'draw')) {
+            $drawId = str_replace('draw-', '', $eventId);
+            redirect(route('draw.show', ['id' => $drawId]));
+        } else {
+            $event = Event::findOrFail(str_replace('event-', '', $eventId));
+            $this->dispatch('openCardModal', component: 'modals.event-show', params: [
+                'id' => $event->id,
+                'date' => $event->date->format('Y-m-d'),
+            ]);
+        }
     }
 
     public function onEventDropped($eventId, $year, $month, $day)
