@@ -7,7 +7,7 @@ use App\Livewire\Forms\TeamForm;
 use App\Livewire\Forms\UserForm;
 use App\Models\User;
 use App\Traits\DeleteModalTrait;
-use App\Traits\handlesImagesUpload;
+use App\Traits\HandlesImagesUpload;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -16,7 +16,7 @@ use Spatie\Permission\Models\Role;
 
 class ProfileEdit extends Component
 {
-    use WithFileUploads, handlesImagesUpload, DeleteModalTrait;
+    use WithFileUploads, HandlesImagesUpload, DeleteModalTrait;
     public $feedback = '';
     public $user;
     public TeamForm $form;

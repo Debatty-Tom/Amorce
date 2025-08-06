@@ -6,14 +6,14 @@ use App\Enums\RolesEnum;
 use App\Livewire\Forms\TeamForm;
 use App\Models\User;
 use App\Traits\DeleteModalTrait;
-use App\Traits\handlesImagesUpload;
+use App\Traits\HandlesImagesUpload;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Spatie\Permission\Models\Role;
 
 class TeamEdit extends Component
 {
-    use WithFileUploads, handlesImagesUpload, DeleteModalTrait;
+    use WithFileUploads, HandlesImagesUpload, DeleteModalTrait;
     public $feedback = '';
     public $user;
     public TeamForm $form;

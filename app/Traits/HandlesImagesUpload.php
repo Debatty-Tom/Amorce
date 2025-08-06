@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Laravel\Facades\Image;
 
-trait handlesImagesUpload
+trait HandlesImagesUpload
 {
     static public function imageStoreVariant(string $string): void
     {
