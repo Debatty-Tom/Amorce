@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Draw;
+use App\Models\Event;
 use App\Models\Todo;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
@@ -25,6 +26,13 @@ class Dashboard extends Component
             })
             ->where('date', '>=', now())
             ->orderBy('created_at', 'desc')
+            ->first();
+    }
+    #[computed]
+    public function nextEvent()
+    {
+        return Event::where('date', '>=', now())
+            ->orderBy('date', 'asc')
             ->first();
     }
     public function render()
