@@ -1,11 +1,11 @@
 <div>
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
-        {{ __('Create a new Draw') }}
+        {{ __('amorce.misc-create-new-draw') }}
     </h2>
     <form wire:submit.prevent="save" enctype="multipart/form-data"
           class="flex flex-col gap-3">
         <div class="flex gap-2 flex-col">
-            <x-input-label for="title" value="{{ __('Title') }}"/>
+            <x-input-label for="title" value="{{ __('amorce.form-title') }}"/>
             <x-text-input
                 id="title"
                 type="text"
@@ -14,7 +14,7 @@
             @error('form.title') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
         <div>
-            <x-input-label for="description" value="{{ __('Description') }}"/>
+            <x-input-label for="description" value="{{ __('amorce.form-description') }}"/>
             <x-text-input
                 id="description"
                 type="text"
@@ -44,7 +44,7 @@
             @error('form.amount')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
         </div>
         <div>
-            <x-input-label for="date" value="{{ __('Date') }}"/>
+            <x-input-label for="date" value="{{ __('amorce.form-date') }}"/>
             <x-text-input
                 id="date"
                 type="date"
@@ -54,7 +54,7 @@
         </div>
         <div class="flex justify-between">
             <p class="pb-8 pr-6 w-full lg:w-1/2">
-                {{ __("The 3 next participants :") }}
+                {{ __('amorce.draw-next-participants') . ' :' }}
             </p>
             <ul class="grid grid-cols-3 gap-5">
                 @foreach($this->form->new_participants as $participant)
@@ -69,12 +69,12 @@
             @if($this->randomButton)
                 <button wire:click.prevent="addNewParticipants"
                         class="flex items-center btn-indigo ml-auto">
-                    {{ __("Start random") }}
+                    {{ __('amorce.draw-start-random') }}
                 </button>
             @endif
         </div>
         <p>
-            {{ __("Select the projects you want in this draw") }}
+            {{ __('amorce.draw-select-projects') }}
         </p>
         <ul class="grid grid-cols-3 gap-5">
             @foreach ($projects as $project)
@@ -83,7 +83,7 @@
                     <div class="flex items-center gap-4">
                         <input id="{{ $project->id }}"
                                type="checkbox"
-                               name="{{ __("projects[]") }}"
+                               name="projects[]"
                                wire:model="selectedProjects"
                                class="h-4 w-4 ml-6 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                value="{{ $project->id }}">
@@ -96,7 +96,7 @@
         <div class="flex justify-end">
             <button
                 class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __("Create a Draw") }}
+                {{ __('amorce.draw-create') }}
             </button>
         </div>
     </form>

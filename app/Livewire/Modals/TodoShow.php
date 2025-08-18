@@ -23,11 +23,11 @@ class TodoShow extends Component
     public function deleteTodo()
     {
         if(!(auth()->user()->hasRole(\App\Enums\RolesEnum::ADMIN->value) || auth()->id() === $this->todo->assignments[0]->assignedBy->id) && $this->todo->trashed()) {
-            abort(403, __('Vous n’avez pas la permission d’archiver cette tâche.'));
+            abort(403, __('amorce.message-permission-denied-delete-todo') . '.');
         }
         $this->todo->delete();
 
-        $this->feedback = __('Todo deleted successfully');
+        $this->feedback = __('amorce.message-toast-success-delete-todo');
 
         $this->dispatch('refresh-todos');
         $this->showDeleteModal = false;

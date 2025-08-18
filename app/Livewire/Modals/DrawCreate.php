@@ -19,6 +19,7 @@ use function Pest\Laravel\get;
 class DrawCreate extends Component
 {
     use HandlesNumbers, HandlesDonators;
+
     public $feedback = '';
     public DrawForm $form;
     public TransactionForm $transactionForm;
@@ -38,6 +39,7 @@ class DrawCreate extends Component
         $this->projects = Project::whereDoesntHave('draws')->get();
         $this->lastDraw = Draw::with('donators')->latest('date')->first();
     }
+
     public function loadOldParticipants()
     {
         $this->oldParticipants = $this->lastDraw
@@ -55,17 +57,17 @@ class DrawCreate extends Component
     public function save()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, __('Vous n’avez pas la permission d’ajouter ou modifier des détentes.'));
+            abort(403, __('amorce.message-permission-denied-edit-draw') . '.');
         }
         $this->loadOldParticipants();
 
         $this->form->amount = $this->normalizeNumber($this->form->amount);
         $this->draw = $this->form->create();
-        $this->feedback = __('Draw created successfully');
+        $this->feedback = __('amorce.message-toast-success-draw');
 
         $this->transactionForm->target = $this->generalFund->id;
-        $this->transactionForm->amount = - $this->form->amount;
-        $this->transactionForm->description = __('Assignation du budget de la détente du') . ' ' . $this->draw->date->format('d/m/Y');
+        $this->transactionForm->amount = -$this->form->amount;
+        $this->transactionForm->description = __('amorce.transaction-draw-budget') . ' ' . $this->draw->date->format('d/m/Y');
         $this->transactionForm->create();
 
         $this->draw->donators()->attach(
@@ -94,7 +96,7 @@ class DrawCreate extends Component
             ]
         );
 
-        $this->feedback=__('Draw created successfully');
+        $this->feedback = __('amorce.message-toast-success-draw');
 
         $this->dispatch('closeModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);

@@ -21,10 +21,10 @@ class ProjectEdit extends Component
     }
     public function save(){
         if (!auth()->user()->hasAnyRole(RolesEnum::PROJECTMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, __('Vous n’avez pas la permission d’ajouter ou modifier des projets.'));
+            abort(403, __('amorce.message-permission-denied-edit-project') . '.');
         }
         $this->form->update();
-        $this->feedback = __('Project updated successfully');
+        $this->feedback = __('amorce.message-toast-success-edit-project');
 
         $this->dispatch('closeModal');
         $this->dispatch(event:'openalert', params:['message' => $this->feedback]);

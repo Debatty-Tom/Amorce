@@ -1,5 +1,5 @@
 <div class="flex flex-col h-full gap-5">
-    <h2 class="text-3xl">{{ __('Bienvenue ' . auth()->user()->name) }}</h2>
+    <h2 class="text-3xl">{{ __('amorce.welcome') . ' ' . auth()->user()->name }}</h2>
 
     <section class="w-full h-[65vh] overflow-hidden">
         <div class="h-full">
@@ -21,9 +21,9 @@
 
         <x-dashboard-card
             icon="icons.nine"
-            text="{{ $this->draw?->date?->format('d/m/Y') ?? 'Il n’y a pas de réunion prévue prochainement' }}"
+            text="{{ $this->draw?->date?->format('d/m/Y') ?? __('amorce.dashboard-no-future-draw') }}"
             :redirect="$redirect">
-            {{ __('Prochaine réunion') }}
+            {{ __('amorce.dashboard-next-meeting') }}
         </x-dashboard-card>
 
         @php
@@ -34,9 +34,9 @@
 
         <x-dashboard-card
             icon="icons.calendar"
-            text="{{ $this->nextEvent?->date?->format('d/m/Y') ?? 'Il n’y a pas d’événement prévu prochainement' }}"
+            text="{{ $this->nextEvent?->date?->format('d/m/Y') ?? __('amorce.dashboard-no-future-event') }}"
             :click="$click">
-            {{ __('Prochain événement') }}
+            {{ __('amorce.dashboard-next-event') }}
         </x-dashboard-card>
 
         @php
@@ -47,9 +47,9 @@
 
         <x-dashboard-card
             icon="icons.todo"
-            text="{{ $this->todo?->date?->format('d/m/Y') ?? 'Vous avez effectué toutes vos tâches'}}"
+            text="{{ $this->todo?->date?->format('d/m/Y') ?? __('amorce.dashboard-no-future-task') }}"
             :click="$click">
-            {{ __('Prochaine tâche') }}
+            {{ __('amorce.dashboard-next-task') }}
         </x-dashboard-card>
     </section>
 </div>

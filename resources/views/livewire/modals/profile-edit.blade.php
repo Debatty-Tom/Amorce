@@ -1,6 +1,6 @@
 <div>
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
-        {{ __('Edit profile') }}
+        {{ __('amorce.misc-edit-profile') }}
     </h2>
     <form wire:submit.prevent="save" enctype="multipart/form-data"
           class="flex flex-col gap-3">
@@ -48,15 +48,15 @@
             </x-delete-button>
             <button
                 class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __("Edit your profile") }}
+                {{ __('amorce.misc-edit-profile') }}
             </button>
         </div>
     </form>
     @if($showDeleteModal)
         <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
             <div class="bg-white p-6 rounded-lg">
-                <h2 class="text-xl font-bold mb-4">{{ __('Confirmer la suppression') }}</h2>
-                <p>{{ __('Êtes-vous sûr de vouloir supprimer votre profile ? Cette action est irréversible.') }}</p>
+                <h2 class="text-xl font-bold mb-4">{{ __('amorce.delete-confirm') }}</h2>
+                <p>{{ __('amorce.delete-profile') }}</p>
                 <div class="mt-6 flex justify-end gap-3">
                     <x-cancel-button click="cancelDelete"></x-cancel-button>
                     <x-confirm-delete-button click="deleteProfile"></x-confirm-delete-button>

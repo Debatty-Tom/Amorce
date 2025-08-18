@@ -1,7 +1,7 @@
 <div>
     <div class="flex flex-row gap-10 mb-4">
         <h3 class="text-2xl">
-            {{ __('Transactions') }}
+            {{ __('amorce.misc-transactions') }}
         </h3>
         <div>
             <input type="text" wire:model.live.debounce.100ms="searches.transaction"
@@ -22,18 +22,18 @@
         <thead>
         <tr class="bg-gray-200">
             <th class="text-left  p-4">
-                {{ __('Date') }}
+                {{ __('amorce.form-date') }}
             </th>
             <th class="text-left">
-                {{ __('Description') }}
+                {{ __('amorce.form-description') }}
             </th>
             <th class="text-right">
-                {{ __('Amount') }}
+                {{ __('amorce.misc-amount') }}
             </th>
             @hasanyrole(\App\Enums\RolesEnum::ACCOUNTANT->value.'|'.
                         \App\Enums\RolesEnum::ADMIN->value)
             <th class="text-right p-4">
-                {{ __('edit/delete') }}
+                {{ __('amorce.action-edit') . '/' . __('amorce.action-delete) }}
             </th>
             @endhasanyrole
         </tr>
@@ -64,18 +64,18 @@
                 <td class="p-4 flex gap-2 justify-end">
                     <button
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                        wire:click.prevent="$dispatch('openCardModal',{component: 'modals.transaction-edit', params: { id: {{ $transaction->id }} } })">{{ __('Edit') }}</button>
+                        wire:click.prevent="$dispatch('openCardModal',{component: 'modals.transaction-edit', params: { id: {{ $transaction->id }} } })">{{ __('amorce.action-edit') }}</button>
 
                     <button
                         type="button"
                         class="w-fit py-3 px-4 bg-red-500 text-white hover:bg-black hover:hover:bg-red-700 transition ease-in text-sm rounded-lg"
                         wire:click.prevent="$dispatch('openCardModal',{component: 'modals.transaction-delete', params: { id: {{ $transaction->id }} } })">
-                        {{ __('Supprimer') }}
+                        {{ __('amorce.action-delete') }}
                     </button>
                 </td>
                 @else
                     <td class="p-4 flex gap-2 justify-end">
-                        <p>{{ __('Transaction supprimée') }}</p>
+                        <p>{{ __('amorce.message-transaction-deleted') }}</p>
                     </td>
                 @endif
                 @endhasanyrole

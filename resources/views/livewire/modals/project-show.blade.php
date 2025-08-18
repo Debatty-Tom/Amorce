@@ -1,6 +1,6 @@
 <div x-data="{ user_name: @js($project->name) }">
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
-        {{ __('Project details') }}
+        {{ __('amorce.project-details') }}
     </h2>
 
     <div class="flex flex-col gap-3">
@@ -16,7 +16,7 @@
             <button
                 wire:click.prevent="$dispatch('openModal',{component: 'modals.project-edit', params: { project: { id: {{ $project->id }} } }})"
                 class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __("Edit this project") }}
+                {{ __('amorce.project-edit') }}
             </button>
         </div>
         @endhasanyrole
@@ -25,8 +25,8 @@
     @if($showDeleteModal)
         <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
             <div class="bg-white p-6 rounded-lg">
-                <h2 class="text-xl font-bold mb-4">{{ __'Confirmer la suppression' }}</h2>
-                <p>{{ __('Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible.') }}</p>
+                <h2 class="text-xl font-bold mb-4">{{ __('amorce.delete-confirm') }}</h2>
+                <p>{{ __('amorce.delete-project') }}</p>
                 <div class="mt-6 flex justify-end gap-3">
                     <x-cancel-button click="cancelDelete"/>
                     <x-confirm-delete-button click="deleteProject"/>

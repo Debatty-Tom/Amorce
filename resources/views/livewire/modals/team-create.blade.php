@@ -1,6 +1,6 @@
 <div x-data="{user_name:$wire.form.name}">
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
-        {{ __('Create a team member') }}
+        {{ __('amorce.team-create') }}
     </h2>
     <form wire:submit.prevent="save" enctype="multipart/form-data"
           class="flex flex-col gap-3">
@@ -61,7 +61,7 @@
         <div class="flex justify-end">
             <button
                 class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __("Create Team member") }}
+                {{ __('amorce.misc-create-team-member') }}
             </button>
         </div>
     </form>

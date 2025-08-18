@@ -80,7 +80,7 @@ class ImportCsv extends Component
             $this->transactionForm->target = $fund->id;
             $this->transactionForm->amount = str_replace(',', '', $record['amount']);
             $this->transactionForm->date = Carbon::createFromFormat('d-m-Y', $record['date'])->format('Y-m-d');
-            $this->transactionForm->description = $record['description'] ?? __($record['amount'] > 0 ? 'Don' : 'Retrait' . 'from CSV import');
+            $this->transactionForm->description = $record['description'] ?? __($record['amount'] > 0 ? 'Don' : __('amorce.misc-withdrawal') . 'from CSV import');
             $this->transactionForm->hash = $hash;
             $this->transactionForm->create();
         }

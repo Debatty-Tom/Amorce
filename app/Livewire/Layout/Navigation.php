@@ -12,57 +12,57 @@ class Navigation extends Component
     {
         $this->links = [
             'dashboard' => [
-                'label' => __('Dashboard'),
+                'label' => __('amorce.page-dashboard'),
                 'icon' => 'icons.dashboard',
                 'href' => 'dashboard.index',
             ],
             'team' => [
-                'label' => __('Team'),
+                'label' => __('amorce.team'),
                 'icon' => 'icons.team',
                 'href' => 'team.index',
             ],
             'draw' => [
-                'label' => __('Les 9'),
+                'label' => __('amorce.navigation-draws'),
                 'icon' => 'icons.nine',
                 'href' => 'draw.index',
             ],
             'calendar' => [
-                'label' => __('Calendrier'),
+                'label' => __('amorce.navigation-calendar'),
                 'icon' => 'icons.calendar',
                 'href' => 'calendar.index',
             ],
             'stock' => [
-                'label' => __('Stockage'),
+                'label' => __('amorce.misc-stock'),
                 'icon' => 'icons.stock',
                 'href' => 'stock.index',
             ],
             'accounting' => [
-                'label' => __('Comptabilité'),
+                'label' => __('amorce.navigation-accounting'),
                 'icon' => 'icons.accounting',
                 'href' => 'accounting.index',
             ],
             'mailing' => [
-                'label' => __('Mailing'),
+                'label' => __('amorce.navigation-mailing'),
                 'icon' => 'icons.mailing',
                 'href' => 'mailing.index',
             ],
             'todo' => [
-                'label' => __('To Do'),
+                'label' => __('amorce.navigation-todo'),
                 'icon' => 'icons.todo',
                 'href' => 'todo.index',
             ],
             'projects' => [
-                'label' => __('Projets'),
+                'label' => __('amorce.navigation-projects'),
                 'icon' => 'icons.project',
                 'href' => 'projects.index',
             ],
             'settings' => [
-                'label' => __('Profile'),
+                'label' => __('amorce.navigation-profile'),
                 'icon' => 'icons.settings',
                 'href' => 'profile.index',
             ],
             'logout' => [
-                'label' => __('Déconnexion'),
+                'label' => __('amorce.navigation-logout'),
                 'icon' => 'icons.logout',
                 'href' => 'logout',
             ]

@@ -1,11 +1,11 @@
 <div>
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
-        {{ __('Edit this project') }}
+        {{ __('amorce.project-edit') }}
     </h2>
     <form wire:submit.prevent="save" enctype="multipart/form-data"
           class="flex flex-col gap-3">
         <div class="flex gap-2 flex-col">
-            <x-input-label for="title" value="{{ __('Title') }}"/>
+            <x-input-label for="title" value="{{ __('amorce.form-title') }}"/>
             <x-text-input
                 id="title"
                 type="text"
@@ -14,7 +14,7 @@
             @error('form.title') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
         <div>
-            <x-input-label for="description" value="{{ __('Description') }}"/>
+            <x-input-label for="description" value="{{ __('amorce.form-description') }}"/>
             <x-text-input
                 id="description"
                 type="text"
@@ -35,7 +35,7 @@
         <div class="flex justify-end gap-4">
             <button
                 class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __("Edit this project") }}
+                {{ __('amorce.project-edit') }}
             </button>
         </div>
     </form>

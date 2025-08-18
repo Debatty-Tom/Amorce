@@ -4,9 +4,9 @@
     @forelse ($events as $event)
         <div class="mb-4 p-4 bg-white shadow rounded">
             <h3 class="text-lg font-semibold">{{ $event['title'] }}</h3>
-            <p class="text-gray-600">{{ $event['description'] ?? __('Aucune description.') }}</p>
+            <p class="text-gray-600">{{ $event['description'] ?? __('amorce.message-no-description') . '.' }}</p>
         </div>
     @empty
-        <p>{{ __('Aucun événement pour ce jour.') }}</p>
+        <p>{{ __('amorce.dashboard-no-events') . '.' }}</p>
     @endforelse
 </div>

@@ -1,13 +1,13 @@
 <section>
     <div class="flex justify-between mb-5">
-        <h2 class="text-3xl">{{__('Accounting')}}</h2>
+        <h2 class="text-3xl">{{__('amorce.navigation-accounting')}}</h2>
         <div class="gap-5">
             @hasanyrole(\App\Enums\RolesEnum::ACCOUNTANT->value.'|'.
                         \App\Enums\RolesEnum::ADMIN->value)
             <a href="{{ route('csv.index') }}"
-               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{ __('Import CSV') }}</a>
+               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">{{ __('amorce.misc-import-csv') }}</a>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    wire:click.prevent="$dispatch('openModal',{component: 'modals.fund-create'})">{{ __('Add a fund') }}</button>
+                    wire:click.prevent="$dispatch('openModal',{component: 'modals.fund-create'})">{{ __('amorce.create-fund') }}</button>
             @endhasanyrole
         </div>
     </div>
@@ -15,7 +15,7 @@
         <section class="flex flex-col gap 3">
             <div class="flex flex-row gap-10">
                 <h3 class="text-2xl">
-                    {{ __('Principals funds') }}
+                    {{ __('amorce.funds-principal') }}
                 </h3>
                 <div>
                     <input type="text" wire:model.live.debounce.100ms="searches.principal"
@@ -44,7 +44,7 @@
                             </div>
                             <div class="flex flex-col items-center pb-3 gap-4">
                                 <p class="text-[#4880ff] text-[46px] font-extrabold ">{{ Brick\Money\Money::ofMinor($fund->total_amount, 'EUR')->formatTo('fr_BE') }}</p>
-                                <p class="text-[#4880ff] text-base font-bold">{{ __('See the fund') }}</p>
+                                <p class="text-[#4880ff] text-base font-bold">{{ __('amorce.fund-see') }}</p>
                             </div>
                         </div>
                     </li>
@@ -55,7 +55,7 @@
         <section class="flex flex-col gap 3">
             <div class="flex flex-row gap-10">
                 <h3 class="text-2xl">
-                    {{ __('Specifics funds') }}
+                    {{ __('amorce.funds-specific') }}
                 </h3>
                 <div>
                     <input type="text" wire:model.live.debounce.100ms="searches.specific"
@@ -84,7 +84,7 @@
                             </div>
                             <div class="flex flex-col items-center pb-3 gap-4">
                                 <p class="text-[#4880ff] text-[46px] font-extrabold ">{{ Brick\Money\Money::ofMinor($fund->total_amount, 'EUR')->formatTo('fr_BE') }}</p>
-                                <p class="text-[#4880ff] text-base font-bold">{{ __('See the fund') }}</p>
+                                <p class="text-[#4880ff] text-base font-bold">{{ __('amorce.fund-see') }}</p>
                             </div>
                         </div>
                     </li>
@@ -96,7 +96,7 @@
         <section class="flex flex-col gap 3">
             <div class="flex flex-row gap-10">
                 <h3 class="text-2xl">
-                    {{ __('Archived funds') }}
+                    {{ __('amorce.page-funds-archived') }}
                 </h3>
                 <div>
                     <input type="text" wire:model.live.debounce.100ms="searches.archived"
@@ -127,7 +127,7 @@
                                 </div>
                                 <div class="flex flex-col items-center pb-3 gap-4">
                                     <p class="text-[#4880ff] text-[46px] font-extrabold ">{{ Brick\Money\Money::ofMinor($fund->total_amount, 'EUR')->formatTo('fr_BE') }}</p>
-                                    <p class="text-[#4880ff] text-base font-bold">{{ __('See the fund') }}</p>
+                                    <p class="text-[#4880ff] text-base font-bold">{{ __('amorce.fund-see') }}</p>
                                 </div>
                             </div>
                         </li>
@@ -135,7 +135,7 @@
                 </ul>
             @else
                 <div class="p-8 text-center text-gray-500">
-                    <p>{{ __('No archived funds found.') }}</p>
+                    <p>{{ __('amorce.fund-archived-none') . '.' }}</p>
                 </div>
             @endif
             {{ $this->archivedFunds->links(data: ['scrollTo' => false]) }}

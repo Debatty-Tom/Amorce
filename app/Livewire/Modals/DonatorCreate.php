@@ -21,10 +21,10 @@ class DonatorCreate extends Component
     }
     public function save(){
         if (!auth()->user()->hasAnyRole(RolesEnum::ADMIN->value)) {
-            abort(403, __('Vous n’avez pas la permission d’ajouter ou modifier des donateurs.'));
+            abort(403, __('amorce.message-permission-denied-edit-donator') . '.');
         }
         $this->form->create();
-        $this->feedback=__('Donator created successfully');
+        $this->feedback=__('amorce.message-toast-success-donator');
 
         $this->dispatch('closeModal');
     }

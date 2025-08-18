@@ -36,7 +36,7 @@ class TransactionEdit extends Component
 
         $this->dispatch('refresh-transactions');
         $this->dispatch('closeCardModal');
-        $this->feedback = __('Transaction effectuée avec succès');
+        $this->feedback = __('amorce.message-toast-success-transaction');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
     }
     public function render()

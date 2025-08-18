@@ -6,7 +6,7 @@
     </div>
     <div class="flex flex-col items-center pb-3 gap-4">
         <p class="text-[#4880ff] text-[46px] font-extrabold ">{{ $fund->amount }}</p>
-        <p class="text-[#4880ff] text-base font-bold">{{ __('See the fund') }}</p>
+        <p class="text-[#4880ff] text-base font-bold">{{ __('amorce.fund-see') }}</p>
     </div>
 </div>
 

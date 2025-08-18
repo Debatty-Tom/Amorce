@@ -1,16 +1,16 @@
 <section>
     <div class="flex justify-between mb-5">
-        <h2 class="text-3xl">{{__('Projects')}}</h2>
+        <h2 class="text-3xl">{{__('amorce.page-projects')}}</h2>
         @hasanyrole(\App\Enums\RolesEnum::PROJECTMANAGER->value.'|'.
                     \App\Enums\RolesEnum::ADMIN->value)
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                wire:click.prevent="$dispatch('openModal',{component: 'modals.project-create'})">{{ __('Add a project') }}</button>
+                wire:click.prevent="$dispatch('openModal',{component: 'modals.project-create'})">{{ __('amorce.create-project') }}</button>
         @endhasanyrole
     </div>
     <div class="mb-4 flex flex-col gap-3">
         <div class="flex flex-row gap-10">
             <h3 class="text-2xl pb-3">
-                {{__("Pending projects")}}
+                {{ __('amorce.project-pending') }}
             </h3>
             <div>
                 <input type="text" wire:model.live.debounce.100ms="searches.pending"
@@ -33,7 +33,7 @@
                     <div class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3">
                         <a href="#" class="inset-0 absolute z-10" x-data="{ model: @js($project) }"
                            wire:click.prevent="$dispatch('openCardModal',{component: 'modals.project-show', params: { project: { id: {{ $project->id }} } }})">
-                            <span class="sr-only">{{ __("See project") }}</span>
+                            <span class="sr-only">{{ __('amorce.project-see') }}</span>
                         </a>
                         <p class="text-center text-[#202224] text-lg font-bold">{{ $project->title }}</p>
                         <p>
@@ -48,7 +48,7 @@
     <div class="pt-4 mb-4 flex flex-col gap-3">
         <div class="flex flex-row gap-10">
             <h3 class="text-2xl pb-3">
-                {{__("Next draw's projects")}}
+                {{__('amorce.project-next-draw')}}
             </h3>
             <div>
                 <input type="text" wire:model.live.debounce.100ms="searches.next"
@@ -71,7 +71,7 @@
                     <div class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3">
                         <a href="#" class="inset-0 absolute z-10" x-data="{ model: @js($project) }"
                            wire:click.prevent="$dispatch('openCardModal',{component: 'modals.project-show', params: { project: { id: {{ $project->id }} } }})">
-                            <span class="sr-only">{{ __("See project") }}</span>
+                            <span class="sr-only">{{ __('amorce.project-see') }}</span>
                         </a>
                         <p class="text-center text-[#202224] text-lg font-bold">{{ $project->title }}</p>
                         <p>
@@ -86,7 +86,7 @@
     <div class="pt-4 mb-4 flex flex-col gap-3">
         <div class="flex flex-row gap-10">
             <h3 class="text-2xl">
-                {{__('funded projects')}}
+                {{__('amorce.project-funded')}}
             </h3>
             <div>
                 <input type="text" wire:model.live.debounce.100ms="searches.funded"
@@ -109,7 +109,7 @@
                     <div class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3">
                         <a href="#" class="inset-0 absolute z-10" x-data="{ model: @js($project) }"
                            wire:click.prevent="$dispatch('openCardModal',{component: 'modals.project-show', params: { project: { id: {{ $project->id }} } }})">
-                            <span class="sr-only">{{ __("See project") }}</span>
+                            <span class="sr-only">{{ __('amorce.project-see') }}</span>
                         </a>
                         <p class="text-center text-[#202224] text-lg font-bold">{{ $project->title }}</p>
                         <p>

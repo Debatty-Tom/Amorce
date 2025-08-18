@@ -14,7 +14,7 @@ class Toast extends Component
     #[on('openalert')]
     public function showAlert($params)
     {
-        $this->message = $params['message'] ?? __('Alerte');
+        $this->message = $params['message'] ?? __('amorce.misc-alert');
         $this->type = $params['type'] ?? 'valid';
         $this->openAlert = true;
     }

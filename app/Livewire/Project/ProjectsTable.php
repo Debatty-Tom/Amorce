@@ -20,10 +20,10 @@ class ProjectsTable extends Component
     public function mount()
     {
         $this->categories = [
-            'title' => __('Nom'),
-            'description' => __('description'),
-            'email' => __('Email'),
-            'created_At' => __('Date de création'),
+            'title' => __('amorce.form-name'),
+            'description' => __('amorce.form-description'),
+            'email' => __('amorce.form-email'),
+            'created_At' => __('amorce.misc-creation-date'),
         ];
         $this->sorts = [
             'pending' => ['field' => 'title', 'direction' => 'asc'],

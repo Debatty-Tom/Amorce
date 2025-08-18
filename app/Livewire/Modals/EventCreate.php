@@ -20,7 +20,7 @@ class EventCreate extends Component
     public function save()
     {
         $this->form->create();
-        $this->feedback=__('Event created successfully');
+        $this->feedback=__('amorce.message-toast-success-event');
 
         $this->dispatch('closeCardModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);

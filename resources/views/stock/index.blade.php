@@ -1,11 +1,11 @@
 <x-app-layout>
     <div class="flex justify-between items-center mb-8">
         <h1 class="font-bold text-2xl">
-            {{ __('Stock') }}
+            {{ __('amorce.misc-stock') }}
         </h1>
         <a href=""
            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            {{ __('Add a folder') }}
+            {{ __('amorce.create-folder') }}
         </a>
     </div>
     <ul class="grid grid-cols-5 gap-9 w-full p-8">

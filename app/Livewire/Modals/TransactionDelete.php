@@ -23,7 +23,7 @@ class TransactionDelete extends Component
     }
     public function delete()
     {
-        $this->form->description = __('Suppression de la transaction :') . ' ' . $this->transaction->description;
+        $this->form->description = __('amorce.transaction-cancel-transaction') . ' : ' . $this->transaction->description;
         $this->form->amount = str_contains($this->transaction->amount, '-')
             ? ltrim($this->transaction->amount, '-')
             : '-' . $this->transaction->amount;
@@ -35,7 +35,7 @@ class TransactionDelete extends Component
         $this->dispatch('refresh-transactions');
         $this->dispatch('refresh-fund');
         $this->dispatch('closeCardModal');
-        $this->feedback = __('Transaction supprimée avec succès');
+        $this->feedback = __('amorce.message-transaction-deleted');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
     }
     public function render()

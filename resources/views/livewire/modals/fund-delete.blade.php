@@ -1,6 +1,6 @@
 <div class="space-y-6">
-    <h2 class="text-xl font-bold">{{ __('Attention, il reste de l’argent sur ce fond! Redistribution du fond :') . ' ' . $this->sourceFund->title }}</h2>
-    <p class="text-gray-700">💰 {{ __('Solde disponible :') }} <strong>{{ $this->amount }}</strong></p>
+    <h2 class="text-xl font-bold">{{ __('amorce.fund-redistribution') . ' : ' . $this->sourceFund->title }}</h2>
+    <p class="text-gray-700">💰 {{ __('amorce.fund-balance') . ' :' }} <strong>{{ $this->amount }}</strong></p>
 
     @foreach($this->targetFunds as $fund)
         <div class="border p-4 rounded shadow-sm">
@@ -28,7 +28,7 @@
                         type="button"
                         class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-800"
                         @click="$wire.assign({{ $fund->id }}, value)">
-                    {{ __('Attribuer') }}
+                    {{ __('amorce.action-assign') }}
                 </button>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <button
                 wire:click="deleteFund"
                 class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">
-                {{ __('Fermer') }}
+                {{ __('amorce.action-close') }}
             </button>
         @endif
     </div>

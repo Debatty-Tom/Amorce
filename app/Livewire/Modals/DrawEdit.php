@@ -54,7 +54,7 @@ class DrawEdit extends Component
 
             $this->addNewParticipant();
         } else {
-            $this->feedback = __('You can only remove 3 participants at a time');
+            $this->feedback = __('amorce.message-permission-denied-remove-participant');
             $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         }
     }
@@ -71,7 +71,7 @@ class DrawEdit extends Component
         $transactionAmount = $transactionAmount->toScale(2, RoundingMode::DOWN)->multipliedBy(100)->toInt();
         $this->transactionForm->amount = $transactionAmount;
         $this->transactionForm->target = $this->generalFund->id;
-        $this->transactionForm->description = __('Modification du budget de la détente du') . ' ' . $this->draw->date->format('d/m/Y');
+        $this->transactionForm->description = __('amorce.transaction-edit-draw-budget') . ' ' . $this->draw->date->format('d/m/Y');
         $this->transactionForm->create();
     }
 
@@ -144,7 +144,7 @@ class DrawEdit extends Component
     public function save()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, __('Vous n’avez pas la permission d’ajouter ou modifier une détente.'));
+            abort(403, __('amorce.message-permission-denied-edit-draw') . '.');
         }
 
         $this->form->amount = $this->normalizeNumber($this->form->amount);
@@ -157,7 +157,7 @@ class DrawEdit extends Component
 
         $this->handleProjectsEdit();
 
-        $this->feedback = __('Draw edited successfully');
+        $this->feedback = __('amorce.message-toast-success-edit-draw');
 
         $this->dispatch('closeModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);

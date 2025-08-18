@@ -19,9 +19,9 @@ class TeamTable extends Component
     public function mount()
     {
         $this->categories = [
-            'name' => __('Name'),
-            'email' => __('Email'),
-            'created_at' => __('Date de création'),
+            'name' => __('amorce.form-name'),
+            'email' => __('amorce.form-email'),
+            'created_at' => __('amorce.misc-creation-date'),
         ];
         $this->sorts = [
             'team' => ['field' => 'name', 'direction' => 'asc'],

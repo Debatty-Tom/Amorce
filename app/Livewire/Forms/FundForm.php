@@ -59,7 +59,7 @@ class FundForm extends Form
             'fund_id' => $fund->id,
             'amount' => 0,
             'date' => now(),
-            'description' => __('Transaction from fund creation'),
+            'description' => __('amorce.transaction-fund-creation'),
             'hash' => md5(json_encode('fund created')),
             'created_at' => now(),
             'updated_at' => now(),

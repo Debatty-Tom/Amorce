@@ -18,11 +18,11 @@ class TodosTable extends Component
     public function mount()
     {
         $this->categories = [
-            'title' => __('Name'),
-            'description' => __('description'),
-            'date' => __('Date'),
-            'deleted_at' => __('Date d’archive'),
-            'created_at' => __('Date de création'),
+            'title' => __('amorce.form-name'),
+            'description' => __('amorce.form-description'),
+            'date' => __('amorce.form-date'),
+            'deleted_at' => __('amorce.misc-archive-date'),
+            'created_at' => __('amorce.misc-creation-date'),
         ];
         $this->sorts = [
             'todo' => ['field' => 'title', 'direction' => 'asc'],

@@ -8,5 +8,5 @@
     @endif
     type="button"
     class="w-fit py-3 px-4 bg-red-500 text-white hover:bg-black hover:hover:bg-red-700 transition ease-in text-sm rounded-lg">
-    Supprimer
+    {{ __('amorce.action-delete') }}
 </button>

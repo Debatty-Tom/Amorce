@@ -24,7 +24,7 @@ class TeamCreate extends Component
     }
     public function save(){
         if (!auth()->user()->hasAnyRole(RolesEnum::USERMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, __('Vous n’avez pas la permission d’ajouter ou modifier des membres.'));
+            abort(403, __('amorce.message-permission-denied-edit-member') . '.');
         }
         $this->validate();
         $data = $this->form->all();
@@ -33,7 +33,7 @@ class TeamCreate extends Component
                 ->put('images/users', $data['image']);
         }
         User::create($data)->assignRole($this->form->role);
-        $this->feedback = __('Team member created successfully');
+        $this->feedback = __('amorce.message-toast-success-member');
 
         $this->dispatch('closeModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);

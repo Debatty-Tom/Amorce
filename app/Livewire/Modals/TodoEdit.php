@@ -28,7 +28,7 @@ class TodoEdit extends Component
     public function save()
     {
         if(!auth()->user()->hasRole(RolesEnum::ADMIN->value) || auth()->id() !== $this->todo->assignments[0]->assignedBy->id && $this->todo->trashed()) {
-            abort(403, __('Vous n’avez pas la permission de modifier cette tâche.'));
+            abort(403, __('amorce.message-permission-denied-edit-todo') . '.');
         }
         $this->form->update();
 
@@ -59,7 +59,7 @@ class TodoEdit extends Component
         }
 
 
-        $this->feedback = __('todo updated successfully');
+        $this->feedback = __('amorce.message-toast-success-edit-todo');
 
         $this->dispatch('closeModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);

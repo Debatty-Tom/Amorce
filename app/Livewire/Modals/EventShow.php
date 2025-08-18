@@ -19,7 +19,7 @@ class EventShow extends Component
             $this->events = Event::where('id', $id)->get()->toArray();
         }
 
-        $this->title = __('Événements du') . ' ' . Carbon::parse($date)->format('d/m/Y');
+        $this->title = __('amorce.misc-event-from') . ' ' . Carbon::parse($date)->format('d/m/Y');
     }
 
 

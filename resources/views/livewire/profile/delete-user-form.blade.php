@@ -51,7 +51,7 @@ new class extends Component
             </p>
 
             <div class="mt-6">
-                <x-input-label for="password" value="{{ __('Password') }}" class="sr-only" />
+                <x-input-label for="password" value="{{ __('amorce.form-password') }}" class="sr-only" />
 
                 <x-text-input
                     wire:model="password"
@@ -59,7 +59,7 @@ new class extends Component
                     name="password"
                     type="password"
                     class="mt-1 block w-3/4"
-                    placeholder="{{ __('Password') }}"
+                    placeholder="{{ __('amorce.form-password') }}"
                 />
 
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -67,7 +67,7 @@ new class extends Component
 
             <div class="mt-6 flex justify-end">
                 <x-secondary-button x-on:click="$dispatch('close')">
-                    {{ __('Cancel') }}
+                    {{ __('amorce.action-cancel') }}
                 </x-secondary-button>
 
                 <x-danger-button class="ms-3">

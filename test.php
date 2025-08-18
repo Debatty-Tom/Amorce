@@ -15,6 +15,9 @@ foreach ($files as $file) {
 }
 
 $strings = array_unique($strings);
-sort($strings);
-
-print_r($strings);
+foreach ($strings as $string) {
+    if (str_contains($string, 'amorce')){
+        continue;
+    }
+    print $string . PHP_EOL;
+}

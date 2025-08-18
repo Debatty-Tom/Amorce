@@ -51,7 +51,7 @@ class FundTable extends Component
     public function tryDeleteOptions(): void
     {
         if ($this->id === 1) {
-            abort(403, __('Vous ne pouvez pas supprimer le fond de base.'));
+            abort(403, __('amorce.message-canot-delete-basic-fund') . '.');
         }
         if ($this->transactionSummaryView->total_amount > 0) {
             $this->dispatch('openCardModal', 'modals.fund-delete', ['fund' => $this->id]);
@@ -59,7 +59,7 @@ class FundTable extends Component
             return;
         }
         $this->fund->delete();
-        $this->feedback = __('Fonds archivé avec succès');
+        $this->feedback = __('amorce.message-archived-fund');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-fund');
         $this->showDeleteModal = false;
@@ -77,7 +77,7 @@ class FundTable extends Component
         $this->form->create();
 
         $this->dispatch('refresh-transactions');
-        $this->feedback = __('Transaction effectuée avec succès');
+        $this->feedback = __('amorce.message-toast-success-transaction');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->form->resetExcept('transaction');
         $this->form->target = $this->id;

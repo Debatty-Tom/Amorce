@@ -17,6 +17,7 @@ use Livewire\Component;
 class DrawDelete extends Component
 {
     use DeleteModalTrait, HandlesDonators;
+
     public $id;
     public string $feedback;
 
@@ -24,6 +25,7 @@ class DrawDelete extends Component
     {
         $this->id = $id;
     }
+
     #[computed]
     public function draw()
     {
@@ -36,6 +38,7 @@ class DrawDelete extends Component
     {
         return $this->draw->amount / 100;
     }
+
     #[Computed]
     public function amount(): string
     {
@@ -45,7 +48,7 @@ class DrawDelete extends Component
     public function assign($projectId, $amount)
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, __('Vous n’avez pas la permission d’assigner de l’argent.'));
+            abort(403, __('amorce.message-permission-denied-assign-money') . '.');
         }
 
         $current = Money::ofMinor($this->draw->amount, 'EUR');
@@ -60,19 +63,20 @@ class DrawDelete extends Component
             'updated_at' => now(),
         ]);
 
-        $this->feedback = __("Montant de {$amount} € attribué avec succès.");
+        $this->feedback = $amount . ' ' . __("amorce.message-toast-success-assigned-money");
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-delete-modal');
     }
+
     public function deleteDraw()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, __('Vous n’avez pas la permission de supprimer une détente.'));
+            abort(403, __('amorce.message-permission-denied-delete-draw') . '.');
         }
 
         $this->draw->delete();
 
-        $this->feedback = __('Fund archived successfully');
+        $this->feedback = __('amorce.message-toast-success-delete-draw');
 
         $this->dispatch('refresh-draws');
         $this->showDeleteModal = false;
@@ -80,6 +84,7 @@ class DrawDelete extends Component
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->redirectRoute('draw.index');
     }
+
     #[on('refresh-delete-modal')]
     public function refreshDeleteModal()
     {

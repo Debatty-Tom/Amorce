@@ -18,9 +18,9 @@ class FundsTable extends Component
     public function mount()
     {
         $this->categories = [
-            'fund_title' => __('Name'),
-            'fund_description' => __('Description'),
-            'total_amount' => __('Amount'),
+            'fund_title' => __('amorce.form-name'),
+            'fund_description' => __('amorce.form-description'),
+            'total_amount' => __('amorce.form-amount'),
         ];
         $this->sorts = [
             'principal' => ['field' => 'fund_title', 'direction' => 'asc'],

@@ -1,7 +1,7 @@
 <section>
     <div class="flex justify-between mb-5">
         <h2 class="font-medium text-3xl pb-3">
-            {{ __("Draw from ").date_format(($this->draw->date), 'd/m/Y') }}
+            {{ __('amorce.draw-from') . ' ' .date_format(($this->draw->date), 'd/m/Y') }}
         </h2>
         @hasanyrole(\App\Enums\RolesEnum::DRAWMANAGER->value.'|'.
                             \App\Enums\RolesEnum::ADMIN->value)
@@ -10,14 +10,14 @@
                     <x-delete-button click="confirmDelete">
                     </x-delete-button>
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-edit', params: { draw: {{ $this->draw->id }} }})">{{ __('Edit this draw') }}</button>
+                            wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-edit', params: { draw: {{ $this->draw->id }} }})">{{ __('amorce.draw-edit') }}</button>
                 </div>
             @endif
         @endhasanyrole
     </div>
     <div>
         <h3 class="text-2xl mb-2">
-            {{ __("Draw's members :") }}
+            {{ __('amorce.draw-members') . ' :' }}
         </h3>
         <ul class="grid grid-cols-4 gap-5 mb-4">
             @foreach($this->draw->donators as $member)
@@ -39,7 +39,7 @@
     </div>
     <div>
         <h3 class="text-2xl mb-2">
-            {{ __("Draw's projects :") }}
+            {{ __('amorce.draw-projects') . ' :' }}
         </h3>
         <ul class="grid grid-cols-4 gap-5">
             @foreach($this->draw->projects as $project)
@@ -58,8 +58,8 @@
     @if($showDeleteModal)
         <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
             <div class="bg-white p-6 rounded-lg">
-                <h2 class="text-xl font-bold mb-4">{{ __('Confirmer l’archive') }}</h2>
-                <p>{{ __('Êtes-vous sûr de vouloir archiver ce fond ?') }}</p>
+                <h2 class="text-xl font-bold mb-4">{{ __('amorce.archive-confirm') }}</h2>
+                <p>{{ __('amorce.delete-fund') }}</p>
                 <div class="mt-6 flex justify-end gap-3">
                     <x-cancel-button click="cancelDelete"></x-cancel-button>
                     <x-confirm-delete-button click="tryDeleteOptions"></x-confirm-delete-button>

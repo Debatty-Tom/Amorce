@@ -1,7 +1,7 @@
 <section class="flex flex-col gap-2.5">
     <div class="flex justify-between">
         <div class="flex flex-row gap-10">
-            <h2 class="text-3xl">{{__('To do')}}</h2>
+            <h2 class="text-3xl">{{__('amorce.page-todos')}}</h2>
             <div>
                 <input type="text" wire:model.live.debounce.100ms="searches.todo"
                        placeholder="Rechercher un Nom"
@@ -18,7 +18,7 @@
             </div>
         </div>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                wire:click.prevent="$dispatch('openModal',{component: 'modals.todo-create'})">{{ __('Add a todo') }}</button>
+                wire:click.prevent="$dispatch('openModal',{component: 'modals.todo-create'})">{{ __('amorce.create-todo') }}</button>
     </div>
     <ul class="grid grid-cols-4 gap-5 ">
         @foreach($this->todos as $todo)
@@ -26,7 +26,7 @@
                 wire:key="{{$todo->id}}">
                 <a href="#" class="inset-0 absolute z-10" x-data="{ model: @js($todo) }"
                    wire:click.prevent="$dispatch('openCardModal',{component: 'modals.todo-show', params: { id: {{ $todo->id }} }})">
-                    <span class="sr-only">{{ __("See to do") }}</span>
+                    <span class="sr-only">{{ __('amorce.todo-see') }}</span>
                 </a>
                 <h3 class="min-w-20">
                     {{ $todo->title }}
@@ -36,14 +36,14 @@
                 </p>
                 <div>
                     <p>
-                        {{ __("Todo's members") }}
+                        {{ __('amorce.todo-members') }}
                     </p>
                     @if($todo->users)
                         <ul class="pl-3">
                             @foreach($todo->users as $user)
                                 @if($user->trashed())
                                     <span
-                                        class="bg-red-100 text-red-700 text-xs font-semibold px-2 py-1 rounded">{{ __('Deleted user') }}</span>
+                                        class="bg-red-100 text-red-700 text-xs font-semibold px-2 py-1 rounded">{{ __('amorce.todo-deleted-user') }}</span>
                                 @else
                                     <li class="list-disc">
                                         {{ $user->name }}
@@ -55,10 +55,10 @@
                 </div>
                 <div>
                     <p>
-                        {{ __("Todo's assigned by : ") }}
+                        {{ __('amorce.todo-assigned-by') . ' :'}}
                     </p>
                     <p>
-                        Assigné par : {{ $todo->assignments[0]->assignedBy->name ?? __('Inconnu') }}
+                        {{ $todo->assignments[0]->assignedBy->name ?? __('amorce.message-unknown') }}
                     </p>
                 </div>
             </li>

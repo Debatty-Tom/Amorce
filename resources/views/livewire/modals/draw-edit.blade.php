@@ -1,11 +1,11 @@
 <div>
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
-        {{ __('Edit this draw') }}
+        {{ __('amorce.draw-edit') }}
     </h2>
     <form wire:submit.prevent="save" enctype="multipart/form-data"
           class="flex flex-col gap-3">
         <div class="flex gap-2 flex-col">
-            <x-input-label for="title" value="{{ __('Title') }}"/>
+            <x-input-label for="title" value="{{ __('amorce.form-title') }}"/>
             <x-text-input
                 id="title"
                 type="text"
@@ -14,7 +14,7 @@
             @error('form.title') <span class="text-red-500">{{ $message }}</span> @enderror
         </div>
         <div>
-            <x-input-label for="description" value="{{ __('Description') }}"/>
+            <x-input-label for="description" value="{{ __('amorce.form-description') }}"/>
             <x-text-input
                 id="description"
                 type="text"
@@ -43,7 +43,7 @@
             @error('form.amount')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
         </div>
         <div>
-            <x-input-label for="date" value="{{ __('Date') }}"/>
+            <x-input-label for="date" value="{{ __('amorce.form-date') }}"/>
             <x-text-input
                 id="date"
                 type="date"
@@ -53,7 +53,7 @@
         </div>
         <div class="flex flex-col gap-3">
             <p class="pr-6 w-full lg:w-1/2">
-                {{ __("All the participants :") }}
+                {{ __('amorce.misc-all-participants') . ' :' }}
             </p>
             <ul class="grid grid-cols-3 gap-5">
                 @foreach($this->form->lockedDonators as $participant)
@@ -73,7 +73,7 @@
                         <button
                             wire:click.prevent="removeParticipant({{ $participant->id }})"
                             class="text-red-500 hover:text-red-700 text-2xl transition duration-200 p-2 rounded-full hover:bg-red-100"
-                            title="{{ __('Remove') }}"
+                            title="{{ __('amorce.action-remove') }}"
                         >
                             &times
                         </button>
@@ -82,7 +82,7 @@
             </ul>
         </div>
         <p>
-            {{ __("Select the projects you want in this draw") }}
+            {{ __('amorce.draw-select-projects') }}
         </p>
         <ul class="grid grid-cols-3 gap-5">
             @foreach ($this->draw->projects as $project)
@@ -91,7 +91,7 @@
                     <div class="flex items-center gap-4">
                         <input id="{{ $project->id }}"
                                type="checkbox"
-                               name="{{ __("projects[]") }}"
+                               name="projects[]"
                                wire:model="selectedProjects"
                                class="h-4 w-4 ml-6 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                value="{{ $project->id }}">
@@ -106,7 +106,7 @@
                     <div class="flex items-center gap-4">
                         <input id="{{ $project->id }}"
                                type="checkbox"
-                               name="{{ __("projects[]") }}"
+                               name="projects[]"
                                wire:model="selectedProjects"
                                class="h-4 w-4 ml-6 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                                value="{{ $project->id }}">
@@ -119,7 +119,7 @@
         <div class="flex justify-end">
             <button
                 class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                {{ __("Edit Draw") }}
+                {{ __('amorce.draw-edit') }}
             </button>
         </div>
     </form>

@@ -1,7 +1,7 @@
 <div class="space-y-6">
     <h2 class="text-xl font-bold">{{ __('Maintenant que la détente est terminée, il faut attribuer le budget aux différents
         projets!') }}</h2>
-    <p class="text-gray-700">💰 {{ __('Solde disponible :') }} <strong>{{ $this->amount }}</strong></p>
+    <p class="text-gray-700">💰 {{ __('amorce.fund-balance') . ' :' }} <strong>{{ $this->amount }}</strong></p>
     @foreach($this->draw->projects as $project)
         <div class="border p-4 rounded shadow-sm">
             <h3 class="font-semibold">{{ $project->title }}</h3>
@@ -29,11 +29,11 @@
                         type="button"
                         class="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-800"
                         @click="$wire.assign({{ $project->id }}, value)">
-                        {{ __('Attribuer') }}
+                        {{ __('amorce.action-assign') }}
                     </button>
                 </div>
             @else
-                <p class="text-gray-500 mt-2">{{ __('Budget déjà attribué :'). ' ' . $project->pivot->amount }} €</p>
+                <p class="text-gray-500 mt-2">{{ __('amorce.message-budget-assigned'). ' : ' . $project->pivot->amount }} €</p>
             @endif
         </div>
     @endforeach
@@ -43,7 +43,7 @@
         <button
             wire:click="deleteDraw"
             class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded">
-            {{ __('Fermer') }}
+            {{ __('amorce.action-close') }}
         </button>
     </div>
 </div>

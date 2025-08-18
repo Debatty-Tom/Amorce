@@ -1,16 +1,16 @@
 <section>
     <div class="flex justify-between mb-5">
-        <h2 class="text-3xl font-medium">{{__('Draws')}}</h2>
+        <h2 class="text-3xl font-medium">{{__('amorce.draws')}}</h2>
         @hasanyrole(\App\Enums\RolesEnum::DRAWMANAGER->value.'|'.
                         \App\Enums\RolesEnum::ADMIN->value)
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-create'})">{{ __('Add a new draw') }}</button>
+                wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-create'})">{{ __('amorce.create-draw') }}</button>
         @endhasanyrole
     </div>
     <div>
         <div class="flex flex-row gap-10">
             <h3 class="text-2xl">
-                {{ __('Waiting draws list') }}
+                {{ __('amorce.draw-waiting') }}
             </h3>
             <div>
                 <input type="text" wire:model.live.debounce.100ms="searches.pending" placeholder="Rechercher un titre"
@@ -33,7 +33,7 @@
                     <div class="flex flex-row gap-10">
                         <div>
                             <p>
-                                {{__('Date :')}}
+                                {{__('amorce.form-date') . ' :'}}
                             </p>
                             <p>
                                 {{ date_format(($draw->date), 'd/m/Y') }}
@@ -41,7 +41,7 @@
                         </div>
                         <div>
                             <p>
-                                {{__('Amount') . ' :'}}
+                                {{__('amorce.form-amount') . ' :'}}
                             </p>
                             <p>
                                 {{ $this->amount($draw) }}
@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <p>
-                            {{__('Projects :')}}
+                            {{__('amorce.page-projects') . ' :'}}
                         </p>
                         <ul class="pl-3">
                             @foreach($draw->projects as $project)
@@ -70,7 +70,7 @@
     <div>
         <div class="flex flex-row gap-10">
             <h3 class="text-2xl">
-                {{ __('Archived draws list') }}
+                {{ __('amorce.page-draws-archived') }}
             </h3>
             <div>
                 <input type="text" wire:model.live.debounce.100ms="searches.archived" placeholder="Rechercher un titre"
@@ -95,7 +95,7 @@
                         <div class="flex flex-row gap-10">
                             <div>
                                 <p>
-                                    {{__('Date :')}}
+                                    {{__('amorce.form-date') . ' :'}}
                                 </p>
                                 <p>
                                     {{ date_format(($draw->date), 'd/m/Y') }}
@@ -103,7 +103,7 @@
                             </div>
                             <div>
                                 <p>
-                                    {{__('Amount' . ' :')}}
+                                    {{__('amorce.form-amount') . ' :'}}
                                 </p>
                                 <p>
                                     {{ $this->amount($draw) }}
@@ -112,7 +112,7 @@
                         </div>
                         <div>
                             <p>
-                                {{__('Projects :')}}
+                                {{__('amorce.page-projects') . ' :'}}
                             </p>
                             <ul class="pl-3">
                                 @foreach($draw->projects as $project)
@@ -132,17 +132,17 @@
                 @endforeach
             </ul>
         @else
-            <p class="text-gray-500 text-center mt-9 mb-9">{{ __('No archived draws found.') }}</p>
+            <p class="text-gray-500 text-center mt-9 mb-9">{{ __('amorce.draw-archived-none') . '.' }}</p>
         @endif
         {{ $this->archivedDraws->links(data: ['scrollTo' => false]) }}
     </div>
     <div class="mt-4">
         <div class="flex justify-between items-center mb-8">
             <h1 class="font-bold text-2xl">
-                {{ __('Participants') }}
+                {{ __('amorce.draw-members') }}
             </h1>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    wire:click.prevent="$dispatch('openModal',{component: 'modals.donator-create'})">{{ __('Add a new donator') }}
+                    wire:click.prevent="$dispatch('openModal',{component: 'modals.donator-create'})">{{ __('amorce.create-donator') }}
             </button>
         </div>
     </div>

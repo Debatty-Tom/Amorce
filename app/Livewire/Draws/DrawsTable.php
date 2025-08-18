@@ -17,11 +17,11 @@ class DrawsTable extends Component
     public function mount()
     {
         $this->categories = [
-            'title' => __('Titre'),
-            'description' => __('Description'),
-            'amount' => __('Montant'),
-            'date' => __('Date'),
-            'created_at' => __('Date de création'),
+            'title' => __('amorce.form-title'),
+            'description' => __('amorce.form-description'),
+            'amount' => __('amorce.misc-amount'),
+            'date' => __('amorce.form-date'),
+            'created_at' => __('amorce.misc-creation-date'),
         ];
         $this->sorts = [
             'pending' => ['field' => 'date', 'direction' => 'asc'],
