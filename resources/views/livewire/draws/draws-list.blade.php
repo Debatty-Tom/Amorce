@@ -3,7 +3,7 @@
     <div class="flex flex-row gap-10">
         <div>
             <p>
-                {{__('Date :')}}
+                {{__('amorce.form-date') . ' :'}}
             </p>
             <p>
                 {{ date_format(($this->draw->date), 'd/m/Y') }}
@@ -11,7 +11,7 @@
         </div>
         <div>
             <p>
-                {{__('Amount :')}}
+                {{__('amorce.form-amount') . ' :'}}
             </p>
             <p>
                 {{ number_format(($this->draw->amount/100),2, ',',' ')."€" }}
@@ -20,7 +20,7 @@
     </div>
     <div>
         <p>
-            {{__('Projects :')}}
+            {{__('amorce.page-projects') . ' :'}}
         </p>
         <ul class="pl-3">
             @foreach($this->draw->projects as $project)

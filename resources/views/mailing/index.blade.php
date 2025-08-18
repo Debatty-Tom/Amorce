@@ -1,5 +1,5 @@
 <x-app-layout>
     <h1>
-        {{ __('Hello mailing') }}
+        {{ __('amorce.misc-hello-mailing') }}
     </h1>
 </x-app-layout>

@@ -14,15 +14,16 @@ use Livewire\WithPagination;
 class TodosTable extends Component
 {
     use WithPagination, HandleSortingTrait;
-    public $categories = [
-        'title' => 'Name',
-        'description' => 'description',
-        'date' => 'Date',
-        'deleted_at' => 'Date d’archive',
-        'created_at' => 'Date de création',
-    ];
+    public $categories;
     public function mount()
     {
+        $this->categories = [
+            'title' => __('amorce.form-name'),
+            'description' => __('amorce.form-description'),
+            'date' => __('amorce.form-date'),
+            'deleted_at' => __('amorce.misc-archive-date'),
+            'created_at' => __('amorce.misc-creation-date'),
+        ];
         $this->sorts = [
             'todo' => ['field' => 'title', 'direction' => 'asc'],
         ];

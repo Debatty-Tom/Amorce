@@ -1,8 +1,8 @@
 <div class="py-12">
     <div class="flex justify-between mb-5">
-        <h2 class="text-3xl">{{__('Profile')}}</h2>
+        <h2 class="text-3xl">{{__('amorce.navigation-profile')}}</h2>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                wire:click.prevent="$dispatch('openCardModal',{component: 'modals.profile-edit'})">{{ __('Edit profile') }}</button>
+                wire:click.prevent="$dispatch('openCardModal',{component: 'modals.profile-edit'})">{{ __('amorce.misc-edit-profile') }}</button>
     </div>
     <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white shadow sm:rounded-lg p-6">

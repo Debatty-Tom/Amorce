@@ -3,16 +3,16 @@
         <thead>
         <tr class="bg-gray-200">
             <th class="text-left  p-4">
-                {{ __('Nom') }}
+                {{ __('amorce.form-name') }}
             </th>
             <th class="text-left">
-                {{ __('Lasting draws') }}
+                {{ __('amorce.draw-lasting') }}
             </th>
             <th class="text-left">
-                {{ __('Contact') }}
+                {{ __('amorce.misc-contact') }}
             </th>
             <th class="text-left">
-                {{ __('edit/delete') }}
+                {{ __('amorce.action-edit') . '/' . __('amorce.action-delete') }}
             </th>
         </tr>
         </thead>
@@ -38,10 +38,10 @@
                 </td>
                 <td>
                     <a href="{{--{{ route('transactions.edit', $fund->id, $participant->id,) }}--}}">
-                        {{ __('edit') }}
+                        {{ __('amorce.action-edit') }}
                     </a>
                     <a href="{{--{{ route('transactions.destroy', $participant->id, $fund->id) }}--}}">
-                        {{ __('delete') }}
+                        {{ __('amorce.action-delete') }}
                     </a>
                 </td>
             </tr>

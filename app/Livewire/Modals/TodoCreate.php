@@ -31,7 +31,7 @@ class TodoCreate extends Component
 
         $this->todo->users()->attach($this->selectedUsers, ['assigned_by' => auth()->id(), 'created_at' => now(), 'updated_at' => now()]);
 
-        $this->feedback = 'Todo created successfully';
+        $this->feedback = __('amorce.message-toast-success-todo');
 
         $this->dispatch('closeModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);

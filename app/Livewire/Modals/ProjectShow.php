@@ -23,11 +23,11 @@ class ProjectShow extends Component
     public function deleteProject()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::PROJECTMANAGER->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission de supprimer des projets.');
+            abort(403, __('amorce.message-permission-denied-delete-project') . '.');
         }
         $this->project->delete();
 
-        $this->feedback='Project deleted successfully';
+        $this->feedback = __('amorce.message-toast-success-delete-project');
 
         $this->dispatch('refresh-projects');
         $this->showDeleteModal = false;

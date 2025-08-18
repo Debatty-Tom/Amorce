@@ -1,6 +1,6 @@
 <div x-data="{user_name:$wire.form.name}">
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
-        {{ __('Edit a team member') }}
+        {{ __('amorce.team-edit') }}
     </h2>
     <form wire:submit.prevent="save" enctype="multipart/form-data"
           class="flex flex-col gap-3">
@@ -62,7 +62,7 @@
                 wire:click="unarchiveUser"
                 type="button"
                 class="w-fit py-3 px-4 bg-red-500 text-white hover:bg-black hover:hover:bg-red-700 transition ease-in text-sm rounded-lg">
-                Désarchiver cet utilisateur
+                {{ __('amorce.misc-unarchive-user') }}
             </button>
         @else
             <div class="flex justify-end gap-4">
@@ -70,7 +70,7 @@
                 </x-delete-button>
                 <button
                     class="w-fit py-3 px-4 bg-indigo-600 text-white hover:bg-black hover:text-amber-400 transition ease-in rounded-lg">
-                    {{ __("Edit Team member") }}
+                    {{ __('amorce.team-edit') }}
                 </button>
             </div>
         @endif
@@ -78,8 +78,8 @@
     @if($showDeleteModal)
         <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
             <div class="bg-white p-6 rounded-lg">
-                <h2 class="text-xl font-bold mb-4">Confirmer la suppression</h2>
-                <p>Êtes-vous sûr de vouloir supprimer ce fond ? Cette action est irréversible.</p>
+                <h2 class="text-xl font-bold mb-4">{{ __('amorce.delete-confirm') }}</h2>
+                <p>{{ __('amorce.delete-user') }}</p>
                 <div class="mt-6 flex justify-end gap-3">
                     <x-cancel-button click="cancelDelete"></x-cancel-button>
                     <x-confirm-delete-button click="deleteTeam"></x-confirm-delete-button>

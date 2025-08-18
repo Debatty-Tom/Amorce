@@ -14,13 +14,15 @@ class TeamTable extends Component
 {
     use WithPagination, HandleSortingTrait;
 
-    public $categories = [
-        'name' => 'Name',
-        'email' => 'Email',
-        'created_at' => 'Date de création',
-    ];
+    public $categories;
+
     public function mount()
     {
+        $this->categories = [
+            'name' => __('amorce.form-name'),
+            'email' => __('amorce.form-email'),
+            'created_at' => __('amorce.misc-creation-date'),
+        ];
         $this->sorts = [
             'team' => ['field' => 'name', 'direction' => 'asc'],
         ];

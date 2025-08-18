@@ -11,7 +11,7 @@ class UserTable extends Component
     #[On('refresh-profile')]
     public function refreshProfile()
     {
-        unset($this->user);
+        return;
     }
     public function render()
     {

@@ -23,13 +23,13 @@ class FundEdit extends Component
     public function save()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission d’ajouter ou modifier des membres.');
+            abort(403, __('amorce.message-permission-denied-edit-member') . '.');
         }
         if ($this->fund->id === 1) {
-            abort(403, 'Vous ne pouvez pas modifier le fond de base.');
+            abort(403, __('amorce.message-permission-denied-edit-fund') . '.');
         }
         $this->form->update();
-        $this->feedback = 'Fund updated successfully';
+        $this->feedback = __('amorce.message-toast-success-edit-fund');
 
         $this->dispatch('closeModal');
         $this->dispatch(event:'openalert', params:['message' => $this->feedback]);

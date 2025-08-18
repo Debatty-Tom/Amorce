@@ -55,24 +55,24 @@ class FundDelete extends Component
     public function assign($fundId, $amount)
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission d’assigner de l’argent.');
+            abort(403, __('amorce.message-permission-denied-assign-money') . '.');
         }
         if ($this->sourceFund->id === 1) {
-            abort(403, 'Vous ne pouvez pas supprimer le fond de base.');
+            abort(403, __('amorce.message-canot-delete-basic-fund') . '.');
         }
         $formatedAmount = round($amount, 2);
         $targetFund = Fund::findOrFail($fundId);
         $this->transactionForm->target = $targetFund->id;
         $this->transactionForm->amount = $formatedAmount * 100;
-        $this->transactionForm->description = 'Montant redistribué depuis le fond ' . $this->sourceFund->title . ' lors de son archive';
+        $this->transactionForm->description = __('amorce.transaction-redistribution') . ' ' . $this->sourceFund->title . ' ' . __('amorce.transaction-from-archive');
         $this->transactionForm->create();
 
         $this->transactionForm->target = $this->sourceFund->id;
         $this->transactionForm->amount = -($amount * 100);
-        $this->transactionForm->description = 'Redistribution vers le fond ' . $targetFund->title;
+        $this->transactionForm->description = __('amorce.transaction-redistribution-to-fund') . ' ' . $targetFund->title;
         $this->transactionForm->create();
 
-        $this->feedback = "Montant de {$amount} € redistribué avec succès.";
+        $this->feedback = $amount . ' ' . __("amorce.message-toast-success-money-redistribution") . '.';
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-fund');
     }
@@ -81,21 +81,21 @@ class FundDelete extends Component
     public function deleteFund()
     {
         if (!auth()->user()->hasAnyRole(RolesEnum::ACCOUNTANT->value, RolesEnum::ADMIN->value)) {
-            abort(403, 'Vous n’avez pas la permission de supprimer un fond.');
+            abort(403, __('amorce.message-permission-denied-delete-fund') . '.');
         }
         if ($this->sourceFund->id === 1) {
-            abort(403, 'Vous ne pouvez pas supprimer le fond de base.');
+            abort(403, __('amorce.message-canot-delete-basic-fund') . '.');
         }
 
         if ($this->sourceFundView->total_amount > 0) {
-            $this->feedback = 'Impossible de supprimer le fond car il contient encore des fonds. Veuillez redistribuer les fonds restants avant de supprimer le fond.';
+            $this->feedback = __('amorce.message-permission-denied-still-money-on-fund') . '.';
             $this->dispatch(event: 'openalert', params: ['message' => $this->feedback, 'type' => 'error']);
             return;
         }
 
         $this->sourceFund->delete();
 
-        $this->feedback = 'Fund archived successfully';
+        $this->feedback = __('amorce.message-toast-success-delete-fund');
 
         $this->dispatch('refresh-funds');
         $this->showDeleteModal = false;
@@ -103,6 +103,7 @@ class FundDelete extends Component
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->redirectRoute('accounting.index');
     }
+
     public function cancelDelete()
     {
         $this->dispatch('closeCardModal');
