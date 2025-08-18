@@ -33,7 +33,7 @@
             @hasanyrole(\App\Enums\RolesEnum::ACCOUNTANT->value.'|'.
                         \App\Enums\RolesEnum::ADMIN->value)
             <th class="text-right p-4">
-                {{ __('amorce.action-edit') . '/' . __('amorce.action-delete) }}
+                {{ __('amorce.action-edit') . '/' . __('amorce.action-delete') }}
             </th>
             @endhasanyrole
         </tr>
@@ -42,7 +42,7 @@
         @foreach($this->transactions as $transaction)
             <tr wire:key="{{$transaction->id}}">
                 <td class=" p-4">
-                    {{ date_format(($transaction->date), 'd/m/Y') }}
+                    {{ $transaction->date->format('d/m/Y') }}
                 </td>
                 <td>
                     {{ $transaction->description }}

@@ -6,6 +6,7 @@ use App\Models\Draw;
 use App\Models\Event;
 use App\Models\Todo;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -34,6 +35,11 @@ class Dashboard extends Component
         return Event::where('date', '>=', now())
             ->orderBy('date', 'asc')
             ->first();
+    }
+    #[on('refresh-dashboard')]
+    public function refreshDashboard()
+    {
+        return;
     }
     public function render()
     {
