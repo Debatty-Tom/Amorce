@@ -9,4 +9,3 @@
         <p class="text-[#4880ff] text-base font-bold">{{ __('amorce.fund-see') }}</p>
     </div>
 </div>
-

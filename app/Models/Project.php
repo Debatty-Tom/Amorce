@@ -26,6 +26,7 @@ class Project extends Model
     {
         return $this->BelongsToMany(Draw::class,'draw_assignments')
             ->using(DrawAssignment::class)
-            ->withPivot(['status', 'amount', 'created_at', 'updated_at']);
+            ->withPivot(['status', 'amount', 'created_at', 'updated_at'])
+            ->withTrashed();
     }
 }

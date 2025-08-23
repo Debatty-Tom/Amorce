@@ -1,94 +1,42 @@
-<section class="flex flex-col gap-3">
-    <div class="flex justify-between">
-        <div class="flex flex-row gap-10">
-            <h2 class="text-3xl">{{__('amorce.team')}}</h2>
-            <div>
-                <input type="text" wire:model.live.debounce.100ms="searches.team" placeholder="Rechercher un Nom"
-                       class="border rounded px-3 py-2 w-full md:w-auto">
+<section class="flex flex-col gap-6">
+    <div class="flex flex-wrap justify-between items-center gap-4">
+        <div class="flex flex-wrap items-center gap-6">
+            <h2 class="text-3xl font-semibold text-gray-800">{{ __('amorce.team') }}</h2>
+
+            <div class="flex flex-wrap items-center gap-3">
+                <x-search-field>
+                    searches.team
+                </x-search-field>
                 @foreach ($this->categories as $key => $label)
                     <button wire:click="toggleSort('team', '{{ $key }}', 'refresh-users')"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            class="flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow transition">
                         {{ $label }}
                         @if ($sorts['team']['field'] === $key)
-                            {{ $sorts['team']['direction'] === 'desc' ? '▼' : '▲' }}
+                            <span class="text-xs">{{ $sorts['team']['direction'] === 'desc' ? '▼' : '▲' }}</span>
                         @endif
                     </button>
                 @endforeach
             </div>
         </div>
-        @hasanyrole(\App\Enums\RolesEnum::USERMANAGER->value.'|'.
-                        \App\Enums\RolesEnum::ADMIN->value)
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                wire:click.prevent="$dispatch('openModal',{component: 'modals.team-create'})">{{ __('amorce.create-member') }}</button>
+        @hasanyrole(\App\Enums\RolesEnum::USERMANAGER->value.'|'.\App\Enums\RolesEnum::ADMIN->value)
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-5 rounded-lg shadow transition"
+                wire:click.prevent="$dispatch('openModal',{component: 'modals.team-create'})">
+            + {{ __('amorce.create-member') }}
+        </button>
         @endhasanyrole
     </div>
-    <ul class="grid grid-cols-4 gap-9 w-full">
-        {{--        code below must be there and not by using a blade component to avoid a snapshot missing error in a SPA--}}
+    <ul class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full">
         @foreach($this->users as $user)
-            <li class="flex justify-center" wire:key="{{ $user->id }}">
-                <div class="relative w-full">
-                    @hasanyrole(\App\Enums\RolesEnum::USERMANAGER->value.'|'.
-                                        \App\Enums\RolesEnum::ADMIN->value)
-                    <a href="" class="inset-0 absolute z-10"
-                       wire:click.prevent="$dispatch('openCardModal',{component: 'modals.team-edit', params: { id: {{ $user->id }} }})">
-                        <span class="sr-only">{{ __('amorce.team-edit') }}</span>
-                    </a>
-                    @endhasanyrole
-                    <div class="max-w-sm bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md pb-6">
-                        <div class="relative w-full h-0 pb-[76.67%] rounded-t-2xl overflow-hidden bg-[#db6262]">
-                            <img
-                                class="absolute w-full h-full object-cover"
-                                src=
-                                    @if($user->picture_path)
-                                        "{{ $user->picture_path }}"
-                                @else
-                                    {{asset('storage/images/users/default_user.webp')}}
-                                @endif
-                                alt="{{ __('amorce.team-picture') }}"
-                            />
-                        </div>
-                        <h3 class="text-center text-[#202224] text-lg font-bold">{{ $user->name }}</h3>
-                        <p class="opacity-60 text-center text-[#202224] text-sm font-normal">
-                            {{ $user->email }}
-                        </p>
-                    </div>
-                </div>
-            </li>
+            <livewire:team.member-card :user="$user" wire:key="user-{{ $user->id }}" />
         @endforeach
-        @hasanyrole(\App\Enums\RolesEnum::USERMANAGER->value.'|'.
-                        \App\Enums\RolesEnum::ADMIN->value)
+
+        @hasanyrole(\App\Enums\RolesEnum::USERMANAGER->value.'|'.\App\Enums\RolesEnum::ADMIN->value)
         @foreach($this->trashedUsers as $user)
-            <li class="flex justify-center opacity-50" wire:key="{{ $user->id }}">
-                <div class="relative w-full">
-                    @hasanyrole(\App\Enums\RolesEnum::USERMANAGER->value.'|'.
-                                        \App\Enums\RolesEnum::ADMIN->value)
-                    <a href="" class="inset-0 absolute z-10"
-                       wire:click.prevent="$dispatch('openCardModal',{component: 'modals.team-edit', params: { id: {{ $user->id }} } })">
-                        <span class="sr-only">{{ __('amorce.team-edit') }}</span>
-                    </a>
-                    @endhasanyrole
-                    <div class="max-w-sm bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md pb-6">
-                        <div class="relative w-full h-0 pb-[76.67%] rounded-t-2xl overflow-hidden bg-[#db6262]">
-                            <img
-                                class="absolute w-full h-full object-cover"
-                                src=
-                                    @if($user->picture_path)
-                                        "{{ $user->picture_path }}"
-                                @else
-                                    {{asset('storage/images/users/default_user.webp')}}
-                                @endif
-                                alt="{{ __('amorce.team-picture') }}"
-                            />
-                        </div>
-                        <h3 class="text-center text-[#202224] text-lg font-bold">{{ $user->name }}</h3>
-                        <p class="opacity-60 text-center text-[#202224] text-sm font-normal">
-                            {{ $user->email }}
-                        </p>
-                    </div>
-                </div>
-            </li>
+            <livewire:team.member-card :user="$user" wire:key="trashed-{{ $user->id }}" />
         @endforeach
         @endhasanyrole
     </ul>
-    {{ $this->users->links(data: ['scrollTo' => false]) }}
+    <div class="pt-4">
+        {{ $this->users->links(data: ['scrollTo' => false]) }}
+    </div>
 </section>

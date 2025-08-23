@@ -22,46 +22,8 @@
     </div>
     <ul class="grid grid-cols-4 gap-5 ">
         @foreach($this->todos as $todo)
-            <li class="flex flex-col justify-between gap-3 bg-white p-4 rounded-2xl relative shadow @if($todo->trashed()) opacity-50 @endif"
-                wire:key="{{$todo->id}}">
-                <a href="#" class="inset-0 absolute z-10" x-data="{ model: @js($todo) }"
-                   wire:click.prevent="$dispatch('openCardModal',{component: 'modals.todo-show', params: { id: {{ $todo->id }} }})">
-                    <span class="sr-only">{{ __('amorce.todo-see') }}</span>
-                </a>
-                <h3 class="min-w-20">
-                    {{ $todo->title }}
-                </h3>
-                <p class="max-w-screen-lg">
-                    {{ \Illuminate\Support\Str::limit($todo->description, 100) }}
-                </p>
-                <div>
-                    <p>
-                        {{ __('amorce.todo-members') }}
-                    </p>
-                    @if($todo->users)
-                        <ul class="pl-3">
-                            @foreach($todo->users as $user)
-                                @if($user->trashed())
-                                    <span
-                                        class="bg-red-100 text-red-700 text-xs font-semibold px-2 py-1 rounded">{{ __('amorce.todo-deleted-user') }}</span>
-                                @else
-                                    <li class="list-disc">
-                                        {{ $user->name }}
-                                    </li>
-                                @endif
-                            @endforeach
-                        </ul>
-                    @endif
-                </div>
-                <div>
-                    <p>
-                        {{ __('amorce.todo-assigned-by') . ' :'}}
-                    </p>
-                    <p>
-                        {{ $todo->assignments[0]->assignedBy->name ?? __('amorce.message-unknown') }}
-                    </p>
-                </div>
-            </li>
+            <livewire:todo.todo-card :todo="$todo" wire:key="{{$todo->id}}">
+            </livewire:todo.todo-card>
         @endforeach
     </ul>
     {{ $this->todos->links(data: ['scrollTo' => false]) }}

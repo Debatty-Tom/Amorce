@@ -58,16 +58,17 @@ class ProjectsTable extends Component
             ->paginate(8, pageName: 'nextDrawProjectsPage');
     }
 
-    #[computed]
+    #[Computed]
     public function fundedProjects()
     {
-        return Project::whereHas('draws', function ($query) {
-            $query->where('status', 'funded');
-        })
+        return Project::whereHas('draws', fn($query) =>
+        $query->where('status', 'funded')
+        )
             ->where('title', 'like', '%' . $this->getSearch('funded') . '%')
             ->orderBy($this->getSortField('funded'), $this->getSortDirection('funded'))
             ->paginate(8, pageName: 'fundedProjectsPage');
     }
+
 
     #[on('refresh-projects')]
     public function refreshProjects()

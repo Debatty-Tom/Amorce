@@ -34,19 +34,9 @@
             </div>
             <ul class="grid grid-cols-4 gap-4 p-8">
                 @foreach($this->principalFunds as $fund)
-                    <li wire:key="{{$fund->fund_id}}">
-                        <div
-                            class="max-w-sm h-64 w-full p-8 bg-white rounded-2xl flex flex-col justify-between gap-2 shadow-md relative">
-                            <a class="absolute inset-0 z-10" href="{{ route('accounting.show', $fund->fund_id) }}"></a>
-                            <div class="flex flex-col items-center">
-                                <h4 class="text-lg font-bold text-[#202224]">{{ Illuminate\Support\Str::limit($fund->fund_title, 25, preserveWords: true) }}</h4>
-                                <p class="text-sm font-medium text-[#202224] text-center opacity-60">{{ Illuminate\Support\Str::limit($fund->fund_description, 50, preserveWords: true) }}</p>
-                            </div>
-                            <div class="flex flex-col items-center pb-3 gap-4">
-                                <p class="text-[#4880ff] text-[46px] font-extrabold ">{{ Brick\Money\Money::ofMinor($fund->total_amount, 'EUR')->formatTo('fr_BE') }}</p>
-                                <p class="text-[#4880ff] text-base font-bold">{{ __('amorce.fund-see') }}</p>
-                            </div>
-                        </div>
+                    <li wire:key="principal-{{$fund->fund_id}}">
+                        <livewire:accounting.fund-card :fund="$fund">
+                        </livewire:accounting.fund-card>
                     </li>
                 @endforeach
             </ul>
@@ -74,19 +64,9 @@
             </div>
             <ul class="grid grid-cols-4 gap-4 p-8">
                 @foreach($this->specificFunds as $fund)
-                    <li wire:key="{{$fund->fund_id}}">
-                        <div
-                            class="max-w-sm h-64 w-full p-8 bg-white rounded-2xl flex flex-col justify-between gap-2 shadow-md relative">
-                            <a class="absolute inset-0 z-10" href="{{ route('accounting.show', $fund->fund_id) }}"></a>
-                            <div class="flex flex-col items-center">
-                                <h4 class="text-lg font-bold text-[#202224]">{{ Illuminate\Support\Str::limit($fund->fund_title, 25, preserveWords: true) }}</h4>
-                                <p class="text-sm font-medium text-[#202224] text-center opacity-60">{{ Illuminate\Support\Str::limit($fund->fund_description, 50, preserveWords: true) }}</p>
-                            </div>
-                            <div class="flex flex-col items-center pb-3 gap-4">
-                                <p class="text-[#4880ff] text-[46px] font-extrabold ">{{ Brick\Money\Money::ofMinor($fund->total_amount, 'EUR')->formatTo('fr_BE') }}</p>
-                                <p class="text-[#4880ff] text-base font-bold">{{ __('amorce.fund-see') }}</p>
-                            </div>
-                        </div>
+                    <li wire:key="specific-{{$fund->fund_id}}">
+                        <livewire:accounting.fund-card :fund="$fund">
+                        </livewire:accounting.fund-card>
                     </li>
                 @endforeach
             </ul>
@@ -116,20 +96,9 @@
             @if($this->archivedFunds->isNotEmpty())
                 <ul class="grid grid-cols-4 gap-4 p-8">
                     @foreach($this->archivedFunds as $fund)
-                        <li wire:key="{{$fund->fund_id}}">
-                            <div
-                                class="max-w-sm h-64 w-full p-8 bg-white rounded-2xl flex flex-col justify-between gap-2 shadow-md relative">
-                                <a class="absolute inset-0 z-10"
-                                   href="{{ route('accounting.show', $fund->fund_id) }}"></a>
-                                <div class="flex flex-col items-center">
-                                    <h4 class="text-lg font-bold text-[#202224]">{{ Illuminate\Support\Str::limit($fund->fund_title, 25, preserveWords: true) }}</h4>
-                                    <p class="text-sm font-medium text-[#202224] text-center opacity-60">{{ Illuminate\Support\Str::limit($fund->fund_description, 50, preserveWords: true) }}</p>
-                                </div>
-                                <div class="flex flex-col items-center pb-3 gap-4">
-                                    <p class="text-[#4880ff] text-[46px] font-extrabold ">{{ Brick\Money\Money::ofMinor($fund->total_amount, 'EUR')->formatTo('fr_BE') }}</p>
-                                    <p class="text-[#4880ff] text-base font-bold">{{ __('amorce.fund-see') }}</p>
-                                </div>
-                            </div>
+                        <li wire:key="archived-{{$fund->fund_id}}">
+                            <livewire:accounting.fund-card :fund="$fund">
+                            </livewire:accounting.fund-card>
                         </li>
                     @endforeach
                 </ul>
