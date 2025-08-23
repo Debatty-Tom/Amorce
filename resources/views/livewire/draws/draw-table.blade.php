@@ -1,68 +1,65 @@
-<section>
-    <div class="flex justify-between mb-5">
-        <h2 class="font-medium text-3xl pb-3">
-            {{ __('amorce.draw-from') . ' ' .date_format(($this->draw->date), 'd/m/Y') }}
+<section class="flex flex-col gap-8">
+    <div class="flex justify-between items-center border-b pb-4">
+        <h2 class="font-semibold text-3xl text-gray-800">
+            {{ __('amorce.draw-from') . ' ' . date_format(($this->draw->date), 'd/m/Y') }}
         </h2>
-        @hasanyrole(\App\Enums\RolesEnum::DRAWMANAGER->value.'|'.
-                            \App\Enums\RolesEnum::ADMIN->value)
-            @if(!$this->draw->trashed())
-                <div>
-                    <x-delete-button click="confirmDelete">
-                    </x-delete-button>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-edit', params: { draw: {{ $this->draw->id }} }})">{{ __('amorce.draw-edit') }}</button>
-                </div>
-            @endif
+
+        @hasanyrole(\App\Enums\RolesEnum::DRAWMANAGER->value.'|'.\App\Enums\RolesEnum::ADMIN->value)
+        @if(!$this->draw->trashed())
+            <div class="flex gap-3">
+                <x-delete-button click="confirmDelete" />
+
+                <button
+                    class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl shadow transition"
+                    wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-edit', params: { draw: {{ $this->draw->id }} }})">
+                    {{ __('amorce.draw-edit') }}
+                </button>
+            </div>
+        @endif
         @endhasanyrole
     </div>
+
     <div>
-        <h3 class="text-2xl mb-2">
+        <h3 class="text-2xl font-semibold text-gray-700 mb-4">
             {{ __('amorce.draw-members') . ' :' }}
         </h3>
-        <ul class="grid grid-cols-4 gap-5 mb-4">
+
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($this->draw->donators as $member)
-                <li class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3"
+                <li class="relative bg-white rounded-2xl shadow-md hover:shadow-lg transition p-5 flex flex-col gap-2 items-center text-center"
                     wire:key="{{$member->id}}">
-                    <a href="" class="inset-0 absolute"></a>
-                    <p>
-                        {{ $member->name }}
-                    </p>
-                    <p>
-                        {{ $member->email }}
-                    </p>
-                    <p>
-                        {{ $member->phone }}
-                    </p>
+                    <a href="#" class="absolute inset-0 z-10"></a>
+
+                    <p class="text-lg font-semibold text-gray-800">{{ $member->name }}</p>
+                    <p class="text-sm text-gray-500">{{ $member->email }}</p>
+                    <p class="text-sm text-gray-500">{{ $member->phone }}</p>
                 </li>
             @endforeach
         </ul>
     </div>
+
     <div>
-        <h3 class="text-2xl mb-2">
+        <h3 class="text-2xl font-semibold text-gray-700 mb-4">
             {{ __('amorce.draw-projects') . ' :' }}
         </h3>
-        <ul class="grid grid-cols-4 gap-5">
+
+        <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($this->draw->projects as $project)
-                <li class="flex justify-center" wire:key="{{$project->title}}">
-                    <div
-                        class="relative max-w-sm w-full bg-white rounded-2xl flex flex-col items-center gap-2 shadow-md p-3">
-                        <p class="text-center text-[#202224] text-lg font-bold">{{ $project->title }}</p>
-                        <p>
-                            {{ \Illuminate\Support\Str::limit($project->description, 100) }}
-                        </p>
-                    </div>
-                </li>
+                <livewire:project.project-table :project="$project" wire:key="project-{{ $project->id }}">
+                </livewire:project.project-table>
             @endforeach
         </ul>
     </div>
+
     @if($showDeleteModal)
-        <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
-            <div class="bg-white p-6 rounded-lg">
-                <h2 class="text-xl font-bold mb-4">{{ __('amorce.archive-confirm') }}</h2>
-                <p>{{ __('amorce.delete-fund') }}</p>
+        <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-60 z-50">
+            <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">{{ __('amorce.archive-confirm') }}</h2>
+                <p class="text-gray-600">{{ __('amorce.delete-fund') }}</p>
+
                 <div class="mt-6 flex justify-end gap-3">
-                    <x-cancel-button click="cancelDelete"></x-cancel-button>
-                    <x-confirm-delete-button click="tryDeleteOptions"></x-confirm-delete-button>
+                    <x-cancel-button click="cancelDelete" />
+                    <x-confirm-delete-button click="tryDeleteOptions" />
                 </div>
             </div>
         </div>

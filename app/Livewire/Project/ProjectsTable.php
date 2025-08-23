@@ -42,6 +42,7 @@ class ProjectsTable extends Component
     public function pendingProjects()
     {
         return Project::whereDoesntHave('draws')
+            ->with('draws')
             ->where('title', 'like', '%' . $this->getSearch('pending') . '%')
             ->orderBy($this->getSortField('pending'), $this->getSortDirection('pending'))
             ->paginate(8, pageName: 'pendingProjectsPage');
@@ -53,6 +54,7 @@ class ProjectsTable extends Component
         return Project::whereHas('draws', function ($query) {
             $query->where('status', 'pending');
         })
+            ->with('draws')
             ->where('title', 'like', '%' . $this->getSearch('next') . '%')
             ->orderBy($this->getSortField('next'), $this->getSortDirection('next'))
             ->paginate(8, pageName: 'nextDrawProjectsPage');
@@ -64,6 +66,7 @@ class ProjectsTable extends Component
         return Project::whereHas('draws', fn($query) =>
         $query->where('status', 'funded')
         )
+            ->with('draws')
             ->where('title', 'like', '%' . $this->getSearch('funded') . '%')
             ->orderBy($this->getSortField('funded'), $this->getSortDirection('funded'))
             ->paginate(8, pageName: 'fundedProjectsPage');
