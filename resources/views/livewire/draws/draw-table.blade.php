@@ -7,8 +7,9 @@
         @hasanyrole(\App\Enums\RolesEnum::DRAWMANAGER->value.'|'.\App\Enums\RolesEnum::ADMIN->value)
         @if(!$this->draw->trashed())
             <div class="flex gap-3">
-                <x-delete-button click="confirmDelete" />
-
+                <x-delete-button click="confirmDelete">
+                    {{ __('amorce.action-end') }}
+                </x-delete-button>
                 <button
                     class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-xl shadow transition"
                     wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-edit', params: { draw: {{ $this->draw->id }} }})">
@@ -52,10 +53,14 @@
     </div>
 
     @if($showDeleteModal)
-        <div class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-60 z-50">
+        <div
+            x-data
+            x-on:keydown.escape.window="$wire.set('showDeleteModal', false)"
+            class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-60 z-50"
+            x-on:click.self="$wire.set('showDeleteModal', false)">
             <div class="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
                 <h2 class="text-xl font-semibold mb-4 text-gray-800">{{ __('amorce.archive-confirm') }}</h2>
-                <p class="text-gray-600">{{ __('amorce.delete-fund') }}</p>
+                <p class="text-gray-600">{{ __('amorce.delete-draw') }}</p>
 
                 <div class="mt-6 flex justify-end gap-3">
                     <x-cancel-button click="cancelDelete" />

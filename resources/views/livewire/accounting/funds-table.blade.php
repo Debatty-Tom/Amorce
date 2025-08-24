@@ -1,6 +1,6 @@
-<section>
-    <div class="flex justify-between mb-5">
-        <h2 class="text-3xl">{{__('amorce.navigation-accounting')}}</h2>
+<section class="space-y-12">
+    <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-semibold text-gray-800">{{ __('amorce.navigation-accounting') }}</h2>
         <div class="gap-5">
             @hasanyrole(\App\Enums\RolesEnum::ACCOUNTANT->value.'|'.
                         \App\Enums\RolesEnum::ADMIN->value)
@@ -12,15 +12,15 @@
         </div>
     </div>
     <div>
-        <section class="flex flex-col gap 3">
-            <div class="flex flex-row gap-10">
-                <h3 class="text-2xl">
+        <section class="mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <h3 class="text-2xl font-semibold text-gray-700">
                     {{ __('amorce.funds-principal') }}
                 </h3>
                 <div>
-                    <input type="text" wire:model.live.debounce.100ms="searches.principal"
-                           placeholder="Rechercher un Nom"
-                           class="border rounded px-3 py-2 w-full md:w-auto">
+                    <x-search-field>
+                        searches.principal
+                    </x-search-field>
                     @foreach ($this->categories as $key => $label)
                         <button wire:click="toggleSort('principal', '{{ $key }}', 'refresh-funds')"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -32,7 +32,7 @@
                     @endforeach
                 </div>
             </div>
-            <ul class="grid grid-cols-4 gap-4 p-8">
+            <ul class="grid gap-6 p-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach($this->principalFunds as $fund)
                     <li wire:key="principal-{{$fund->fund_id}}">
                         <livewire:accounting.fund-card :fund="$fund">
@@ -42,15 +42,15 @@
             </ul>
             {{ $this->principalFunds->links(data: ['scrollTo' => false]) }}
         </section>
-        <section class="flex flex-col gap 3">
-            <div class="flex flex-row gap-10">
-                <h3 class="text-2xl">
+        <section class="mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <h3 class="text-2xl font-semibold text-gray-700">
                     {{ __('amorce.funds-specific') }}
                 </h3>
                 <div>
-                    <input type="text" wire:model.live.debounce.100ms="searches.specific"
-                           placeholder="Rechercher un Nom"
-                           class="border rounded px-3 py-2 w-full md:w-auto">
+                    <x-search-field>
+                        searches.specific
+                    </x-search-field>
                     @foreach ($this->categories as $key => $label)
                         <button wire:click="toggleSort('specific', '{{ $key }}', 'refresh-funds')"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -62,7 +62,7 @@
                     @endforeach
                 </div>
             </div>
-            <ul class="grid grid-cols-4 gap-4 p-8">
+            <ul class="grid gap-6 p-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach($this->specificFunds as $fund)
                     <li wire:key="specific-{{$fund->fund_id}}">
                         <livewire:accounting.fund-card :fund="$fund">
@@ -73,15 +73,15 @@
             {{ $this->specificFunds->links(data: ['scrollTo' => false]) }}
         </section>
 
-        <section class="flex flex-col gap 3">
-            <div class="flex flex-row gap-10">
-                <h3 class="text-2xl">
+        <section class="mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-4">
+                <h3 class="text-2xl font-semibold text-gray-700">
                     {{ __('amorce.page-funds-archived') }}
                 </h3>
                 <div>
-                    <input type="text" wire:model.live.debounce.100ms="searches.archived"
-                           placeholder="Rechercher un Nom"
-                           class="border rounded px-3 py-2 w-full md:w-auto">
+                    <x-search-field>
+                        searches.archived
+                    </x-search-field>
                     @foreach ($this->categories as $key => $label)
                         <button wire:click="toggleSort('archived', '{{ $key }}', 'refresh-funds')"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -94,7 +94,7 @@
                 </div>
             </div>
             @if($this->archivedFunds->isNotEmpty())
-                <ul class="grid grid-cols-4 gap-4 p-8">
+                <ul class="grid gap-6 p-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach($this->archivedFunds as $fund)
                         <li wire:key="archived-{{$fund->fund_id}}">
                             <livewire:accounting.fund-card :fund="$fund">
