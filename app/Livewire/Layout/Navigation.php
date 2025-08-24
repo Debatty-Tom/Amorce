@@ -68,8 +68,8 @@ class Navigation extends Component
             ]
 
         ];
-
     }
+
 
     public function render()
     {
