@@ -77,6 +77,7 @@ class FundTable extends Component
         $this->form->create();
 
         $this->dispatch('refresh-transactions');
+        $this->dispatch('refresh-fund');
         $this->feedback = __('amorce.message-toast-success-transaction');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->form->resetExcept('transaction');
