@@ -22,7 +22,8 @@
                         searches.principal
                     </x-search-field>
                     @foreach ($this->categories as $key => $label)
-                        <button wire:click="toggleSort('principal', '{{ $key }}', 'refresh-funds')"
+                        <button wire:key="principal-button-{{ $key }}"
+                                wire:click="toggleSort('principal', '{{ $key }}', 'refresh-funds')"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             {{ $label }}
                             @if ($sorts['principal']['field'] === $key)
@@ -34,10 +35,8 @@
             </div>
             <ul class="grid gap-6 p-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach($this->principalFunds as $fund)
-                    <li wire:key="principal-{{$fund->fund_id}}">
-                        <livewire:accounting.fund-card :fund="$fund">
-                        </livewire:accounting.fund-card>
-                    </li>
+                    <livewire:accounting.fund-card :fund="$fund" wire:key="principal-{{$fund->fund_id}}">
+                    </livewire:accounting.fund-card>
                 @endforeach
             </ul>
             {{ $this->principalFunds->links(data: ['scrollTo' => false]) }}
@@ -52,7 +51,8 @@
                         searches.specific
                     </x-search-field>
                     @foreach ($this->categories as $key => $label)
-                        <button wire:click="toggleSort('specific', '{{ $key }}', 'refresh-funds')"
+                        <button wire:key="specific-button-{{ $key }}"
+                                wire:click="toggleSort('specific', '{{ $key }}', 'refresh-funds')"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             {{ $label }}
                             @if ($sorts['specific']['field'] === $key)
@@ -64,10 +64,8 @@
             </div>
             <ul class="grid gap-6 p-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach($this->specificFunds as $fund)
-                    <li wire:key="specific-{{$fund->fund_id}}">
-                        <livewire:accounting.fund-card :fund="$fund">
-                        </livewire:accounting.fund-card>
-                    </li>
+                    <livewire:accounting.fund-card :fund="$fund" wire:key="specific-{{$fund->fund_id}}">
+                    </livewire:accounting.fund-card>
                 @endforeach
             </ul>
             {{ $this->specificFunds->links(data: ['scrollTo' => false]) }}
@@ -83,7 +81,8 @@
                         searches.archived
                     </x-search-field>
                     @foreach ($this->categories as $key => $label)
-                        <button wire:click="toggleSort('archived', '{{ $key }}', 'refresh-funds')"
+                        <button wire:key="achived-button-{{ $key }}"
+                                wire:click="toggleSort('archived', '{{ $key }}', 'refresh-funds')"
                                 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             {{ $label }}
                             @if ($sorts['archived']['field'] === $key)
@@ -96,10 +95,8 @@
             @if($this->archivedFunds->isNotEmpty())
                 <ul class="grid gap-6 p-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     @foreach($this->archivedFunds as $fund)
-                        <li wire:key="archived-{{$fund->fund_id}}">
-                            <livewire:accounting.fund-card :fund="$fund">
-                            </livewire:accounting.fund-card>
-                        </li>
+                        <livewire:accounting.fund-card :fund="$fund" wire:key="archived-{{$fund->fund_id}}">
+                        </livewire:accounting.fund-card>
                     @endforeach
                 </ul>
             @else

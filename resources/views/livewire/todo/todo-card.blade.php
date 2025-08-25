@@ -1,6 +1,4 @@
-<li class="flex flex-col gap-3 bg-white p-5 rounded-2xl relative shadow-md hover:shadow-lg transition
-                       @if($this->todo->trashed()) opacity-50 @endif"
-    wire:key="{{ $this->todo->id }}">
+<li class="flex flex-col gap-3 bg-white p-5 rounded-2xl relative shadow-md hover:shadow-lg transition @if($this->todo->trashed()) opacity-50 @endif">
 
     <a href="#" class="absolute inset-0 z-10 rounded-2xl"
        x-data="{ model: @js($this->todo) }"

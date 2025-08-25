@@ -43,7 +43,7 @@ class TransactionForm extends Form
             'target' => ['required'],
             'transaction_type' => ['string', 'nullable'],
             'hash' => ['string', 'nullable'],
-            'date' => ['date'],
+            'date' => ['date', 'nullable'],
         ];
     }
 
@@ -108,7 +108,7 @@ class TransactionForm extends Form
             'amount' => $validated['amount'],
             'date' => $validated['date'] ?? now(),
             'description' => $validated['description'],
-            'hash' => $validated['hash'],
+            'hash' => $validated['hash'] ?? md5(json_encode('Transaction created')),
             'created_at' => now(),
             'updated_at' => now(),
         ]);

@@ -1,5 +1,4 @@
-<div
-    class="relative w-full max-w-sm h-64 bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+<li class="relative w-full max-w-sm h-64 bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
     <a class="absolute inset-0 z-10" href="{{ route('accounting.show', $fund->fund_id) }}"></a>
     <div class="flex flex-col items-center gap-2">
         <h4 class="text-xl font-semibold text-gray-800 text-center">
@@ -17,4 +16,4 @@
             {{ __('amorce.fund-see') }}
         </span>
     </div>
-</div>
+</li>
