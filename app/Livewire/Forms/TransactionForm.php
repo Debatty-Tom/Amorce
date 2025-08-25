@@ -20,6 +20,8 @@ class TransactionForm extends Form
     #[Validate]
     public $target;
     public $transaction_type;
+    public $hash;
+    public $date;
 
     public function setTransaction($transaction)
     {
@@ -29,6 +31,8 @@ class TransactionForm extends Form
         $this->amount = $transaction->amount ?? 0;
         $this->transaction_type = $transaction->transaction_type ?? 'default';
         $this->target = $transaction->fund_id ?? null;
+        $this->hash = $transaction->hash ?? '';
+        $this->date = $transaction->date ?? now();
     }
 
     public function rules()
@@ -37,6 +41,9 @@ class TransactionForm extends Form
             'description' => ['max:255', 'nullable'],
             'amount' => ['required', 'numeric', 'nullable'],
             'target' => ['required'],
+            'transaction_type' => ['string', 'nullable'],
+            'hash' => ['string', 'nullable'],
+            'date' => ['date'],
         ];
     }
 
@@ -101,7 +108,7 @@ class TransactionForm extends Form
             'amount' => $validated['amount'],
             'date' => $validated['date'] ?? now(),
             'description' => $validated['description'],
-            'hash' => $validated['hash'] ?? md5(json_encode('Transaction created')),
+            'hash' => $validated['hash'],
             'created_at' => now(),
             'updated_at' => now(),
         ]);
