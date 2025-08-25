@@ -15,13 +15,16 @@
         </div>
         <div>
             <x-input-label for="description" value="{{ __('amorce.form-description') }}"/>
-            <x-text-input
+            <x-text-area
                 id="description"
-                type="text"
+                rows="4"
                 wire:model.blur="form.description"
-            />
-            @error('form.description')<span class="text-red-500 text-sm">{{ $message }}</span>@enderror
+            ></x-text-area>
+            @error('form.description')
+            <span class="text-red-500 text-sm">{{ $message }}</span>
+            @enderror
         </div>
+
         <div
             class="flex items-center gap-4 mt-2">
             <input

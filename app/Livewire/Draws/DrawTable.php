@@ -13,7 +13,6 @@ class DrawTable extends Component
     use DeleteModalTrait;
 
     public $id;
-
     #[computed]
     public function draw()
     {

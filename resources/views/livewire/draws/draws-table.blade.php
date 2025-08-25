@@ -1,20 +1,21 @@
-<section>
-    <div class="flex justify-between mb-5">
-        <h2 class="text-3xl font-medium">{{__('amorce.draws')}}</h2>
+<section class="space-y-12">
+    <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-semibold text-gray-800">{{ __('amorce.draws') }}</h2>
         @hasanyrole(\App\Enums\RolesEnum::DRAWMANAGER->value.'|'.
                         \App\Enums\RolesEnum::ADMIN->value)
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                 wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-create'})">{{ __('amorce.create-draw') }}</button>
         @endhasanyrole
     </div>
-    <div>
-        <div class="flex flex-row gap-10">
-            <h3 class="text-2xl">
+    <div class="space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <h3 class="text-2xl font-semibold text-gray-700">
                 {{ __('amorce.draw-waiting') }}
             </h3>
-            <div>
-                <input type="text" wire:model.live.debounce.100ms="searches.pending" placeholder="Rechercher un titre"
-                       class="border rounded px-3 py-2 w-full md:w-auto">
+            <div class="flex flex-wrap gap-3">
+                <x-search-field>
+                    searches.pending
+                </x-search-field>
                 @foreach ($this->categories as $key => $label)
                     <button wire:click="toggleSort('pending', '{{ $key }}', 'refresh-draws')"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -26,55 +27,23 @@
                 @endforeach
             </div>
         </div>
-        <ul class="p-4 grid grid-cols-4 gap 4">
+        <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             @foreach($this->pendingDraws as $draw)
-                <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow" wire:key="{{$draw->id}}">
-                    <a href="{{ route('draw.show',$draw->id)}}" wire:navigate class="inset-0 absolute"></a>
-                    <div class="flex flex-row gap-10">
-                        <div>
-                            <p>
-                                {{__('amorce.form-date') . ' :'}}
-                            </p>
-                            <p>
-                                {{ date_format(($draw->date), 'd/m/Y') }}
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                {{__('amorce.form-amount') . ' :'}}
-                            </p>
-                            <p>
-                                {{ $this->amount($draw) }}
-                            </p>
-                        </div>
-                    </div>
-                    <div>
-                        <p>
-                            {{__('amorce.page-projects') . ' :'}}
-                        </p>
-                        <ul class="pl-3">
-                            @foreach($draw->projects as $project)
-                                <li class="list-disc">
-                                    <p>
-                                        {{$project->title }}
-                                    </p>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </li>
+                <livewire:draws.draws-list :draw="$draw" wire:key="pending-{{$draw->id}}">
+                </livewire:draws.draws-list>
             @endforeach
         </ul>
         {{ $this->pendingDraws->links(data: ['scrollTo' => false]) }}
     </div>
-    <div>
-        <div class="flex flex-row gap-10">
-            <h3 class="text-2xl">
+    <div class="space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <h3 class="text-2xl font-semibold text-gray-700">
                 {{ __('amorce.page-draws-archived') }}
             </h3>
-            <div>
-                <input type="text" wire:model.live.debounce.100ms="searches.archived" placeholder="Rechercher un titre"
-                       class="border rounded px-3 py-2 w-full md:w-auto">
+            <div class="flex flex-wrap gap-3">
+                <x-search-field>
+                    searches.archived
+                </x-search-field>
                 @foreach ($this->categories as $key => $label)
                     <button wire:click="toggleSort('archived', '{{ $key }}', 'refresh-draws')"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -87,62 +56,26 @@
             </div>
         </div>
         @if($this->archivedDraws->isNotEmpty())
-            <ul class="p-4 grid grid-cols-4 gap 4">
+            <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 @foreach($this->archivedDraws as $draw)
-                    <li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow"
-                        wire:key="{{$draw->id}}">
-                        <a href="{{ route('draw.show',$draw->id)}}" wire:navigate class="inset-0 absolute"></a>
-                        <div class="flex flex-row gap-10">
-                            <div>
-                                <p>
-                                    {{__('amorce.form-date') . ' :'}}
-                                </p>
-                                <p>
-                                    {{ date_format(($draw->date), 'd/m/Y') }}
-                                </p>
-                            </div>
-                            <div>
-                                <p>
-                                    {{__('amorce.form-amount') . ' :'}}
-                                </p>
-                                <p>
-                                    {{ $this->amount($draw) }}
-                                </p>
-                            </div>
-                        </div>
-                        <div>
-                            <p>
-                                {{__('amorce.page-projects') . ' :'}}
-                            </p>
-                            <ul class="pl-3">
-                                @foreach($draw->projects as $project)
-                                    <li class="list-disc">
-                                        <p>
-                                            @if($project->pivot->amount > 0)
-                                                {{$project->title }}&nbsp;:&nbsp;{{ $project->pivot->amount }}€
-                                            @else
-                                                {{$project->title }}
-                                            @endif
-                                        </p>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </li>
+                    <livewire:draws.draws-list :draw="$draw" wire:key="archived-{{$draw->id}}">
+                    </livewire:draws.draws-list>
                 @endforeach
             </ul>
         @else
-            <p class="text-gray-500 text-center mt-9 mb-9">{{ __('amorce.draw-archived-none') . '.' }}</p>
+            <p class="text-gray-500 text-center italic mt-8">
+                {{ __('amorce.draw-archived-none') }}
+            </p>
         @endif
         {{ $this->archivedDraws->links(data: ['scrollTo' => false]) }}
     </div>
-    <div class="mt-4">
-        <div class="flex justify-between items-center mb-8">
-            <h1 class="font-bold text-2xl">
+    <div class="mt-10">
+        <div class="flex justify-between items-center">
+            <h1 class="font-bold text-2xl text-gray-800">
                 {{ __('amorce.draw-members') }}
             </h1>
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    wire:click.prevent="$dispatch('openModal',{component: 'modals.donator-create'})">{{ __('amorce.create-donator') }}
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow">
+                {{ __('amorce.create-donator') }}
             </button>
         </div>
     </div>

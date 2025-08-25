@@ -53,7 +53,11 @@
         </div>
     </form>
     @if($showDeleteModal)
-        <div class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+        <div
+            x-data
+            x-on:keydown.escape.window="$wire.set('showDeleteModal', false)"
+            class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-60 z-50"
+            x-on:click.self="$wire.set('showDeleteModal', false)">
             <div class="bg-white p-6 rounded-lg">
                 <h2 class="text-xl font-bold mb-4">{{ __('amorce.delete-confirm') }}</h2>
                 <p>{{ __('amorce.delete-profile') }}</p>

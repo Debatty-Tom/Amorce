@@ -25,6 +25,7 @@ class EventCreate extends Component
         $this->dispatch('closeCardModal');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch(event: 'refresh-calendar');
+        $this->dispatch(event: 'refresh-dashboard');
     }
     public function render()
     {

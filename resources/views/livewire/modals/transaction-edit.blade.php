@@ -54,14 +54,18 @@
                 @enderror
             </div>
         </div>
-        <div class="flex gap-2 flex-col">
-            <x-input-label for="description" value="description"/>
-            <x-text-input id="description" type="text" placeholder="Don vers le fond général"
-                          wire:model="form.description"/>
+        <div>
+            <x-input-label for="description" value="{{ __('amorce.form-description') }}"/>
+            <x-text-area
+                id="description"
+                rows="4"
+                wire:model.blur="form.description"
+            ></x-text-area>
             @error('form.description')
             <span class="text-red-500 text-sm">{{ $message }}</span>
             @enderror
         </div>
+
 
         <button type="submit" class="px-4 py-3 text-white bg-blue-500 hover:bg-blue-700  transition rounded-lg">
             {{ __('amorce.misc-edit-transaction') }}

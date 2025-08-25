@@ -38,7 +38,7 @@ class TeamForm extends Form
             'name' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email', 'max:50'],
             'password' => ['nullable', 'string', 'min:6'],
-            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048', 'dimensions:max_width=1000,max_height=1000'],
+            'image' => ['nullable', 'image', 'max:5120'],
             'role' => ['required', 'exists:roles,name'],
         ];
     }

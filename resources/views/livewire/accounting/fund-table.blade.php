@@ -1,6 +1,6 @@
-<div>
-    <div class="flex justify-between mb-5">
-        <h2 class="text-3xl font-medium pb-4">
+<section class="space-y-12">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <h2 class="text-3xl font-bold text-gray-800">
             {{ $this->fund->title }}
         </h2>
         @hasanyrole(\App\Enums\RolesEnum::ACCOUNTANT->value.'|'.
@@ -26,7 +26,9 @@
         @endif
         @endhasanyrole
     </div>
-    <div class="grid grid-cols-[75%,1fr] gap-8 mb-8">
+    <div class="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-8">
+        @hasanyrole(\App\Enums\RolesEnum::ACCOUNTANT->value.'|'.
+                                \App\Enums\RolesEnum::ADMIN->value)
         <section class="p-5 px-8 bg-white rounded-lg ">
             <h3 class="text-2xl font-medium mb-4">{{ __('amorce.create-transaction') }}</h3>
             <form wire:submit.prevent="newTransfer" class="flex flex-col gap-4">
@@ -49,8 +51,10 @@
                         <select name="transaction_type" id="transaction_type" wire:model="form.transaction_type"
                                 class="border-gray-300 focus:border-blue-500 focus:ring-blue-500 rounded-md shadow-sm w-full box-border">
                             <option value="default" selected>{{ __('amorce.action-choose-transaction') }}</option>
-                            <option value="{{ \App\Enums\TransactionTypesEnum::DEPOSIT->value }}">{{ __('amorce.misc-deposit') }}</option>
-                            <option value="{{ \App\Enums\TransactionTypesEnum::WITHDRAWAL->value }}">{{ __('amorce.misc-withdrawal') }}</option>
+                            <option
+                                value="{{ \App\Enums\TransactionTypesEnum::DEPOSIT->value }}">{{ __('amorce.misc-deposit') }}</option>
+                            <option
+                                value="{{ \App\Enums\TransactionTypesEnum::WITHDRAWAL->value }}">{{ __('amorce.misc-withdrawal') }}</option>
                         </select>
                         @error('form.transaction_type')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -95,21 +99,15 @@
                 </button>
             </form>
         </section>
-        <div class="bg-white rounded p-4">
-            <h3 class="text-2xl">
-                {{ __('amorce.fund-information') }}
-            </h3>
-            <div class="mt-2 mb-2">
-                <p>
-                    {{ __('amorce.form-total-amount') }}
-                </p>
-                <p>
-                    {{ $this->amount }}
-                </p>
+        @endhasanyrole
+        <aside class="p-6 bg-white rounded-2xl shadow-sm">
+            <h3 class="text-2xl font-semibold text-gray-800 mb-3">{{ __('amorce.fund-information') }}</h3>
+            <div class="space-y-1">
+                <p class="text-gray-600 text-sm">{{ __('amorce.form-total-amount') }}</p>
+                <p class="text-xl font-bold text-gray-800">{{ $this->amount }}</p>
             </div>
-
-        </div>
+        </aside>
     </div>
     <livewire:transactions.transactions-table :fund="$this->fund">
     </livewire:transactions.transactions-table>
-</div>
+</section>

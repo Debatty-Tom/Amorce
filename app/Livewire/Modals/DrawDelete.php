@@ -59,7 +59,7 @@ class DrawDelete extends Component
 
         $this->draw->projects()->updateExistingPivot($projectId, [
             'amount' => $amount,
-            'status' => EnumsDrawAssignmentsStatuses::funded,
+            'status' => EnumsDrawAssignmentsStatuses::funded->value,
             'updated_at' => now(),
         ]);
 
@@ -73,6 +73,14 @@ class DrawDelete extends Component
         if (!auth()->user()->hasAnyRole(RolesEnum::DRAWMANAGER->value, RolesEnum::ADMIN->value)) {
             abort(403, __('amorce.message-permission-denied-delete-draw') . '.');
         }
+
+        $this->draw->projects()
+            ->wherePivot('status', EnumsDrawAssignmentsStatuses::pending->value)
+            ->update([
+                'amount' => 0,
+                'status' => EnumsDrawAssignmentsStatuses::refused->value,
+                'updated_at' => now(),
+            ]);
 
         $this->draw->delete();
 

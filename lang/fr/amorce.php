@@ -49,9 +49,10 @@ return [
 
     // modal delete
     'delete-confirm' => 'Confirmer la suppression',
-    'archive-confirm' => 'Confirmer l’archivage',
+    'archive-confirm' => 'Confirmer l’archive',
     'delete-transaction' => 'Êtes-vous sûr de vouloir annuler cette transaction ? Cette action va créer une transaction inverse',
     'delete-fund' => 'Êtes-vous sûr de vouloir archiver ce fond',
+    'delete-draw' => 'Êtes-vous sûr de vouloir archiver cette détente',
     'delete-user' => 'Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible',
     'delete-project' => 'Êtes-vous sûr de vouloir supprimer ce projet ? Cette action est irréversible',
     'delete-todo' => 'Êtes-vous sûr de vouloir supprimer cette tâche ? Cette action est irréversible',
@@ -151,6 +152,7 @@ return [
     'fund-select' => 'Sélectionnez un fond',
     'fund-balance' => 'Solde disponible',
     'misc-create-donator' => 'Créer un donateur',
+    'fund-fully-assigned' => 'Montant totalement redistribué',
 
     // transactions
     'transaction-fund-creation' => 'Transaction de création du fond',
@@ -181,6 +183,8 @@ return [
     'action-saved' => 'Enregistré',
     'action-edit' => 'Modifier',
     'action-delete' => 'Supprimer',
+    'action-archive' => 'Archiver',
+    'action-end' => 'Cloturer',
     'action-cancel' => 'Annuler',
     'action-confirm' => 'Confirmer',
     'action-remove' => 'Retirer',
@@ -189,7 +193,6 @@ return [
     'action-choose-transaction' => 'Choisir un type de transaction',
     'action-assign' => 'Attribuer',
     'action-send-transfer' => 'Envoyer le virement',
-    'action-delete-fr' => 'Supprimer',
 
     // messages
     'message-no-description' => 'Aucune description',

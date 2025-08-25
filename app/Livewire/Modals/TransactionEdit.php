@@ -23,6 +23,7 @@ class TransactionEdit extends Component
         $this->form->amount < 0
             ? $this->form->transaction_type = TransactionTypesEnum::WITHDRAWAL->value
             : $this->form->transaction_type = TransactionTypesEnum::DEPOSIT->value;
+        $this->form->amount = str_replace('-', '', $this->form->amount);
         $this->funds = Fund::all();
     }
 
@@ -31,10 +32,10 @@ class TransactionEdit extends Component
         $this->form->amount = $this->form->transaction_type === TransactionTypesEnum::DEPOSIT->value
             ? $this->form->amount * 100
             : - $this->form->amount * 100;
-
         $this->form->update();
 
         $this->dispatch('refresh-transactions');
+        $this->dispatch('refresh-fund');
         $this->dispatch('closeCardModal');
         $this->feedback = __('amorce.message-toast-success-transaction');
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);

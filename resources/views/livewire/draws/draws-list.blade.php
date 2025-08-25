@@ -1,33 +1,26 @@
-<li class="relative p-8 bg-white flex flex-col gap-5 m-2.5 rounded-2xl shadow" wire:key="{{$this->draw->id}}">
-    <a href="{{ route('draw.show',$this->draw->id)}}" class="inset-0 absolute"></a>
-    <div class="flex flex-row gap-10">
+<li class="relative bg-white rounded-2xl shadow-md hover:shadow-lg transition p-6 flex flex-col gap-4">
+    <a href="{{ route('draw.show', $this->draw->id) }}" wire:navigate class="absolute inset-0 z-0"></a>
+
+    <div class="flex justify-between text-sm text-gray-600">
         <div>
-            <p>
-                {{__('amorce.form-date') . ' :'}}
-            </p>
-            <p>
-                {{ date_format(($this->draw->date), 'd/m/Y') }}
-            </p>
+            <p class="font-medium">{{ __('amorce.form-date') }}</p>
+            <p class="text-gray-800">{{ $this->draw->date->format('d/m/Y') }}</p>
         </div>
         <div>
-            <p>
-                {{__('amorce.form-amount') . ' :'}}
-            </p>
-            <p>
-                {{ number_format(($this->draw->amount/100),2, ',',' ')."€" }}
-            </p>
+            <p class="font-medium">{{ __('amorce.form-amount') }}</p>
+            <p class="text-gray-800 font-semibold">{{ $this->amount }}</p>
         </div>
     </div>
-    <div>
-        <p>
-            {{__('amorce.page-projects') . ' :'}}
-        </p>
-        <ul class="pl-3">
+
+    <div class="space-y-2">
+        <p class="font-medium text-gray-700">{{ __('amorce.page-projects') }}</p>
+        <ul class="pl-5 list-disc text-gray-600 text-sm">
             @foreach($this->draw->projects as $project)
-                <li class="list-disc">
-                    <p>
-                        {{$project->title }}
-                    </p>
+                <li>
+                    {{ $project->title }}
+                    @if($project->pivot->amount > 0)
+                        <span class="text-blue-600">: {{ $project->pivot->amount }}€</span>
+                    @endif
                 </li>
             @endforeach
         </ul>

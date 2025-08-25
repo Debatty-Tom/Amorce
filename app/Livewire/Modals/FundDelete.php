@@ -11,6 +11,7 @@ use App\Models\TransactionSummaryView;
 use App\Traits\DeleteModalTrait;
 use Brick\Money\Money;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class FundDelete extends Component
@@ -66,15 +67,27 @@ class FundDelete extends Component
         $this->transactionForm->amount = $formatedAmount * 100;
         $this->transactionForm->description = __('amorce.transaction-redistribution') . ' ' . $this->sourceFund->title . ' ' . __('amorce.transaction-from-archive');
         $this->transactionForm->create();
+        $transaction1 = Transaction::latest('id')->first();
 
         $this->transactionForm->target = $this->sourceFund->id;
         $this->transactionForm->amount = -($amount * 100);
         $this->transactionForm->description = __('amorce.transaction-redistribution-to-fund') . ' ' . $targetFund->title;
         $this->transactionForm->create();
+        $transaction2 = Transaction::latest('id')->first();
+
+        if ($transaction1) {
+            $transaction1->hash = 'id:' . $transaction2->id;
+            $transaction1->save();
+        }
+        if ($transaction2) {
+            $transaction2->hash = 'id:' . $transaction1->id;
+            $transaction2->save();
+        }
 
         $this->feedback = $amount . ' ' . __("amorce.message-toast-success-money-redistribution") . '.';
         $this->dispatch(event: 'openalert', params: ['message' => $this->feedback]);
         $this->dispatch('refresh-fund');
+        $this->dispatch('refresh-modal');
     }
 
 
@@ -107,6 +120,11 @@ class FundDelete extends Component
     public function cancelDelete()
     {
         $this->dispatch('closeCardModal');
+    }
+    #[on('refresh-modal')]
+    public function refreshModal()
+    {
+        return;
     }
 
     public function render()

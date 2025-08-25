@@ -95,17 +95,11 @@ class DatabaseSeeder extends Seeder
             $pivotData = [];
 
             foreach ($projects as $project) {
-                $status = collect([
-                    EnumsDrawAssignmentsStatuses::funded->value,
-                    EnumsDrawAssignmentsStatuses::refused->value,
-                    EnumsDrawAssignmentsStatuses::pending->value,
-                ])->random();
+                $status = EnumsDrawAssignmentsStatuses::pending->value;
 
                 $pivotData[$project->id] = [
                     'status' => $status,
-                    'amount' => $status !== EnumsDrawAssignmentsStatuses::funded->value
-                        ? 0
-                        : random_int(0, 1000),
+                    'amount' => 0,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
@@ -115,22 +109,30 @@ class DatabaseSeeder extends Seeder
         }
 
         User::factory()->create([
-            'name' => 'admin',
+            'name' => 'Tom Debatty',
             'email' => 'tom.debatty@hotmail.be',
             'password' => 'Azertyui1@',
         ])
             ->assignRole(RolesEnum::ADMIN->value);
+
         User::factory()->create([
             'name' => 'Dominique Vilain',
             'email' => 'dominique.vilain@hepl.be',
             'password' => 'zukrap-6zEzny-jesboq',
         ])
             ->assignRole(RolesEnum::ACCOUNTANT->value);
+
         User::factory()->create([
             'name' => 'Michael Lecerf',
             'email' => 'michael@lecerf.be',
             'password' => 'cuwfi5-fokfij-copdaT',
         ])
             ->assignRole(RolesEnum::USERMANAGER->value);
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => 'admin',
+        ])
+            ->assignRole(RolesEnum::ADMIN->value);
     }
 }
