@@ -1,4 +1,4 @@
-<div>
+<section>
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
         {{ __('amorce.fund-edit') }}
     </h2>
@@ -43,4 +43,4 @@
             </button>
         </div>
     </form>
-</div>
+</section>

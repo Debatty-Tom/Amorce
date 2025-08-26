@@ -1,4 +1,4 @@
-<div class="space-y-6">
+<section class="space-y-6">
     <h2 class="text-xl font-bold">{{ __('amorce.fund-redistribution') . ' : ' . $this->sourceFund->title }}</h2>
     <p class="text-gray-700">💰 {{ __('amorce.fund-balance') . ' :' }} <strong>{{ $this->amount }}</strong></p>
     @if($this->sourceFundView->total_amount > 0)
@@ -61,4 +61,4 @@
             </button>
         @endif
     </div>
-</div>
+</section>

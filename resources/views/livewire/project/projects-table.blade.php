@@ -7,7 +7,7 @@
                 wire:click.prevent="$dispatch('openModal',{component: 'modals.project-create'})">{{ __('amorce.create-project') }}</button>
         @endhasanyrole
     </div>
-    <div class="space-y-4">
+    <section class="space-y-4">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <h3 class="text-2xl font-semibold text-gray-700">{{ __('amorce.project-pending') }}</h3>
             <div>
@@ -32,8 +32,8 @@
             @endforeach
         </ul>
         {{ $this->pendingProjects->links(data: ['scrollTo' => false]) }}
-    </div>
-    <div class="space-y-4">
+    </section>
+    <section class="space-y-4">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <h3 class="text-2xl font-semibold text-gray-700">{{__('amorce.project-next-draw')}}</h3>
             <div>
@@ -58,8 +58,8 @@
             @endforeach
         </ul>
         {{ $this->nextDrawProjects->links(data: ['scrollTo' => false]) }}
-    </div>
-    <div class="space-y-4">
+    </section>
+    <section class="space-y-4">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <h3 class="text-2xl font-semibold text-gray-700">{{__('amorce.project-funded')}}</h3>
             <div>
@@ -84,5 +84,5 @@
             @endforeach
         </ul>
         {{ $this->fundedProjects->links(data: ['scrollTo' => false]) }}
-    </div>
+    </section>
 </section>

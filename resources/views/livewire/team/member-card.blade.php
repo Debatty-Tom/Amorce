@@ -19,7 +19,7 @@
                     alt="{{ __('amorce.team-picture') }}"
                 />
             </div>
-            <h3 class="text-center text-[#202224] text-lg font-bold">{{ $user->name }}</h3>
+            <p class="text-center text-[#202224] text-lg font-bold">{{ $user->name }}</p>
             <p class="opacity-60 text-center text-[#202224] text-sm font-normal">
                 {{ $user->email }}
             </p>

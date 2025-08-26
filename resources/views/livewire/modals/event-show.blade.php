@@ -1,4 +1,4 @@
-<div class="p-6">
+<section class="p-6">
     <h2 class="text-2xl font-bold mb-4">{{ $title }}</h2>
 
     @forelse ($events as $event)
@@ -9,4 +9,4 @@
     @empty
         <p>{{ __('amorce.dashboard-no-events') . '.' }}</p>
     @endforelse
-</div>
+</section>

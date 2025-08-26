@@ -1,8 +1,6 @@
-
 <section class="p-5 px-8 bg-white rounded-lg ">
-    <h3 class="text-2xl font-medium mb-4">{{ __('amorce.create-transaction') }}</h3>
+    <h2 class="text-2xl font-medium mb-4">{{ __('amorce.create-transaction') }}</h2>
     <form wire:submit.prevent="save" class="flex flex-col gap-4">
-
         <div class="flex flex-col gap-2">
             <x-input-label for="target" value="Fond concerné"/>
             <select id="target" name="target" wire:model="form.target"
