@@ -14,7 +14,7 @@
                 <x-search-field>
                     searches.pending
                 </x-search-field>
-                @foreach ($this->categories as $key => $label)
+                @foreach($this->categories as $key => $label)
                     <button wire:click="toggleSort('pending', '{{ $key }}', 'refresh-projects')"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         {{ $label }}
@@ -40,7 +40,7 @@
                 <x-search-field>
                     searches.next
                 </x-search-field>
-                @foreach ($this->categories as $key => $label)
+                @foreach($this->categories as $key => $label)
                     <button wire:click="toggleSort('next', '{{ $key }}', 'refresh-projects')"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         {{ $label }}
@@ -66,7 +66,7 @@
                 <x-search-field>
                     searches.funded
                 </x-search-field>
-                @foreach ($this->categories as $key => $label)
+                @foreach($this->categories as $key => $label)
                     <button wire:click="toggleSort('funded', '{{ $key }}', 'refresh-projects')"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         {{ $label }}

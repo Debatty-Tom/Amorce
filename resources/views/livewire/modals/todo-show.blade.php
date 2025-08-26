@@ -20,10 +20,12 @@
         <div>
             <p class="text-gray-800 font-semibold">{{ __('amorce.misc-assigned-users') }}:</p>
             <ul class="list-disc pl-5">
-                @foreach ($todo->users as $user)
+                @foreach($todo->users as $user)
                     @if($user->trashed())
-                        <span
-                            class="bg-red-100 text-red-700 text-xs font-semibold px-2 py-1 rounded">{{ __('amorce.todo-deleted-user') }}</span>
+                        <li class="list-none">
+                            <span
+                                class="bg-red-100 text-red-700 text-xs font-semibold px-2 py-1 rounded">{{ __('amorce.todo-deleted-user') }}</span>
+                        </li>
                     @else
                         <li class="text-gray-700">{{ $user->name }}</li>
                     @endif

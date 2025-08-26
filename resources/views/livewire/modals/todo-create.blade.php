@@ -38,7 +38,7 @@
             {{ __('amorce.todo-select-members') }}
         </p>
         <div class="grid grid-cols-3">
-            @foreach ($users as $user)
+            @foreach($users as $user)
                 <div class="w-96 flex justify-between items-center">
                     <div>
                         <input id="{{ $user->id }}"

@@ -6,7 +6,7 @@
                 <x-search-field>
                     searches.todo
                 </x-search-field>
-                @foreach ($this->categories as $key => $label)
+                @foreach($this->categories as $key => $label)
                     <button wire:click="toggleSort('todo', '{{ $key }}', 'refresh-todos')"
                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         {{ $label }}

@@ -3,7 +3,7 @@
 <div>
     <h2 class="justify-self-center p-4 mt-5 font-bold text-3xl text-center">{{ __('amorce.navigation-title') }}</h2>
     <ul class="flex flex-col gap-2 justify-center p-8">
-        @foreach ($links as $link)
+        @foreach($links as $link)
             <livewire:links.navigation
                 :href="$link['href']"
                 :label="$link['label']"

@@ -38,8 +38,8 @@
             {{ __('amorce.todo-select-members') }}
         </p>
         <div class="grid grid-cols-3">
-            @foreach ($users as $user)
-                <div class="w-96 flex justify-between items-center">
+            @foreach($users as $user)
+                <div class="w-96 flex justify-between items-center" wire:key="user-{{ $user->id }}">
                     <div>
                         <input id="{{ $user->id }}"
                                type="checkbox"
