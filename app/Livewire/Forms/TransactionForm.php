@@ -22,6 +22,7 @@ class TransactionForm extends Form
     public $transaction_type;
     public $hash;
     public $date;
+    public bool $deleteCausedNegative = false;
 
     public function setTransaction($transaction)
     {
@@ -47,28 +48,48 @@ class TransactionForm extends Form
         ];
     }
 
-    public function ensureFundHasSufficientBalance($edit = false): void
+    public function ensureFundHasSufficientBalance($edit = false, $delete = false): void
     {
         $fund = TransactionSummaryView::where('fund_id', $this->target)->firstOrFail();
 
         if (!$fund) {
-            throw new \Exception('Fond non trouvé.');
-        }
-
-        if ($this->transaction_type === TransactionTypesEnum::WITHDRAWAL->value && str_contains($this->amount, '-')){
-            $this->amount = str_replace('-', '', $this->amount);
-        } elseif ($this->transaction_type === TransactionTypesEnum::DEPOSIT->value && str_contains($this->amount, '-')){
-            $this->amount = abs($this->amount / 100);
             throw ValidationException::withMessages([
-                'form.amount' => 'Si vous voulez éffectuer un retrait, choisissez le bon type de transaction',
+                'form.target' => 'Fond non trouvé',
             ]);
         }
 
-        if ($edit && !str_contains($this->transaction->amount, '-')
-            && $this->transaction_type === TransactionTypesEnum::WITHDRAWAL->value) {
-            $proposedNewBalance = $fund->total_amount + ($this->amount * 2);
+        $amount = $this->amount;
+
+        if (str_contains((string)$this->amount, '-')) {
+            if ($this->transaction_type === TransactionTypesEnum::WITHDRAWAL->value) {
+                $amount = abs($amount);
+            } elseif ($this->transaction_type === TransactionTypesEnum::DEPOSIT->value) {
+                $this->amount = abs($this->amount / 100);
+                throw ValidationException::withMessages([
+                    'form.amount' => 'Si vous voulez effectuer un retrait, choisissez le bon type de transaction',
+                ]);
+            }
+        }
+
+        if ($this->transaction_type === TransactionTypesEnum::WITHDRAWAL->value) {
+            $amount = -$amount;
         } else {
+            $amount = abs($amount);
+        }
+
+        if ($edit) {
+            $oldAmount = $this->transaction->amount;
+
+            $proposedNewBalance = $fund->total_amount - $oldAmount + $amount;
+        } elseif($delete) {
             $proposedNewBalance = $fund->total_amount + $this->amount;
+            if ($proposedNewBalance < 0){
+                $this->deleteCausedNegative = true;
+                return;
+            }
+        } else {
+            $proposedNewBalance = $fund->total_amount + $amount;
+
         }
 
 
@@ -85,15 +106,15 @@ class TransactionForm extends Form
     {
         $validated = $this->validate();
 
-        $this->ensureFundHasSufficientBalance($edit = true);
+        $this->ensureFundHasSufficientBalance(edit: true);
         $this->transaction->update([
             'fund_id' => $validated['target'],
             'amount' => $validated['amount'],
             'date' => $validated['date'] ?? $this->transaction->date,
-            'description' => $validated['description'],
+            'description' => $validated['description'] ?? '',
             'hash' => $validated['hash'] ?? $this->transaction->hash,
             'created_at' => $this->transaction->created_at,
-            'updated_at'  => now(),
+            'updated_at' => now(),
         ]);
     }
 
@@ -107,7 +128,7 @@ class TransactionForm extends Form
             'fund_id' => $validated['target'],
             'amount' => $validated['amount'],
             'date' => $validated['date'] ?? now(),
-            'description' => $validated['description'],
+            'description' => $validated['description'] ?? '',
             'hash' => $validated['hash'] ?? md5(json_encode('Transaction created')),
             'created_at' => now(),
             'updated_at' => now(),
