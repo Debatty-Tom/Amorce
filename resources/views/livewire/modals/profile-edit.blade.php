@@ -1,4 +1,4 @@
-<div>
+<section>
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
         {{ __('amorce.misc-edit-profile') }}
     </h2>
@@ -68,5 +68,5 @@
             </div>
         </div>
     @endif
-</div>
+</section>
 

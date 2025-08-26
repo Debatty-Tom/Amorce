@@ -1,4 +1,4 @@
-<div x-data="{user_name:$wire.form.name}">
+<section x-data="{user_name:$wire.form.name}">
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
         {{ __('amorce.misc-create-new-fund') }}
     </h2>
@@ -46,4 +46,4 @@
             </button>
         </div>
     </form>
-</div>
+</section>

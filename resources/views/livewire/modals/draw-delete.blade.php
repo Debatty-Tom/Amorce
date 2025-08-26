@@ -1,4 +1,4 @@
-<div class="space-y-6">
+<section class="space-y-6">
     <h2 class="text-xl font-bold">{{ __('Maintenant que la détente est terminée, il faut attribuer le budget aux différents
         projets!') }}</h2>
     <p class="text-gray-700">💰 {{ __('amorce.fund-balance') . ' :' }} <strong>{{ $this->amount }}</strong></p>
@@ -46,4 +46,4 @@
             {{ __('amorce.action-close') }}
         </button>
     </div>
-</div>
+</section>

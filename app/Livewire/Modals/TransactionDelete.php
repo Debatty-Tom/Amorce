@@ -28,6 +28,12 @@ class TransactionDelete extends Component
             ? ltrim($this->transaction->amount, '-')
             : '-' . $this->transaction->amount;
         $this->form->target = $this->transaction->fund_id;
+        $this->form->ensureFundHasSufficientBalance(delete: true);
+        if ($this->form->deleteCausedNegative){
+            $this->dispatch('closeCardModal');
+            $this->dispatch(event: 'openalert', params: ['message' => 'Cela mettrais le fond en négatif', 'type' => 'error']);
+            return;
+        }
         $this->form->create();
         $newTransaction = Transaction::latest('id')->first();
         $newTransaction->delete();

@@ -6,9 +6,9 @@
         <span class="sr-only">{{ __('amorce.todo-see') }}</span>
     </a>
 
-    <h3 class="text-lg font-semibold text-gray-800 truncate">
+    <p class="text-lg font-semibold text-gray-800 truncate">
         {{ $this->todo->title }}
-    </h3>
+    </p>
 
     <p class="text-sm text-gray-600 line-clamp-3">
         {{ \Illuminate\Support\Str::limit($this->todo->description, 100) }}

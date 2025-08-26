@@ -7,7 +7,7 @@
                 wire:click.prevent="$dispatch('openModal',{component: 'modals.draw-create'})">{{ __('amorce.create-draw') }}</button>
         @endhasanyrole
     </div>
-    <div class="space-y-6">
+    <section class="space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-4">
             <h3 class="text-2xl font-semibold text-gray-700">
                 {{ __('amorce.draw-waiting') }}
@@ -34,8 +34,8 @@
             @endforeach
         </ul>
         {{ $this->pendingDraws->links(data: ['scrollTo' => false]) }}
-    </div>
-    <div class="space-y-6">
+    </section>
+    <section class="space-y-6">
         <div class="flex flex-wrap items-center justify-between gap-4">
             <h3 class="text-2xl font-semibold text-gray-700">
                 {{ __('amorce.page-draws-archived') }}
@@ -68,15 +68,15 @@
             </p>
         @endif
         {{ $this->archivedDraws->links(data: ['scrollTo' => false]) }}
-    </div>
-    <div class="mt-10">
+    </section>
+    <section class="mt-10">
         <div class="flex justify-between items-center">
-            <h1 class="font-bold text-2xl text-gray-800">
+            <h3 class="font-bold text-2xl text-gray-800">
                 {{ __('amorce.draw-members') }}
-            </h1>
+            </h3>
             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow">
                 {{ __('amorce.create-donator') }}
             </button>
         </div>
-    </div>
+    </section>
 </section>

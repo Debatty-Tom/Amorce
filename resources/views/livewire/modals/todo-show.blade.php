@@ -1,4 +1,4 @@
-<div>
+<section>
     <h2 class="text-3xl font-bold mb-5 text-indigo-400">
         {{ __('amorce.todo-details') }}
     </h2>
@@ -58,4 +58,4 @@
             </div>
         </div>
     @endif
-</div>
+</section>
