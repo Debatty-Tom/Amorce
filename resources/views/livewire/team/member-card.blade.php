@@ -14,8 +14,7 @@
                     src=
                         @if($user->picture_path)
                             "{{ $user->picture_path }}"
-                    @else
-                        {{asset('storage/images/users/default_user.webp')}}
+
                     @endif
                     alt="{{ __('amorce.team-picture') }}"
                 />
