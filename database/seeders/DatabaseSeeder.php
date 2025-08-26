@@ -128,6 +128,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'cuwfi5-fokfij-copdaT',
         ])
             ->assignRole(RolesEnum::USERMANAGER->value);
+
         User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
