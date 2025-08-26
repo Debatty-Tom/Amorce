@@ -80,7 +80,7 @@
             {{ __('amorce.draw-select-projects') }}
         </p>
         <ul class="grid grid-cols-3 gap-5">
-            @foreach ($projects as $project)
+            @foreach($projects as $project)
                 <li class="w-full bg-slate-100 shadow-md rounded-lg flex flex-col justify-between items-start"
                     wire:key="{{ $project->id }}">
                     <div class="flex items-center gap-4">

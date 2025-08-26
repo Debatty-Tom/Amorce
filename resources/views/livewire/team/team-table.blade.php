@@ -6,7 +6,7 @@
                 <x-search-field>
                     searches.team
                 </x-search-field>
-                @foreach ($this->categories as $key => $label)
+                @foreach($this->categories as $key => $label)
                     <button wire:click="toggleSort('team', '{{ $key }}', 'refresh-users')"
                             class="flex items-center gap-1 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow transition">
                         {{ $label }}

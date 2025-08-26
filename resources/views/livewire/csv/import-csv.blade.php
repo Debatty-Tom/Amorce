@@ -152,8 +152,8 @@
                                 class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm
                                        focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                             <option value="">{{ __('amorce.fund-select') }}</option>
-                            @foreach ($existingFunds as $fund)
-                                <option value="{{ $fund->id }}">
+                            @foreach($existingFunds as $fund)
+                                <option value="{{ $fund->id }}" wire:key="{{ $fund->id }}">
                                     {{ $fund->name }}
                                     <span class="text-gray-500">({{ $fund->type }})</span>
                                 </option>

@@ -20,10 +20,10 @@
             <ul class="pl-4 list-disc space-y-1 mt-1">
                 @foreach($this->todo->users as $user)
                     @if($user->trashed())
-                        <li>
-                                        <span class="bg-red-100 text-red-700 text-xs font-medium px-2 py-0.5 rounded">
-                                            {{ __('amorce.todo-deleted-user') }}
-                                        </span>
+                        <li class="list-none">
+                            <span class="bg-red-100 text-red-700 text-xs font-medium px-2 py-0.5 rounded">
+                                {{ __('amorce.todo-deleted-user') }}
+                            </span>
                         </li>
                     @else
                         <li>{{ $user->name }}</li>
