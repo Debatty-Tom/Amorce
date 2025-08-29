@@ -57,8 +57,8 @@ class TeamForm extends Form
             $data['password'] = bcrypt($this->password);
         }
         if ($this->image) {
-            $path = $this->image->store('images/users', 'public');
-            $data['picture_path'] = asset('storage/' . $path);
+            $path = $this->image->store('images/users', 's3');
+            $data['picture_path'] = Storage::disk('s3')->url($path);
         }
         $this->user->update($data);
         if ($this->role) {

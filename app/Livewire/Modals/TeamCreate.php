@@ -29,8 +29,8 @@ class TeamCreate extends Component
         $this->validate();
         $data = $this->form->all();
         if ($this->form->image) {
-            $path = $this->form->image->store('images/users', 'public');
-            $data['picture_path'] = asset('storage/' . $path);
+            $path = $this->form->image->store('images/users', 's3');
+            $data['picture_path'] = Storage::disk('s3')->url($path);
         }
         User::create($data)->assignRole($this->form->role);
         $this->feedback = __('amorce.message-toast-success-member');
