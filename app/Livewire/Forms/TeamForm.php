@@ -50,7 +50,6 @@ class TeamForm extends Form
         $data = [
             'name' => $this->name,
             'email' => $this->email,
-            'image' => $this->image,
         ];
 
         if (!empty($this->password)) {
