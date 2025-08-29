@@ -11,11 +11,7 @@
             <div class="relative w-full h-0 pb-[76.67%] rounded-t-2xl overflow-hidden bg-[#db6262]">
                 <img
                     class="absolute w-full h-full object-cover"
-                    src=
-                        @if($user->picture_path)
-                            "{{ $user->picture_path }}"
-
-                    @endif
+                    src="{{ $user->picture_path ?? 'https://amorce.s3.eu-north-1.amazonaws.com/images/users/Hh7AwsnLfcMKSCpSHtvgggSDKRpvu8SXhqvsP7Pr.webp' }}"
                     alt="{{ __('amorce.team-picture') }}"
                 />
             </div>

@@ -26,7 +26,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'picture_path' => asset('storage/images/users/default_user.webp'),
+            'picture_path' => "https://amorce.s3.eu-north-1.amazonaws.com/images/users/Hh7AwsnLfcMKSCpSHtvgggSDKRpvu8SXhqvsP7Pr.webp",
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
